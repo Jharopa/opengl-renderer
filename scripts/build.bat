@@ -1,0 +1,1 @@
+MSBuild.exe ./../build/opengl-renderer.sln
