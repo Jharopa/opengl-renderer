@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
     src/window.h
     src/window.cpp
+    src/context.h
+    src/context.cpp
 )
 
 #GLAD

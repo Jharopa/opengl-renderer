@@ -1,6 +1,3 @@
-// GLAD includes
-#include <glad/glad.h>
-
 // STD library includes
 #include <iostream>
 
@@ -9,12 +6,7 @@
 
 int main()
 {
-    Window window = Window(800, 600, "Window");
-
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-		std::cerr << "Failed to start GLAD!";
-		std::abort();
-	}
+    Window window = Window{ 800, 600, "Window" };
 
     while(!window.shouldClose())
     {

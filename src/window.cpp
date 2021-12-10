@@ -31,7 +31,8 @@ void Window::init()
         std::abort();
     }
 
-    glfwMakeContextCurrent(m_window);
+    m_context = Context(m_window);
+    m_context.init();
 }
 
 void Window::shutdown()
@@ -42,7 +43,6 @@ void Window::shutdown()
 
 void Window::update()
 {
-    glfwSwapBuffers(m_window);
     glfwPollEvents();
 
     if (glfwGetKey(m_window, GLFW_KEY_ESCAPE) == GLFW_PRESS || glfwWindowShouldClose(m_window))
@@ -50,4 +50,6 @@ void Window::update()
         m_shouldClose = true;
         glfwSetWindowShouldClose(m_window, true);
     }
+
+    m_context.swapBuffers();
 }
