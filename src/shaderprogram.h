@@ -13,14 +13,15 @@
 enum ShaderStage
 {
     VERETX = GL_VERTEX_SHADER,
-    FRAGMENT = GL_FRAGMENT_SHADER
+    FRAGMENT = GL_FRAGMENT_SHADER,
+    GEOMETRY = GL_GEOMETRY_SHADER,
+    COMPUTE = GL_COMPUTE_SHADER,
 };
 
 class ShaderProgram
 {
     private:
         int m_id;
-        
         std::unordered_map<std::string, int> m_uniformsCache;
 
     public:
@@ -34,7 +35,7 @@ class ShaderProgram
 class ShaderProgramBuilder
 {
     private:
-        std::unordered_map<ShaderStage, std::string> m_shadersStage;
+        std::unordered_map<ShaderStage, std::string> m_shaderStages;
 
     public:
         ShaderProgramBuilder& with(ShaderStage stage, std::string shaderCode);

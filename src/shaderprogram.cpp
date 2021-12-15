@@ -19,13 +19,13 @@ void ShaderProgram::unbind() const
 
 ShaderProgramBuilder& ShaderProgramBuilder::with(ShaderStage stage, std::string shaderPath)
 {
-    if(m_shadersStage.find(stage) != m_shadersStage.end())
+    if(m_shaderStages.find(stage) != m_shaderStages.end())
     {
-        std::cerr << "Shader Program Builder already has duplicate shader stage type!" << std::endl;
+        std::cerr << "Shader Program Builder doesn't support duplicate shader stage types!" << std::endl;
         std::abort(); 
     }
 
-    m_shadersStage.insert({stage, shaderPath});
+    m_shaderStages.insert({stage, shaderPath});
     
     return *this;
 }
@@ -34,14 +34,14 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
 {
     std::vector<uint32_t> shaderIDs;
 
-    for (std::pair<ShaderStage, std::string> stage : m_shadersStage)
+    for (std::pair<ShaderStage, std::string> shaderStage : m_shaderStages)
     {
-        uint32_t id = glCreateShader(stage.first);
-        shaderIDs.push_back(id);
+        uint32_t shaderID = glCreateShader(shaderStage.first);
+        shaderIDs.push_back(shaderID);
         
-        std::string source = readFile(stage.second);
+        std::string source = readFile(shaderStage.second);
 
-        if (!compileStage(id, source))
+        if (!compileStage(shaderID, source))
         {
             for (const auto id : shaderIDs)
             {
@@ -54,14 +54,14 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
 
     int programID = glCreateProgram();
 
-    for (const auto shaderID : shaderIDs)
+    for (const auto& shaderID : shaderIDs)
     {
         glAttachShader(programID, shaderID);
     }
 
     if (!link(programID))
     {
-        for (const auto shaderID : shaderIDs)
+        for (const auto& shaderID : shaderIDs)
         {
             glDetachShader(programID, shaderID);
             glDeleteShader(shaderID);
@@ -71,8 +71,8 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
 
         return std::nullopt;
     }
-
-    for (const auto shaderID : shaderIDs)
+    
+    for (const auto& shaderID : shaderIDs)
     {
         glDetachShader(programID, shaderID);
         glDeleteShader(shaderID);
