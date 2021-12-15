@@ -6,10 +6,13 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(${PROJECT_NAME} 
     src/main.cpp
+    src/utils.h
     src/window.h
     src/window.cpp
     src/context.h
     src/context.cpp
+    src/shaderprogram.h
+    src/shaderprogram.cpp
 )
 
 #GLAD

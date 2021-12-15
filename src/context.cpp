@@ -14,7 +14,7 @@ void Context::init()
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 }
 
-void Context::swapBuffers()
+void Context::swapBuffers() const
 {
     glfwSwapBuffers(m_window);
 }

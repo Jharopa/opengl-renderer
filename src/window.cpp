@@ -31,11 +31,11 @@ void Window::init()
         std::abort();
     }
 
-    m_context = Context(m_window);
-    m_context.init();
+    m_context = std::make_unique<Context>(m_window);
+    m_context->init();
 }
 
-void Window::shutdown()
+void Window::shutdown() const
 {
     glfwDestroyWindow(m_window);
     glfwTerminate();
@@ -51,5 +51,5 @@ void Window::update()
         glfwSetWindowShouldClose(m_window, true);
     }
 
-    m_context.swapBuffers();
+    m_context->swapBuffers();
 }

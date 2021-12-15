@@ -1,12 +1,13 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
+// Renderer includes
+#include "context.h"
+
 // STD library includes
 #include <string>
 #include <iostream>
-
-// Renderer includes
-#include "context.h"
+#include <memory>
 
 class Window
 {    
@@ -18,7 +19,7 @@ class Window
 
         bool m_shouldClose = false;
 
-        Context m_context = NULL;
+        std::unique_ptr<Context> m_context;
 
     public:
         Window(const uint32_t& width, const uint32_t& height, const std::string& title);
@@ -29,11 +30,11 @@ class Window
         [[nodiscard]] uint32_t getWidth() const noexcept { return m_width; }
         [[nodiscard]] uint32_t getHeight() const noexcept { return m_height; }
 
-        bool shouldClose() const noexcept { return m_shouldClose; }
+        [[nodiscard]] bool shouldClose() const noexcept { return m_shouldClose; }
 
     private:
         void init();
-        void shutdown();
+        void shutdown() const;
 };
 
 #endif
