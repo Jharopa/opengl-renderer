@@ -2,6 +2,8 @@
 #define SHADER_PROGRAM_H
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <iostream>
 #include <string>
@@ -9,6 +11,10 @@
 #include <unordered_map>
 
 #include "utils.h"
+
+// Referenced and Adapted from:
+// https://github.com/htmlboss/OpenGL-Renderer/tree/master/MP-APS/Graphics
+// https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Platform/OpenGL
 
 enum ShaderStage
 {
@@ -22,7 +28,7 @@ class ShaderProgram
 {
     private:
         int m_id;
-        std::unordered_map<std::string, int> m_uniformsCache;
+        std::unordered_map<std::string, uint32_t> m_uniformCache;
 
     public:
         ShaderProgram(const int id);
@@ -30,7 +36,20 @@ class ShaderProgram
 
         void bind() const;
         void unbind() const;
+
+        void setUniform(const std::string& name, const int value);
+        void setUniform(const std::string& name, const float value);
+        void setUniform(const std::string& name, const glm::vec2& vector);
+        void setUniform(const std::string& name, const glm::vec3& vector);
+        void setUniform(const std::string& name, const glm::vec4& vector);
+        void setUniform(const std::string& name, const glm::mat4x4& matrix);
+
+    private:
+        void cacheUniforms();
+        int getUniformLocation(const std::string& name);
 };
+
+// TODO: Is a builder going to be appropriate down the line when loading from config files?
 
 class ShaderProgramBuilder
 {

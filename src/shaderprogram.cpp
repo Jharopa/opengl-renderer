@@ -1,6 +1,11 @@
 #include "shaderprogram.h"
 
-ShaderProgram::ShaderProgram(const int id) : m_id(id) {}
+// SHADER PROGRAM //
+
+ShaderProgram::ShaderProgram(const int id) : m_id(id) 
+{
+    cacheUniforms();
+}
 
 ShaderProgram::~ShaderProgram()
 {
@@ -16,6 +21,75 @@ void ShaderProgram::unbind() const
 {
     glUseProgram(0);
 }
+
+void ShaderProgram::setUniform(const std::string& name, const int value)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniform1i(location, value);
+}
+
+void ShaderProgram::setUniform(const std::string& name, const float value)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniform1f(location, value);
+}
+
+void ShaderProgram::setUniform(const std::string& name, const glm::vec2& vector)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniform2f(location, vector.x, vector.y);
+}
+
+void ShaderProgram::setUniform(const std::string& name, const glm::vec3& vector)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniform3f(location, vector.x, vector.y, vector.z);
+}
+
+void ShaderProgram::setUniform(const std::string& name, const glm::vec4& vector)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
+}
+
+void ShaderProgram::setUniform(const std::string& name, const glm::mat4x4& matrix)
+{
+    uint32_t location = getUniformLocation(name);
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void ShaderProgram::cacheUniforms()
+{
+    int total;
+	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &total);
+
+	for (int i = 0; i < total; ++i) {
+		int length, size;
+		GLenum type = GL_ZERO;
+		char name[128];
+
+		glGetActiveUniform(m_id, static_cast<GLuint>(i), sizeof(name) - 1, &length, &size, &type, name);
+		name[length] = '\0';
+
+		const auto nameStr = std::string(name);
+
+		m_uniformCache.emplace(nameStr, glGetUniformLocation(m_id, name));
+	}
+
+    for (std::pair<std::string, uint32_t> uniform : m_uniformCache)
+    {  
+        std::cout << uniform.first << " " << uniform.second << std::endl;
+    }
+}
+
+int ShaderProgram::getUniformLocation(const std::string& name)
+{
+    assert(m_uniformCache.find(name) != m_uniformCache.end());
+
+    return m_uniformCache[name];
+}
+
+// SHADER PROGRAM BUILDER //
 
 ShaderProgramBuilder& ShaderProgramBuilder::with(ShaderStage stage, std::string shaderPath)
 {
