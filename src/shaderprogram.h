@@ -27,11 +27,11 @@ enum ShaderStage
 class ShaderProgram
 {
     private:
-        int m_id;
+        uint32_t m_id;
         std::unordered_map<std::string, uint32_t> m_uniformCache;
 
     public:
-        ShaderProgram(const int id);
+        ShaderProgram(const uint32_t id);
         ~ShaderProgram();
 
         void bind() const;
@@ -61,10 +61,11 @@ class ShaderProgramBuilder
         std::optional<ShaderProgram> build();
 
     private:
-        bool compileStage(const int id, const std::string& shaderCode);
-        void compile(const int id, const char* shaderCode);
+        bool compileStage(const uint32_t id, const std::string& shaderCode);
+        void compile(const uint32_t id, const char* shaderCode);
 
-        bool link(const int id);
+        bool link(const uint32_t id);
+        bool validate(const uint32_t id);
 };
 
 #endif

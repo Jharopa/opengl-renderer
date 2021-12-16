@@ -2,7 +2,7 @@
 
 // SHADER PROGRAM //
 
-ShaderProgram::ShaderProgram(const int id) : m_id(id) 
+ShaderProgram::ShaderProgram(const uint32_t id) : m_id(id) 
 {
     cacheUniforms();
 }
@@ -65,21 +65,15 @@ void ShaderProgram::cacheUniforms()
 
 	for (int i = 0; i < total; ++i) {
 		int length, size;
-		GLenum type = GL_ZERO;
+		GLenum type;
 		char name[128];
 
 		glGetActiveUniform(m_id, static_cast<GLuint>(i), sizeof(name) - 1, &length, &size, &type, name);
-		name[length] = '\0';
 
-		const auto nameStr = std::string(name);
+		std::string nameStr = std::string(name);
 
 		m_uniformCache.emplace(nameStr, glGetUniformLocation(m_id, name));
 	}
-
-    for (std::pair<std::string, uint32_t> uniform : m_uniformCache)
-    {  
-        std::cout << uniform.first << " " << uniform.second << std::endl;
-    }
 }
 
 int ShaderProgram::getUniformLocation(const std::string& name)
@@ -117,7 +111,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
 
         if (!compileStage(shaderID, source))
         {
-            for (const auto id : shaderIDs)
+            for (const auto& id : shaderIDs)
             {
                 glDeleteShader(id);
             }
@@ -133,7 +127,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
         glAttachShader(programID, shaderID);
     }
 
-    if (!link(programID))
+    if (!link(programID) || !validate(programID))
     {
         for (const auto& shaderID : shaderIDs)
         {
@@ -155,7 +149,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
     return std::make_optional<ShaderProgram>(programID);
 }
 
-bool ShaderProgramBuilder::compileStage(const int id, const std::string& shaderCode)
+bool ShaderProgramBuilder::compileStage(const uint32_t id, const std::string& shaderCode)
 {
     int success;
     char infoLog[512];
@@ -173,13 +167,13 @@ bool ShaderProgramBuilder::compileStage(const int id, const std::string& shaderC
     return success;
 }
 
-void ShaderProgramBuilder::compile(const int id, const char* shaderCode)
+void ShaderProgramBuilder::compile(const uint32_t id, const char* shaderCode)
 {
     glShaderSource(id, 1, &shaderCode, nullptr);
     glCompileShader(id);
 }
 
-bool ShaderProgramBuilder::link(const int id)
+bool ShaderProgramBuilder::link(const uint32_t id)
 {
     int success;
     char infoLog[512];
@@ -188,6 +182,23 @@ bool ShaderProgramBuilder::link(const int id)
     glGetProgramiv(id, GL_LINK_STATUS, &success);
     glGetProgramInfoLog(id, 512, NULL, infoLog);
     
+    if (!success)
+    {
+        std::cout << infoLog << std::endl;
+    }
+
+    return success;
+}
+
+bool ShaderProgramBuilder::validate(const uint32_t id)
+{
+    int success;
+    char infoLog[512];
+    
+    glValidateProgram(id);
+    glGetProgramiv(id, GL_VALIDATE_STATUS, &success);
+    glGetProgramInfoLog(id, 512, NULL, infoLog);
+
     if (!success)
     {
         std::cout << infoLog << std::endl;

@@ -69,9 +69,11 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        float change = ((float)sin(glfwGetTime() * 0.5f) + 1.5f);
+
         shaderProgram->bind();
-        shaderProgram->setUniform("w", 2.0f);
-        
+        shaderProgram->setUniform("w", change);
+
         glBindVertexArray(VAO);
         //glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
