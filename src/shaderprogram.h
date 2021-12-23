@@ -37,7 +37,7 @@ class ShaderProgram
         void bind() const;
         void unbind() const;
 
-        void setUniform(const std::string& name, const int value);
+        void setUniform(const std::string& name, const int32_t value);
         void setUniform(const std::string& name, const float value);
         void setUniform(const std::string& name, const glm::vec2& vector);
         void setUniform(const std::string& name, const glm::vec3& vector);
@@ -46,7 +46,7 @@ class ShaderProgram
 
     private:
         void cacheUniforms();
-        int getUniformLocation(const std::string& name);
+        int32_t getUniformLocation(const std::string& name);
 };
 
 // TODO: Is a builder going to be appropriate down the line when loading from config files?

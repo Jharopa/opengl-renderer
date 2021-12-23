@@ -19,7 +19,7 @@ void VertexArray::attachBuffer(const BufferType type, const size_t size, const D
     glBufferData(type, size, data, mode);
 }
 
-void VertexArray::enableAttribute(const uint32_t index, const int size, const uint32_t offset, const void* data) noexcept
+void VertexArray::enableAttribute(const uint32_t index, const int32_t size, const uint32_t offset, const void* data) noexcept
 {
     glEnableVertexAttribArray(index);
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, offset, data);

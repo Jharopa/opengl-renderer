@@ -22,7 +22,7 @@ void ShaderProgram::unbind() const
     glUseProgram(0);
 }
 
-void ShaderProgram::setUniform(const std::string& name, const int value)
+void ShaderProgram::setUniform(const std::string& name, const int32_t value)
 {
     uint32_t location = getUniformLocation(name);
     glUniform1i(location, value);
@@ -60,7 +60,7 @@ void ShaderProgram::setUniform(const std::string& name, const glm::mat4x4& matri
 
 void ShaderProgram::cacheUniforms()
 {
-    int total;
+    int32_t total;
 	glGetProgramiv(m_id, GL_ACTIVE_UNIFORMS, &total);
 
 	for (int i = 0; i < total; ++i) {
@@ -120,7 +120,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
         }
     }
 
-    int programID = glCreateProgram();
+    int32_t programID = glCreateProgram();
 
     for (const auto& shaderID : shaderIDs)
     {
@@ -151,7 +151,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
 
 bool ShaderProgramBuilder::compileStage(const uint32_t id, const std::string& shaderCode)
 {
-    int success;
+    int32_t success;
     char infoLog[512];
     
     compile(id, shaderCode.c_str());
@@ -175,7 +175,7 @@ void ShaderProgramBuilder::compile(const uint32_t id, const char* shaderCode)
 
 bool ShaderProgramBuilder::link(const uint32_t id)
 {
-    int success;
+    int32_t success;
     char infoLog[512];
     
     glLinkProgram(id);
@@ -192,7 +192,7 @@ bool ShaderProgramBuilder::link(const uint32_t id)
 
 bool ShaderProgramBuilder::validate(const uint32_t id)
 {
-    int success;
+    int32_t success;
     char infoLog[512];
     
     glValidateProgram(id);

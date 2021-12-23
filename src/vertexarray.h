@@ -26,7 +26,7 @@ class VertexArray
         ~VertexArray();
 
         void attachBuffer(const BufferType type, const size_t size, const DrawMode mode, const void* data) noexcept;
-        void enableAttribute(const uint32_t index, const int size, const uint32_t offset, const void* data) noexcept;
+        void enableAttribute(const uint32_t index, const int32_t size, const uint32_t offset, const void* data) noexcept;
 
         void bind() const noexcept;
         void unbind() const noexcept;

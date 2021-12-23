@@ -25,7 +25,7 @@ int main()
         -0.5f,  0.5f, 0.0f   // top left 
     };
     
-    unsigned int indices[] = 
+    uint32_t indices[] = 
     {  // note that we start from 0!
         0, 1, 2,   // first triangle
         0, 3, 2    // second triangle
