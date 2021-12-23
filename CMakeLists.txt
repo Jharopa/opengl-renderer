@@ -13,6 +13,8 @@ add_executable(${PROJECT_NAME}
     src/context.cpp
     src/shaderprogram.h
     src/shaderprogram.cpp
+    src/vertexarray.h
+    src/vertexarray.cpp
 )
 
 #GLAD

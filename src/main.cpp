@@ -1,6 +1,7 @@
 // Renderer includes
 #include "window.h"
 #include "shaderprogram.h"
+#include "vertexarray.h"
 
 // STD library includes
 #include <iostream>
@@ -33,24 +34,16 @@ int main()
     // --------------------------------------------------- //
     // Sets up and binds vertex and indices buffer objects //
     // --------------------------------------------------- //
-    uint32_t VAO, VBO, EBO;
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-    glGenBuffers(1, &EBO);
+    VertexArray vertexArray;
 
-    glBindVertexArray(VAO);
+    vertexArray.bind();
 
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    vertexArray.attachBuffer(BufferType::VERTEX, sizeof(vertices), DrawMode::STATIC, vertices);
+    vertexArray.attachBuffer(BufferType::INDEX, sizeof(indices), DrawMode::STATIC, indices);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    vertexArray.enableAttribute(0, 3, 3 * sizeof(float), (void*)0);
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0); 
-    glBindVertexArray(0);
+    vertexArray.unbind();
     
     // ---------------------------------------- //
     // Optional: Sets OpenGL to draw wireframes //
@@ -74,9 +67,12 @@ int main()
         shaderProgram->bind();
         shaderProgram->setUniform("w", change);
 
-        glBindVertexArray(VAO);
+        vertexArray.bind();
+
         //glDrawArrays(GL_TRIANGLES, 0, 3);
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        vertexArray.unbind();
 
         shaderProgram->unbind();
 
