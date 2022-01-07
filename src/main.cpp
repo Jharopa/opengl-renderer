@@ -12,17 +12,54 @@ int main()
 
     auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../src/shader.frag")
                                                 .with(ShaderStage::VERETX, "../src/shader.vert")
-                                                .build();
+                                                .build()
+                                                .value();
 
     // ----------------------------- //
     // Sets up vertex and index data //
     // ----------------------------- //
-    float vertices[] = 
-    {
-         0.5f,  0.5f, 0.0f,  // top right
-         0.5f, -0.5f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  // bottom left
-        -0.5f,  0.5f, 0.0f   // top left 
+    float vertices[] = {
+        -0.5f, -0.5f, -0.5f, 
+         0.5f, -0.5f, -0.5f,  
+         0.5f,  0.5f, -0.5f,  
+         0.5f,  0.5f, -0.5f,  
+        -0.5f,  0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+
+        -0.5f, -0.5f,  0.5f, 
+         0.5f, -0.5f,  0.5f,  
+         0.5f,  0.5f,  0.5f,  
+         0.5f,  0.5f,  0.5f,  
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f, -0.5f,  0.5f, 
+
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f,  0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+        -0.5f, -0.5f,  0.5f, 
+        -0.5f,  0.5f,  0.5f, 
+
+         0.5f,  0.5f,  0.5f,  
+         0.5f,  0.5f, -0.5f,  
+         0.5f, -0.5f, -0.5f,  
+         0.5f, -0.5f, -0.5f,  
+         0.5f, -0.5f,  0.5f,  
+         0.5f,  0.5f,  0.5f,  
+
+        -0.5f, -0.5f, -0.5f, 
+         0.5f, -0.5f, -0.5f,  
+         0.5f, -0.5f,  0.5f,  
+         0.5f, -0.5f,  0.5f,  
+        -0.5f, -0.5f,  0.5f, 
+        -0.5f, -0.5f, -0.5f, 
+
+        -0.5f,  0.5f, -0.5f, 
+         0.5f,  0.5f, -0.5f,  
+         0.5f,  0.5f,  0.5f,  
+         0.5f,  0.5f,  0.5f,  
+        -0.5f,  0.5f,  0.5f, 
+        -0.5f,  0.5f, -0.5f, 
     };
     
     uint32_t indices[] = 
@@ -39,7 +76,6 @@ int main()
     vertexArray.bind();
 
     vertexArray.attachBuffer(BufferType::VERTEX, sizeof(vertices), DrawMode::STATIC, vertices);
-    vertexArray.attachBuffer(BufferType::INDEX, sizeof(indices), DrawMode::STATIC, indices);
 
     vertexArray.enableAttribute(0, 3, 3 * sizeof(float), (void*)0);
 
@@ -53,7 +89,6 @@ int main()
     // ----------- //
     // Render loop //
     // ----------- //
-
     while(!window.shouldClose())
     {
         // ------ //
@@ -64,17 +99,16 @@ int main()
 
         float change = ((float)sin(glfwGetTime() * 0.5f) + 1.5f);
 
-        shaderProgram->bind();
-        shaderProgram->setUniform("w", change);
-
+        shaderProgram.bind();
+        shaderProgram.setUniform("w", change);
+        
         vertexArray.bind();
 
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         vertexArray.unbind();
 
-        shaderProgram->unbind();
+        shaderProgram.unbind();
 
         window.update();
     }

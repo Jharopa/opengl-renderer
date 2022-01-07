@@ -15,6 +15,10 @@ add_executable(${PROJECT_NAME}
     src/shaderprogram.cpp
     src/vertexarray.h
     src/vertexarray.cpp
+    src/texture.h
+    src/texture.cpp
+
+    external/stb_image/stb_image.h
 )
 
 #GLAD

@@ -34,6 +34,15 @@ class ShaderProgram
         ShaderProgram(const uint32_t id);
         ~ShaderProgram();
 
+        ShaderProgram(ShaderProgram&& other) 
+        {
+		    m_uniformCache = other.m_uniformCache;
+		    m_id = other.m_id;
+
+		    other.m_id = 0;
+		    other.m_uniformCache.clear();
+	    }
+
         void bind() const;
         void unbind() const;
 
