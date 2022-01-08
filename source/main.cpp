@@ -12,8 +12,8 @@ int main()
 {
     Window window = Window{ 800, 600, "Window" };
 
-    auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../src/shader.frag")
-                                                .with(ShaderStage::VERETX, "../src/shader.vert")
+    auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../resources/shaders/shader.frag")
+                                                .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
                                                 .build()
                                                 .value();
 

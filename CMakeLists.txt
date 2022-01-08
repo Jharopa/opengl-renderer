@@ -5,18 +5,18 @@ project(opengl-renderer)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(${PROJECT_NAME} 
-    src/main.cpp
-    src/utils.h
-    src/window.h
-    src/window.cpp
-    src/context.h
-    src/context.cpp
-    src/shaderprogram.h
-    src/shaderprogram.cpp
-    src/vertexarray.h
-    src/vertexarray.cpp
-    src/texture.h
-    src/texture.cpp
+    source/main.cpp
+    source/utils.h
+    source/window.h
+    source/window.cpp
+    source/context.h
+    source/context.cpp
+    source/shaderprogram.h
+    source/shaderprogram.cpp
+    source/vertexarray.h
+    source/vertexarray.cpp
+    source/texture.h
+    source/texture.cpp
     
     external/stb_image/stb_image.h
     external/stb_image/stb_image.cpp
