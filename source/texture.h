@@ -9,6 +9,9 @@
 #include <string>
 #include <iostream>
 
+// Only represents a 2D texture at the moment, could be generalized 
+// and will refactor if neccessary later on
+
 class Texture
 {
     private:
@@ -20,6 +23,10 @@ class Texture
         ~Texture();
 
         void bind() const;
+
+        [[nodiscard]] int32_t getWidth() const noexcept { return m_width; }
+        [[nodiscard]] int32_t getHeight() const noexcept { return m_height; }
+        [[nodiscard]] int32_t getChannels() const noexcept { return m_channels; }
 };
 
 #endif

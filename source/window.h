@@ -27,6 +27,7 @@ class Window
 
         void update();
 
+        [[nodiscard]] GLFWwindow* getWindow() const noexcept { return m_window; }
         [[nodiscard]] uint32_t getWidth() const noexcept { return m_width; }
         [[nodiscard]] uint32_t getHeight() const noexcept { return m_height; }
 

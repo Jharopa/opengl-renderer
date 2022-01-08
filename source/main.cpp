@@ -7,10 +7,26 @@
 #include "shaderprogram.h"
 #include "vertexarray.h"
 #include "texture.h"
+#include "camera.h"
+#include "input.h"
 
 int main()
 {
     Window window = Window{ 800, 600, "Window" };
+
+    const auto keyCallback = [](GLFWwindow* window, auto key, auto scancode, auto action, auto mode) 
+    {
+		Input::getInstance().keyPressed(key, scancode, action, mode);
+	};
+
+    glfwSetKeyCallback(window.getWindow(), keyCallback);
+
+    const auto cursorPosCallback = [](GLFWwindow* window, auto xPos, auto yPos) 
+    {
+		Input::getInstance().mouseMoved(xPos, yPos);
+	};
+
+	glfwSetCursorPosCallback(window.getWindow(), cursorPosCallback); 
 
     auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../resources/shaders/shader.frag")
                                                 .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
@@ -66,6 +82,7 @@ int main()
 
         shaderProgram.unbind();
 
+        Input::getInstance().update();
         window.update();
     }
 
