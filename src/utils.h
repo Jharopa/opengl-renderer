@@ -4,10 +4,10 @@
 #include <string>
 #include <fstream>
 
-[[nodiscard]] static std::string readFile(const std::string& filepath)
+[[nodiscard]] static std::string readFile(const std::string& path)
 {
     std::string content;
-    std::ifstream file(filepath, std::ios::ate | std::ios::binary);
+    std::ifstream file(path, std::ios::ate | std::ios::binary);
 
     if (file)
 	{

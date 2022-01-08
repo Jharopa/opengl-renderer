@@ -1,10 +1,12 @@
+
+// STD library includes
+#include <iostream>
+
 // Renderer includes
 #include "window.h"
 #include "shaderprogram.h"
 #include "vertexarray.h"
-
-// STD library includes
-#include <iostream>
+#include "texture.h"
 
 int main()
 {
@@ -15,96 +17,50 @@ int main()
                                                 .build()
                                                 .value();
 
-    // ----------------------------- //
-    // Sets up vertex and index data //
-    // ----------------------------- //
-    float vertices[] = {
-        -0.5f, -0.5f, -0.5f, 
-         0.5f, -0.5f, -0.5f,  
-         0.5f,  0.5f, -0.5f,  
-         0.5f,  0.5f, -0.5f,  
-        -0.5f,  0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-
-        -0.5f, -0.5f,  0.5f, 
-         0.5f, -0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f, -0.5f,  0.5f, 
-
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f,  0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-        -0.5f, -0.5f,  0.5f, 
-        -0.5f,  0.5f,  0.5f, 
-
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f, -0.5f,  
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-
-        -0.5f, -0.5f, -0.5f, 
-         0.5f, -0.5f, -0.5f,  
-         0.5f, -0.5f,  0.5f,  
-         0.5f, -0.5f,  0.5f,  
-        -0.5f, -0.5f,  0.5f, 
-        -0.5f, -0.5f, -0.5f, 
-
-        -0.5f,  0.5f, -0.5f, 
-         0.5f,  0.5f, -0.5f,  
-         0.5f,  0.5f,  0.5f,  
-         0.5f,  0.5f,  0.5f,  
-        -0.5f,  0.5f,  0.5f, 
-        -0.5f,  0.5f, -0.5f, 
+    float vertices[] = 
+    {   // Positions           // Colors            // Texture coords
+         0.5f,  0.5f, 0.0f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // top right
+         0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f, // bottom left
+        -0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f  // top left
     };
     
     uint32_t indices[] = 
-    {  // note that we start from 0!
+    {
         0, 1, 2,   // first triangle
         0, 3, 2    // second triangle
     }; 
 
-    // --------------------------------------------------- //
-    // Sets up and binds vertex and indices buffer objects //
-    // --------------------------------------------------- //
     VertexArray vertexArray;
 
     vertexArray.bind();
 
     vertexArray.attachBuffer(BufferType::VERTEX, sizeof(vertices), DrawMode::STATIC, vertices);
+    vertexArray.attachBuffer(BufferType::INDEX, sizeof(indices), DrawMode::STATIC, indices);
 
-    vertexArray.enableAttribute(0, 3, 3 * sizeof(float), (void*)0);
-
-    vertexArray.unbind();
+    vertexArray.enableAttribute(0, 3, 8 * sizeof(float), (void*)0);
+    vertexArray.enableAttribute(1, 3, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    vertexArray.enableAttribute(2, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     
-    // ---------------------------------------- //
-    // Optional: Sets OpenGL to draw wireframes //
-    // ---------------------------------------- //
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    Texture texture{"../resources/textures/container.jpg", true};
 
-    // ----------- //
-    // Render loop //
-    // ----------- //
+    shaderProgram.bind();
+    shaderProgram.setUniform("texture1", 0);
+    shaderProgram.unbind();
+
     while(!window.shouldClose())
     {
-        // ------ //
-        // Render //
-        // ------ //
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        float change = ((float)sin(glfwGetTime() * 0.5f) + 1.5f);
+        glActiveTexture(GL_TEXTURE0);
+        texture.bind();
 
         shaderProgram.bind();
-        shaderProgram.setUniform("w", change);
         
         vertexArray.bind();
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         vertexArray.unbind();
 

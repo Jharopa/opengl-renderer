@@ -3,25 +3,23 @@
 
 #include <glad/glad.h>
 
-
-#define STB_IMAGE_IMPLEMENTATION
 #include "../external/stb_image/stb_image.h"
 
 #include <cstdint>
 #include <string>
+#include <iostream>
 
 class Texture
 {
     private:
         uint32_t m_id;
-        uint32_t m_width, m_height;
+        int32_t m_width, m_height, m_channels;
 
     public:
-        Texture(const std::string& path);
+        Texture(const std::string& path, const bool enableMipmaps);
         ~Texture();
 
         void bind() const;
-        void unbind() const;
 };
 
 #endif

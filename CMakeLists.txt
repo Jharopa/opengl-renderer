@@ -17,8 +17,9 @@ add_executable(${PROJECT_NAME}
     src/vertexarray.cpp
     src/texture.h
     src/texture.cpp
-
+    
     external/stb_image/stb_image.h
+    external/stb_image/stb_image.cpp
 )
 
 #GLAD
