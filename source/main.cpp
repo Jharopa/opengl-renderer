@@ -7,8 +7,11 @@
 #include "shaderprogram.h"
 #include "vertexarray.h"
 #include "texture.h"
-#include "camera.h"
 #include "input.h"
+#include "camera.h"
+
+float_t deltaTime = 0.0f;
+float_t lastFrame = 0.0f;
 
 int main()
 {
@@ -28,35 +31,70 @@ int main()
 
 	glfwSetCursorPosCallback(window.getWindow(), cursorPosCallback); 
 
+    glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+    glEnable(GL_DEPTH_TEST);
+
     auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../resources/shaders/shader.frag")
                                                 .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
                                                 .build()
                                                 .value();
 
+    Camera camera;
+
     float vertices[] = 
-    {   // Positions           // Colors            // Texture coords
-         0.5f,  0.5f, 0.0f,    1.0f, 0.0f, 0.0f,    1.0f, 1.0f, // top right
-         0.5f, -0.5f, 0.0f,    0.0f, 1.0f, 0.0f,    1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f,    0.0f, 0.0f, 1.0f,    0.0f, 0.0f, // bottom left
-        -0.5f,  0.5f, 0.0f,    1.0f, 1.0f, 0.0f,    0.0f, 1.0f  // top left
+    {           
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
-    
-    uint32_t indices[] = 
-    {
-        0, 1, 2,   // first triangle
-        0, 3, 2    // second triangle
-    }; 
 
     VertexArray vertexArray;
 
     vertexArray.bind();
 
     vertexArray.attachBuffer(BufferType::VERTEX, sizeof(vertices), DrawMode::STATIC, vertices);
-    vertexArray.attachBuffer(BufferType::INDEX, sizeof(indices), DrawMode::STATIC, indices);
 
-    vertexArray.enableAttribute(0, 3, 8 * sizeof(float), (void*)0);
-    vertexArray.enableAttribute(1, 3, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    vertexArray.enableAttribute(2, 2, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    vertexArray.enableAttribute(0, 3, 5 * sizeof(float), (void*)0);
+    vertexArray.enableAttribute(1, 2, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     
     Texture texture{"../resources/textures/container.jpg", true};
 
@@ -66,22 +104,30 @@ int main()
 
     while(!window.shouldClose())
     {
+        float_t currentFrame = (float_t)glfwGetTime();
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         glActiveTexture(GL_TEXTURE0);
         texture.bind();
 
         shaderProgram.bind();
-        
+
+        shaderProgram.setUniform("projection", camera.getProjMatrix((float_t)window.getWidth(), (float_t)window.getHeight()));
+        shaderProgram.setUniform("view", camera.getVeiwMatrix());
+
         vertexArray.bind();
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         vertexArray.unbind();
 
         shaderProgram.unbind();
 
+        camera.update(deltaTime);
         Input::getInstance().update();
         window.update();
     }

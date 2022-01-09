@@ -1,16 +1,19 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+#include <glfw/glfw3.h>
+
 #include <array>
 #include <functional>
 
-// Reference and adapted from https://github.com/htmlboss/OpenGL-Renderer/blob/master/MP-APS/Input.h
+// Reference and adapted from 
+// https://github.com/htmlboss/OpenGL-Renderer/blob/master/MP-APS/Input.h
 
 class Input
 {
     private:
-        std::array<bool, 512> m_pressedKeys;
-        std::array<bool, 512> m_heldKeys;
+        std::array<bool, GLFW_KEY_LAST> m_pressedKeys{false};
+        std::array<bool, GLFW_KEY_LAST> m_prevPressedKeys{false};
 
         double_t m_xMousePos, m_yMousePos;
         bool m_mouseMoved = false;
@@ -22,14 +25,18 @@ class Input
 		    return instance;
 	    }
 
-        void update() { m_mouseMoved = false; }
+        void update() 
+        {
+            m_mouseMoved = false; 
+            std::copy(m_pressedKeys.cbegin(), m_pressedKeys.cend(), m_prevPressedKeys.begin());
+        }
 
-        bool isKeyPressed(const int32_t key) const noexcept { return m_pressedKeys[key]; }
-        bool isKeyHeld(const int32_t key) const noexcept { return m_heldKeys[key]; }
+        [[nodiscard]] bool isKeyPressed(const int32_t key) const noexcept { return m_pressedKeys[key] && !m_prevPressedKeys[key]; }
+        [[nodiscard]] bool isKeyHeld(const int32_t key) const noexcept { return m_pressedKeys[key]; }
         
-        bool isMouseMoved() const noexcept { return m_mouseMoved; }
-        double_t getMousePosX() const noexcept { return m_xMousePos; }
-        double_t getMousePosY() const noexcept { return m_yMousePos; }
+        [[nodiscard]] bool isMouseMoved() const noexcept { return m_mouseMoved; }
+        [[nodiscard]] double_t getMousePosX() const noexcept { return m_xMousePos; }
+        [[nodiscard]] double_t getMousePosY() const noexcept { return m_yMousePos; }
 
         std::function<void(int32_t, int32_t, int32_t, int32_t)> keyPressed = [&](int32_t key, int32_t scanCode, int32_t action, int32_t mode)
         {
@@ -39,15 +46,9 @@ class Input
                 {
 				    case 0:
 				    	this->m_pressedKeys[key] = false;
-                        this->m_pressedKeys[key] = false;
 				    	break;
 				    case 1:
 				    	this->m_pressedKeys[key] = true;
-                        std::cout << "Key Pressed" << std::endl;
-				    	break;
-                    case 2:
-				    	this->m_heldKeys[key] = true;
-                        std::cout << "Key Held" << std::endl;
 				    	break;
 			    }
             }
@@ -61,12 +62,7 @@ class Input
 	    };
     
     private:
-        Input() 
-        {
-            std::fill(m_pressedKeys.begin(), m_pressedKeys.end(), false); 
-            std::fill(m_heldKeys.begin(), m_heldKeys.end(), false);
-        };
-
+        Input() {};
 	    ~Input() = default;
 };
 
