@@ -46,3 +46,8 @@ void Texture::bind() const
 {
     glBindTexture(GL_TEXTURE_2D, m_id);
 }
+
+void Texture::activateTextureUnit(const int32_t unit) const
+{
+    glActiveTexture(unit);
+}

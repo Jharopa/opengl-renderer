@@ -1,8 +1,7 @@
 #include "context.h"
 
-Context::Context(GLFWwindow* window) : m_window(window) {}
-
-void Context::init()
+Context::Context(GLFWwindow* window) 
+    : m_window(window) 
 {
     glfwMakeContextCurrent(m_window);
 
@@ -13,6 +12,8 @@ void Context::init()
 
     std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 }
+
+Context::~Context() {}
 
 void Context::swapBuffers() const
 {

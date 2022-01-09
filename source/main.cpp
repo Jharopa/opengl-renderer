@@ -17,10 +17,8 @@ float_t lastFrame = 0.0f;
 int main()
 {
     Window window = Window{ 800, 600, "Window" };
-
     Renderer renderer;
-
-    renderer.setClearColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
+    Camera camera;
 
     const auto keyCallback = [](GLFWwindow* window, auto key, auto scancode, auto action, auto mode) 
     {
@@ -38,14 +36,14 @@ int main()
 
     glfwSetInputMode(window.getWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
-    glEnable(GL_DEPTH_TEST);
+    renderer.setClearColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
 
     auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../resources/shaders/shader.frag")
                                                 .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
                                                 .build()
                                                 .value();
-
-    Camera camera;
+    
+    std::cout << typeid(GL_TEXTURE0).name() << std::endl;
 
     float vertices[] = 
     {           
@@ -115,7 +113,7 @@ int main()
 
         renderer.clear();
 
-        glActiveTexture(GL_TEXTURE0);
+        texture.activateTextureUnit(GL_TEXTURE0);
         texture.bind();
 
         shaderProgram.bind();

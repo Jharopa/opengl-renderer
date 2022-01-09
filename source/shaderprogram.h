@@ -1,15 +1,20 @@
 #ifndef SHADER_PROGRAM_H
 #define SHADER_PROGRAM_H
 
+// GLAD includes
 #include <glad/glad.h>
+
+// GLM includes
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// STD library includes
 #include <iostream>
 #include <string>
 #include <optional>
 #include <unordered_map>
 
+// Renderer includes
 #include "utils.h"
 
 // Referenced and Adapted from:

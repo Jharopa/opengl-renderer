@@ -1,10 +1,13 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
+// GLAD includes
 #include <glad/glad.h>
 
+// STB_IMAGE includes
 #include "../external/stb_image/stb_image.h"
 
+// STD library includes
 #include <cstdint>
 #include <string>
 #include <iostream>
@@ -23,6 +26,7 @@ class Texture
         ~Texture();
 
         void bind() const;
+        void activateTextureUnit(const int32_t unit) const;
 
         [[nodiscard]] int32_t getWidth() const noexcept { return m_width; }
         [[nodiscard]] int32_t getHeight() const noexcept { return m_height; }

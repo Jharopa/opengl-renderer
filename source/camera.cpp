@@ -1,7 +1,5 @@
 #include "camera.h"
 
-#include "input.h"
-
 Camera::Camera()
 {
     updateVectors();

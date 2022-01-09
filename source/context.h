@@ -1,8 +1,10 @@
 #ifndef CONTEXT_H
 #define CONTEXT_H
 
-// GLAD + GLFW includes
+// GLAD includes
 #include <glad/glad.h>
+
+// GLFW includes
 #include <glfw/glfw3.h>
 
 // STD library includes
@@ -15,8 +17,8 @@ class Context
 
     public:
         Context(GLFWwindow* m_window);
-
-        void init();
+        ~Context();
+        
         void swapBuffers() const;
 };
 

@@ -1,8 +1,10 @@
 #ifndef INPUT_H
 #define INPUT_H
 
+// GLFW includes
 #include <glfw/glfw3.h>
 
+// STD library includes
 #include <array>
 #include <functional>
 
@@ -15,7 +17,7 @@ class Input
         std::array<bool, GLFW_KEY_LAST> m_pressedKeys{false};
         std::array<bool, GLFW_KEY_LAST> m_prevPressedKeys{false};
 
-        double_t m_xMousePos, m_yMousePos;
+        float_t m_xMousePos, m_yMousePos;
         bool m_mouseMoved = false;
 
     public:
@@ -35,8 +37,8 @@ class Input
         [[nodiscard]] bool isKeyHeld(const int32_t key) const noexcept { return m_pressedKeys[key]; }
         
         [[nodiscard]] bool isMouseMoved() const noexcept { return m_mouseMoved; }
-        [[nodiscard]] double_t getMousePosX() const noexcept { return m_xMousePos; }
-        [[nodiscard]] double_t getMousePosY() const noexcept { return m_yMousePos; }
+        [[nodiscard]] float_t getMousePosX() const noexcept { return m_xMousePos; }
+        [[nodiscard]] float_t getMousePosY() const noexcept { return m_yMousePos; }
 
         std::function<void(int32_t, int32_t, int32_t, int32_t)> keyPressed = [&](int32_t key, int32_t scanCode, int32_t action, int32_t mode)
         {
@@ -57,8 +59,8 @@ class Input
         std::function<void(double_t, double_t)> mouseMoved = [&](double_t xPos, double_t yPos) 
         {
 		    this->m_mouseMoved = true;
-		    this->m_xMousePos = xPos;
-		    this->m_yMousePos = yPos;
+		    this->m_xMousePos = (float_t)xPos;
+		    this->m_yMousePos = (float_t)yPos;
 	    };
     
     private:

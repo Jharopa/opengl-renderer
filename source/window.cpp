@@ -3,16 +3,6 @@
 Window::Window(const uint32_t& width, const uint32_t& height, const std::string& title)
     : m_width(width), m_height(height), m_title(title)
 {
-    init();
-}
-
-Window::~Window()
-{
-    shutdown();
-}
-
-void Window::init()
-{
     if(!glfwInit())
     {
         std::cerr << "Failed to initialize GLFW!";
@@ -32,10 +22,9 @@ void Window::init()
     }
 
     m_context = std::make_unique<Context>(m_window);
-    m_context->init();
 }
 
-void Window::shutdown() const
+Window::~Window()
 {
     glfwDestroyWindow(m_window);
     glfwTerminate();

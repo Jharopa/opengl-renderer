@@ -1,12 +1,18 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+// GLFW includes
 #include <glfw/glfw3.h>
 
+// GLM includes
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+// STD library includes
 #include <algorithm>
+
+// Renderer includes
+#include "input.h"
 
 // Referenced and adapted from
 // https://learnopengl.com/Getting-started/Camera

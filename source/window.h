@@ -1,13 +1,13 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-// Renderer includes
-#include "context.h"
-
 // STD library includes
 #include <string>
 #include <iostream>
 #include <memory>
+
+// Renderer includes
+#include "context.h"
 
 class Window
 {    
@@ -32,10 +32,6 @@ class Window
         [[nodiscard]] uint32_t getHeight() const noexcept { return m_height; }
 
         [[nodiscard]] bool shouldClose() const noexcept { return m_shouldClose; }
-
-    private:
-        void init();
-        void shutdown() const;
 };
 
 #endif
