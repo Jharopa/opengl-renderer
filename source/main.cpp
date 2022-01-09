@@ -4,6 +4,7 @@
 
 // Renderer includes
 #include "window.h"
+#include "renderer.h"
 #include "shaderprogram.h"
 #include "vertexarray.h"
 #include "texture.h"
@@ -16,6 +17,10 @@ float_t lastFrame = 0.0f;
 int main()
 {
     Window window = Window{ 800, 600, "Window" };
+
+    Renderer renderer;
+
+    renderer.setClearColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
 
     const auto keyCallback = [](GLFWwindow* window, auto key, auto scancode, auto action, auto mode) 
     {
@@ -108,8 +113,7 @@ int main()
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        renderer.clear();
 
         glActiveTexture(GL_TEXTURE0);
         texture.bind();
@@ -121,7 +125,7 @@ int main()
 
         vertexArray.bind();
 
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        renderer.drawArrays(GL_TRIANGLES, 0, 36);
 
         vertexArray.unbind();
 

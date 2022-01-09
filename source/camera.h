@@ -52,7 +52,7 @@ class Camera
     private:
         void processKeyboard(MovementDirection direction, float_t deltaTime);
 
-        void updateRotation();
+        void updateMouse();
         void updateVectors();
 };
 

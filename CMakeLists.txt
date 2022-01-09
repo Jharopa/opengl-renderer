@@ -6,20 +6,23 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(${PROJECT_NAME} 
     source/main.cpp
-    source/utils.h
     source/window.h
     source/window.cpp
     source/context.h
     source/context.cpp
+    source/renderer.h
+    source/renderer.cpp
     source/shaderprogram.h
     source/shaderprogram.cpp
     source/vertexarray.h
     source/vertexarray.cpp
     source/texture.h
     source/texture.cpp
-    source/input.h
     source/camera.h
     source/camera.cpp
+
+    source/input.h
+    source/utils.h
     
     external/stb_image/stb_image.h
     external/stb_image/stb_image.cpp

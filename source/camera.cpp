@@ -9,7 +9,7 @@ Camera::Camera()
 
 void Camera::update(const float_t deltaTime)
 {
-    updateRotation();
+    updateMouse();
 
     if (Input::getInstance().isKeyPressed(GLFW_KEY_W) || Input::getInstance().isKeyHeld(GLFW_KEY_W)) processKeyboard(MovementDirection::FORWARD, deltaTime);
     if (Input::getInstance().isKeyPressed(GLFW_KEY_D) || Input::getInstance().isKeyHeld(GLFW_KEY_D)) processKeyboard(MovementDirection::RIGHT, deltaTime);
@@ -19,8 +19,7 @@ void Camera::update(const float_t deltaTime)
 
 void Camera::processKeyboard(MovementDirection direction, float_t deltaTime)
 {
-    float_t velocity = m_speed * deltaTime;
-
+    float velocity = m_speed * deltaTime;
     if (direction == MovementDirection::FORWARD)
         m_position += m_front * velocity;
     if (direction == MovementDirection::BACKWARD)
@@ -31,7 +30,7 @@ void Camera::processKeyboard(MovementDirection direction, float_t deltaTime)
         m_position += m_right * velocity;
 }
 
-void Camera::updateRotation()
+void Camera::updateMouse()
 {
     if (Input::getInstance().isMouseMoved())
     {
@@ -64,12 +63,12 @@ void Camera::updateVectors()
 {
     glm::vec3 front
     {
-		glm::cos(glm::radians(m_yaw) * glm::radians(m_pitch)),
-		glm::sin(glm::radians(m_pitch)),
-		glm::sin(glm::radians(m_yaw)) * glm::cos(glm::radians(m_pitch))
-	};
+        cos(glm::radians(m_yaw) * cos(glm::radians(m_pitch))),
+        sin(glm::radians(m_pitch)),
+        sin(glm::radians(m_yaw))  * cos(glm::radians(m_pitch))
+    };
 
-	m_front = glm::normalize(front);
-	m_right = glm::normalize(glm::cross(m_front, m_worldUp));
-	m_up = glm::normalize(glm::cross(m_right, m_front));
+    m_front = glm::normalize(front);
+    m_right = glm::normalize(glm::cross(m_front, m_worldUp));
+    m_up = glm::normalize(glm::cross(m_right, m_front));
 }
