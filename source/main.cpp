@@ -10,15 +10,14 @@
 #include "texture.h"
 #include "input.h"
 #include "camera.h"
-
-float_t deltaTime = 0.0f;
-float_t lastFrame = 0.0f;
+#include "timer.h"
 
 int main()
 {
     Window window = Window{ 800, 600, "Window" };
     Renderer renderer;
     Camera camera;
+    Timer timer;
 
     const auto keyCallback = [](GLFWwindow* window, auto key, auto scancode, auto action, auto mode) 
     {
@@ -42,8 +41,6 @@ int main()
                                                 .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
                                                 .build()
                                                 .value();
-    
-    std::cout << typeid(GL_TEXTURE0).name() << std::endl;
 
     float vertices[] = 
     {           
@@ -107,9 +104,9 @@ int main()
 
     while(!window.shouldClose())
     {
-        float_t currentFrame = (float_t)glfwGetTime();
-        deltaTime = currentFrame - lastFrame;
-        lastFrame = currentFrame;
+        float_t deltaTime = timer.getDelta();
+
+        timer.start();
 
         renderer.clear();
 
@@ -132,6 +129,8 @@ int main()
         camera.update(deltaTime);
         Input::getInstance().update();
         window.update();
+
+        timer.stop();
     }
 
     return 0;

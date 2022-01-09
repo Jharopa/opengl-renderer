@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(${PROJECT_NAME} 
     source/main.cpp
+    
     source/window.h
     source/window.cpp
     source/context.h
@@ -23,6 +24,7 @@ add_executable(${PROJECT_NAME}
 
     source/input.h
     source/utils.h
+    source/timer.h
     
     external/stb_image/stb_image.h
     external/stb_image/stb_image.cpp
