@@ -1,6 +1,6 @@
 #include "window.h"
 
-Window::Window(const uint32_t& width, const uint32_t& height, const std::string& title)
+Window::Window(const u32& width, const u32& height, const std::string& title)
     : m_width(width), m_height(height), m_title(title)
 {
     if(!glfwInit())

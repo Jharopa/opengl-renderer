@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-void openGLMessageCallback(GLenum source, GLenum type, uint32_t id, GLenum severity, int32_t length, const GLchar* message, const void* userParam)
+void openGLMessageCallback(GLenum source, GLenum type, u32 id, GLenum severity, i32 length, const GLchar* message, const void* userParam)
 {
 	switch (severity)
 	{
@@ -40,7 +40,7 @@ void Renderer::clear()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::drawArrays(GLenum mode, int32_t first, int32_t count)
+void Renderer::drawArrays(GLenum mode, i32 first, i32 count)
 {
     glDrawArrays(mode, first, count);
 }

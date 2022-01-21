@@ -7,6 +7,9 @@
 // STD library includes
 #include <cstdint>
 
+// Renderer includes
+#include "defines.h"
+
 enum BufferType 
 {
     VERTEX = GL_ARRAY_BUFFER,
@@ -21,14 +24,14 @@ enum DrawMode
 class VertexArray
 {
     private:
-        uint32_t m_id;
+        u32 m_id;
 
     public:
         VertexArray();
         ~VertexArray();
 
-        void attachBuffer(const BufferType type, const size_t size, const DrawMode mode, const void* data) noexcept;
-        void enableAttribute(const uint32_t index, const int32_t size, const uint32_t offset, const void* data) noexcept;
+        void attachBuffer(const BufferType type, const u64 size, const DrawMode mode, const void* data) noexcept;
+        void enableAttribute(const u32 index, const u64 size, const u32 offset, const void* data) noexcept;
 
         void bind() const noexcept;
         void unbind() const noexcept;

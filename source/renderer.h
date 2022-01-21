@@ -10,6 +10,9 @@
 // STD library includes
 #include <iostream>
 
+// Renderer includes
+#include "defines.h"
+
 class Renderer
 {
     public:
@@ -19,7 +22,7 @@ class Renderer
         void setClearColor(const glm::vec4& color);
         void clear();
 
-        void drawArrays(GLenum mode, int32_t first, int32_t count);
+        void drawArrays(GLenum mode, i32 first, i32 count);
 };
 
 #endif

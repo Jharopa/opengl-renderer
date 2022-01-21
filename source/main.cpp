@@ -3,6 +3,7 @@
 #include <iostream>
 
 // Renderer includes
+#include "defines.h"
 #include "window.h"
 #include "renderer.h"
 #include "shaderprogram.h"
@@ -14,6 +15,26 @@
 
 int main()
 {
+    std::cout << sizeof(u8) << std::endl;
+    std::cout << sizeof(u16) << std::endl;
+    std::cout << sizeof(u32) << std::endl;
+    std::cout << sizeof(u64) << std::endl;
+
+    std::cout << sizeof(i8) << std::endl;
+    std::cout << sizeof(i16) << std::endl;
+    std::cout << sizeof(i32) << std::endl;
+    std::cout << sizeof(i64) << std::endl;
+
+    std::cout << sizeof(f32) << std::endl;
+    std::cout << sizeof(f64) << std::endl;
+
+    std::cout << sizeof(b8) << std::endl;
+    std::cout << sizeof(b32) << std::endl;
+    
+    std::cout << sizeof(size_t) << std::endl;
+    std::cout << std::is_signed<size_t>::value << std::endl;
+
+
     Window window = Window{ 800, 600, "Window" };
     Renderer renderer;
     Camera camera;
@@ -125,10 +146,10 @@ int main()
         vertexArray.unbind();
 
         shaderProgram.unbind();
-
-        camera.update(deltaTime);
+    	
         Input::getInstance().update();
         window.update();
+        camera.update(deltaTime);
 
         timer.stop();
     }

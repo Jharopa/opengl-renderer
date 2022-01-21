@@ -5,7 +5,7 @@ Camera::Camera()
     updateVectors();
 }
 
-void Camera::update(const float_t deltaTime)
+void Camera::update(const f32 deltaTime)
 {
     updateMouse();
 
@@ -15,7 +15,7 @@ void Camera::update(const float_t deltaTime)
     if (Input::getInstance().isKeyPressed(GLFW_KEY_A) || Input::getInstance().isKeyHeld(GLFW_KEY_A)) processKeyboard(MovementDirection::LEFT, deltaTime);
 }
 
-void Camera::processKeyboard(MovementDirection direction, float_t deltaTime)
+void Camera::processKeyboard(MovementDirection direction, f32 deltaTime)
 {
     float velocity = m_speed * deltaTime;
     if (direction == MovementDirection::FORWARD)
@@ -32,8 +32,8 @@ void Camera::updateMouse()
 {
     if (Input::getInstance().isMouseMoved())
     {
-        const float_t xPos = Input::getInstance().getMousePosX();
-        const float_t yPos = Input::getInstance().getMousePosY();
+        const f32 xPos = Input::getInstance().getMousePosX();
+        const f32 yPos = Input::getInstance().getMousePosY();
 
         if (m_firstMouse) 
         {
@@ -42,8 +42,8 @@ void Camera::updateMouse()
 			m_firstMouse = false;
 		}
 
-        float_t xOffset = (xPos - m_prevX) * m_sensitivity;
-		float_t yOffset = (m_prevY - yPos) * m_sensitivity;
+        f32 xOffset = (xPos - m_prevX) * m_sensitivity;
+		f32 yOffset = (m_prevY - yPos) * m_sensitivity;
 
         m_prevX = xPos;
 		m_prevY = yPos;

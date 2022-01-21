@@ -5,6 +5,9 @@
 #include <string>
 #include <fstream>
 
+// Renderer includes
+#include "defines.h"
+
 [[nodiscard]] static std::string readFile(const std::string& path)
 {
     std::string content;

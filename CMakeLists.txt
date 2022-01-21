@@ -21,7 +21,8 @@ add_executable(${PROJECT_NAME}
     source/texture.cpp
     source/camera.h
     source/camera.cpp
-
+    
+    source/defines.h
     source/input.h
     source/utils.h
     source/timer.h

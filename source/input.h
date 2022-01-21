@@ -8,17 +8,20 @@
 #include <array>
 #include <functional>
 
+// Renderer includes
+#include "defines.h"
+
 // Reference and adapted from 
 // https://github.com/htmlboss/OpenGL-Renderer/blob/master/MP-APS/Input.h
 
 class Input
 {
     private:
-        std::array<bool, GLFW_KEY_LAST> m_pressedKeys{false};
-        std::array<bool, GLFW_KEY_LAST> m_prevPressedKeys{false};
+        std::array<b8, GLFW_KEY_LAST> m_pressedKeys{false};
+        std::array<b8, GLFW_KEY_LAST> m_prevPressedKeys{false};
 
-        float_t m_xMousePos, m_yMousePos;
-        bool m_mouseMoved = false;
+        f32 m_xMousePos, m_yMousePos;
+        b8 m_mouseMoved = false;
 
     public:
         static Input& getInstance() 
@@ -33,14 +36,14 @@ class Input
             std::copy(m_pressedKeys.cbegin(), m_pressedKeys.cend(), m_prevPressedKeys.begin());
         }
 
-        [[nodiscard]] bool isKeyPressed(const int32_t key) const noexcept { return m_pressedKeys[key] && !m_prevPressedKeys[key]; }
-        [[nodiscard]] bool isKeyHeld(const int32_t key) const noexcept { return m_pressedKeys[key]; }
+        [[nodiscard]] b8 isKeyPressed(const i32 key) const noexcept { return m_pressedKeys[key] && !m_prevPressedKeys[key]; }
+        [[nodiscard]] b8 isKeyHeld(const i32 key) const noexcept { return m_pressedKeys[key]; }
         
-        [[nodiscard]] bool isMouseMoved() const noexcept { return m_mouseMoved; }
-        [[nodiscard]] float_t getMousePosX() const noexcept { return m_xMousePos; }
-        [[nodiscard]] float_t getMousePosY() const noexcept { return m_yMousePos; }
+        [[nodiscard]] b8 isMouseMoved() const noexcept { return m_mouseMoved; }
+        [[nodiscard]] f32 getMousePosX() const noexcept { return m_xMousePos; }
+        [[nodiscard]] f32 getMousePosY() const noexcept { return m_yMousePos; }
 
-        std::function<void(int32_t, int32_t, int32_t, int32_t)> keyPressed = [&](int32_t key, int32_t scanCode, int32_t action, int32_t mode)
+        std::function<void(i32, i32, i32, i32)> keyPressed = [&](i32 key, i32 scanCode, i32 action, i32 mode)
         {
             if (key > 0)
             {
@@ -56,11 +59,11 @@ class Input
             }
         };
 
-        std::function<void(double_t, double_t)> mouseMoved = [&](double_t xPos, double_t yPos) 
+        std::function<void(f64, f64)> mouseMoved = [&](f64 xPos, f64 yPos) 
         {
 		    this->m_mouseMoved = true;
-		    this->m_xMousePos = (float_t)xPos;
-		    this->m_yMousePos = (float_t)yPos;
+		    this->m_xMousePos = (f32)xPos;
+		    this->m_yMousePos = (f32)yPos;
 	    };
     
     private:

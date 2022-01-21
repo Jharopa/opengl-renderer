@@ -10,16 +10,16 @@ VertexArray::~VertexArray()
     glDeleteVertexArrays(1, &m_id);
 }
 
-void VertexArray::attachBuffer(const BufferType type, const size_t size, const DrawMode mode, const void* data) noexcept
+void VertexArray::attachBuffer(const BufferType type, const u64 size, const DrawMode mode, const void* data) noexcept
 {
-    uint32_t buffer;
+    u32 buffer;
     glGenBuffers(1, &buffer);
 
     glBindBuffer(type, buffer);
     glBufferData(type, size, data, mode);
 }
 
-void VertexArray::enableAttribute(const uint32_t index, const int32_t size, const uint32_t offset, const void* data) noexcept
+void VertexArray::enableAttribute(const u32 index, const u64 size, const u32 offset, const void* data) noexcept
 {
     glEnableVertexAttribArray(index);
     glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, offset, data);

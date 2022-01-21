@@ -1,6 +1,6 @@
 #include "texture.h"
 
-Texture::Texture(const std::string& path, const bool enableMipmaps)
+Texture::Texture(const std::string& path, const b8 enableMipmaps)
     : m_id(0)
 {
     glGenTextures(1, &m_id);
@@ -8,7 +8,7 @@ Texture::Texture(const std::string& path, const bool enableMipmaps)
 
     stbi_set_flip_vertically_on_load(true);
     
-    uint8_t* data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
+    u8* data = stbi_load(path.c_str(), &m_width, &m_height, &m_channels, 0);
 
     if (data)
     {
@@ -47,7 +47,7 @@ void Texture::bind() const
     glBindTexture(GL_TEXTURE_2D, m_id);
 }
 
-void Texture::activateTextureUnit(const int32_t unit) const
+void Texture::activateTextureUnit(const i32 unit) const
 {
     glActiveTexture(unit);
 }

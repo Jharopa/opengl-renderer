@@ -35,28 +35,28 @@ class Camera
         glm::vec3 m_right;
         glm::vec3 m_worldUp {0.0f, 1.0f, 0.0f};
         
-        const float_t m_near = 0.1f, m_far = 1000.0f;
-        const float_t m_FOV = 60.0f;
+        const f32 m_near = 0.1f, m_far = 1000.0f;
+        const f32 m_FOV = 60.0f;
 
-        float_t m_yaw = -90.0f;
-        float_t m_pitch = 0.0f;
+        f32 m_yaw = -90.0f;
+        f32 m_pitch = 0.0f;
 
-        float_t m_speed = 2.5f;
+        f32 m_speed = 2.5f;
 
-        float_t m_sensitivity = 0.1f;
-        bool m_firstMouse = true;
-        float_t m_prevX = 0.0, m_prevY = 0.0;
+        f32 m_sensitivity = 0.1f;
+        b8 m_firstMouse = true;
+        f32 m_prevX = 0.0f, m_prevY = 0.0f;
 
     public:
         Camera();
 
-        void update(const float_t deltaTime);
+        void update(const f32 deltaTime);
 
-        [[nodiscard]] glm::mat4 getProjMatrix(const float_t width, const float_t height) const { return glm::perspective(glm::radians(m_FOV), width / height, m_near, m_far); }
+        [[nodiscard]] glm::mat4 getProjMatrix(const f32 width, const f32 height) const { return glm::perspective(glm::radians(m_FOV), width / height, m_near, m_far); }
         [[nodiscard]] glm::mat4 getVeiwMatrix() const { return glm::lookAt(m_position, m_position + m_front, m_up); };
 
     private:
-        void processKeyboard(MovementDirection direction, float_t deltaTime);
+        void processKeyboard(MovementDirection direction, f32 deltaTime);
 
         void updateMouse();
         void updateVectors();

@@ -7,6 +7,7 @@
 #include <memory>
 
 // Renderer includes
+#include "defines.h"
 #include "context.h"
 
 class Window
@@ -14,10 +15,10 @@ class Window
     private:
         GLFWwindow* m_window = nullptr;
 
-        uint32_t m_width, m_height;
+        u32 m_width, m_height;
         std::string m_title;
 
-        bool m_shouldClose = false;
+        b8 m_shouldClose = false;
 
         std::unique_ptr<Context> m_context;
 
@@ -28,10 +29,10 @@ class Window
         void update();
 
         [[nodiscard]] GLFWwindow* getWindow() const noexcept { return m_window; }
-        [[nodiscard]] uint32_t getWidth() const noexcept { return m_width; }
-        [[nodiscard]] uint32_t getHeight() const noexcept { return m_height; }
+        [[nodiscard]] u32 getWidth() const noexcept { return m_width; }
+        [[nodiscard]] u32 getHeight() const noexcept { return m_height; }
 
-        [[nodiscard]] bool shouldClose() const noexcept { return m_shouldClose; }
+        [[nodiscard]] b8 shouldClose() const noexcept { return m_shouldClose; }
 };
 
 #endif

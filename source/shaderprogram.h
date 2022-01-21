@@ -15,6 +15,7 @@
 #include <unordered_map>
 
 // Renderer includes
+#include "defines.h"
 #include "utils.h"
 
 // Referenced and Adapted from:
@@ -32,11 +33,11 @@ enum ShaderStage
 class ShaderProgram
 {
     private:
-        uint32_t m_id;
-        std::unordered_map<std::string, uint32_t> m_uniformCache;
+        u32 m_id;
+        std::unordered_map<std::string, u32> m_uniformCache;
 
     public:
-        ShaderProgram(const uint32_t id);
+        ShaderProgram(const u32 id);
         ~ShaderProgram();
 
         ShaderProgram(ShaderProgram&& other) 
@@ -51,8 +52,8 @@ class ShaderProgram
         void bind() const;
         void unbind() const;
 
-        void setUniform(const std::string& name, const int32_t value);
-        void setUniform(const std::string& name, const float value);
+        void setUniform(const std::string& name, const i32 value);
+        void setUniform(const std::string& name, const f32 value);
         void setUniform(const std::string& name, const glm::vec2& vector);
         void setUniform(const std::string& name, const glm::vec3& vector);
         void setUniform(const std::string& name, const glm::vec4& vector);
@@ -60,7 +61,7 @@ class ShaderProgram
 
     private:
         void cacheUniforms();
-        int32_t getUniformLocation(const std::string& name);
+        i32 getUniformLocation(const std::string& name);
 };
 
 // TODO: Is a builder going to be appropriate down the line when loading from config files?
@@ -75,11 +76,11 @@ class ShaderProgramBuilder
         std::optional<ShaderProgram> build();
 
     private:
-        bool compileStage(const uint32_t id, const std::string& shaderCode);
-        void compile(const uint32_t id, const char* shaderCode);
+        b8 compileStage(const u32 id, const std::string& shaderCode);
+        void compile(const u32 id, const i8* shaderCode);
 
-        bool link(const uint32_t id);
-        bool validate(const uint32_t id);
+        b8 link(const u32 id);
+        b8 validate(const u32 id);
 };
 
 #endif
