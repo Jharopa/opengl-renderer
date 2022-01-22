@@ -90,7 +90,7 @@ ShaderProgramBuilder& ShaderProgramBuilder::with(ShaderStage stage, std::string 
     if(m_shaderStages.find(stage) != m_shaderStages.end())
     {
         std::cerr << "Shader Program Builder doesn't support duplicate shader stage types!" << std::endl;
-        std::abort(); 
+        std::abort();
     }
 
     m_shaderStages.insert({stage, shaderPath});

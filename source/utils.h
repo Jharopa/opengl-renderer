@@ -1,5 +1,4 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
 // STD library includes
 #include <string>
@@ -15,7 +14,7 @@
 
     if (file)
 	{
-        size_t fileSize = (size_t) file.tellg();
+        u64 fileSize = (u64) file.tellg();
         content.resize(fileSize);
         file.seekg(0);
         file.read(&content[0], fileSize);
@@ -23,5 +22,3 @@
 
     return content;
 }
-
-#endif

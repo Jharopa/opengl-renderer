@@ -1,11 +1,7 @@
-#ifndef VERTEX_ARRAY_H
-#define VERTEX_ARRAY_H
+#pragma once
 
 // GLAD includes
 #include <glad/glad.h>
-
-// STD library includes
-#include <cstdint>
 
 // Renderer includes
 #include "defines.h"
@@ -36,5 +32,3 @@ class VertexArray
         void bind() const noexcept;
         void unbind() const noexcept;
 };
-
-#endif

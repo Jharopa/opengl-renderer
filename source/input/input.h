@@ -1,5 +1,4 @@
-#ifndef INPUT_H
-#define INPUT_H
+#pragma once
 
 // GLFW includes
 #include <glfw/glfw3.h>
@@ -70,5 +69,3 @@ class Input
         Input() {};
 	    ~Input() = default;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef SHADER_PROGRAM_H
-#define SHADER_PROGRAM_H
+#pragma once
 
 // GLAD includes
 #include <glad/glad.h>
@@ -72,7 +71,7 @@ class ShaderProgramBuilder
         std::unordered_map<ShaderStage, std::string> m_shaderStages;
 
     public:
-        ShaderProgramBuilder& with(ShaderStage stage, std::string shaderCode);
+        ShaderProgramBuilder& with(ShaderStage stage, std::string shaderPath);
         std::optional<ShaderProgram> build();
 
     private:
@@ -82,5 +81,3 @@ class ShaderProgramBuilder
         b8 link(const u32 id);
         b8 validate(const u32 id);
 };
-
-#endif

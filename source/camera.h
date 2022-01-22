@@ -1,5 +1,4 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#pragma once
 
 // GLFW includes
 #include <glfw/glfw3.h>
@@ -12,7 +11,7 @@
 #include <algorithm>
 
 // Renderer includes
-#include "input.h"
+#include "input/input.h"
 
 // Referenced and adapted from
 // https://learnopengl.com/Getting-started/Camera
@@ -61,5 +60,3 @@ class Camera
         void updateMouse();
         void updateVectors();
 };
-
-#endif

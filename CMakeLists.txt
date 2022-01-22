@@ -23,7 +23,7 @@ add_executable(${PROJECT_NAME}
     source/camera.cpp
     
     source/defines.h
-    source/input.h
+    source/input/input.h
     source/utils.h
     source/timer.h
     

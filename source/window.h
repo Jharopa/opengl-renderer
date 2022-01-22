@@ -1,5 +1,4 @@
-#ifndef WINDOW_H
-#define WINDOW_H
+#pragma once
 
 // STD library includes
 #include <string>
@@ -23,7 +22,7 @@ class Window
         std::unique_ptr<Context> m_context;
 
     public:
-        Window(const uint32_t& width, const uint32_t& height, const std::string& title);
+        Window(const u32& width, const u32& height, const std::string& title);
         ~Window();
 
         void update();
@@ -34,5 +33,3 @@ class Window
 
         [[nodiscard]] b8 shouldClose() const noexcept { return m_shouldClose; }
 };
-
-#endif

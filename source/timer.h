@@ -1,5 +1,4 @@
-#ifndef TIMER_H
-#define TIMER_H
+#pragma once
 
 // GLFW library includes
 #include <GLFW/glfw3.h>
@@ -25,5 +24,3 @@ class Timer
         f32 getDelta() { return (m_end - m_start); }
         f32 getDeltaMillis() { return getDelta() * 1000.0f; }
 };
-
-#endif

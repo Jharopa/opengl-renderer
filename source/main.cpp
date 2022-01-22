@@ -1,4 +1,3 @@
-
 // STD library includes
 #include <iostream>
 
@@ -9,7 +8,7 @@
 #include "shaderprogram.h"
 #include "vertexarray.h"
 #include "texture.h"
-#include "input.h"
+#include "input/input.h"
 #include "camera.h"
 #include "timer.h"
 

@@ -1,5 +1,4 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
 
 // GLAD includes
 #include <glad/glad.h>
@@ -24,5 +23,3 @@ class Renderer
 
         void drawArrays(GLenum mode, i32 first, i32 count);
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef CONTEXT_H
-#define CONTEXT_H
+#pragma once
 
 // GLAD includes
 #include <glad/glad.h>
@@ -21,5 +20,3 @@ class Context
         
         void swapBuffers() const;
 };
-
-#endif

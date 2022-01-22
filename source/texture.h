@@ -1,5 +1,4 @@
-#ifndef TEXTURE_H
-#define TEXTURE_H
+#pragma once
 
 // GLAD includes
 #include <glad/glad.h>
@@ -34,5 +33,3 @@ class Texture
         [[nodiscard]] i32 getHeight() const noexcept { return m_height; }
         [[nodiscard]] i32 getChannels() const noexcept { return m_channels; }
 };
-
-#endif
