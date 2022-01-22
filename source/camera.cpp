@@ -9,22 +9,22 @@ void Camera::update(const f32 deltaTime)
 {
     updateMouse();
 
-    if (Input::getInstance().isKeyPressed(GLFW_KEY_W) || Input::getInstance().isKeyHeld(GLFW_KEY_W)) processKeyboard(MovementDirection::FORWARD, deltaTime);
-    if (Input::getInstance().isKeyPressed(GLFW_KEY_D) || Input::getInstance().isKeyHeld(GLFW_KEY_D)) processKeyboard(MovementDirection::RIGHT, deltaTime);
-    if (Input::getInstance().isKeyPressed(GLFW_KEY_S) || Input::getInstance().isKeyHeld(GLFW_KEY_S)) processKeyboard(MovementDirection::BACKWARD, deltaTime);
-    if (Input::getInstance().isKeyPressed(GLFW_KEY_A) || Input::getInstance().isKeyHeld(GLFW_KEY_A)) processKeyboard(MovementDirection::LEFT, deltaTime);
+    if (Input::getInstance().isKeyPressed(GLFW_KEY_W) || Input::getInstance().isKeyHeld(GLFW_KEY_W)) processKeyboard(MovementDirection::Forward, deltaTime);
+    if (Input::getInstance().isKeyPressed(GLFW_KEY_A) || Input::getInstance().isKeyHeld(GLFW_KEY_A)) processKeyboard(MovementDirection::Left, deltaTime);
+    if (Input::getInstance().isKeyPressed(GLFW_KEY_S) || Input::getInstance().isKeyHeld(GLFW_KEY_S)) processKeyboard(MovementDirection::Backward, deltaTime);
+    if (Input::getInstance().isKeyPressed(GLFW_KEY_D) || Input::getInstance().isKeyHeld(GLFW_KEY_D)) processKeyboard(MovementDirection::Right, deltaTime);
 }
 
 void Camera::processKeyboard(MovementDirection direction, f32 deltaTime)
 {
     float velocity = m_speed * deltaTime;
-    if (direction == MovementDirection::FORWARD)
+    if (direction == MovementDirection::Forward)
         m_position += m_front * velocity;
-    if (direction == MovementDirection::BACKWARD)
+    if (direction == MovementDirection::Backward)
         m_position -= m_front * velocity;
-    if (direction == MovementDirection::LEFT)
+    if (direction == MovementDirection::Left)
         m_position -= m_right * velocity;
-    if (direction == MovementDirection::RIGHT)
+    if (direction == MovementDirection::Right)
         m_position += m_right * velocity;
 }
 

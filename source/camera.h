@@ -22,10 +22,10 @@ class Camera
     private:
         enum class MovementDirection
         {
-            FORWARD,
-            BACKWARD,
-            LEFT,
-            RIGHT
+            Forward,
+            Backward,
+            Left,
+            Right
         };
 
         glm::vec3 m_position {0.0f, 0.0f, 3.0f};

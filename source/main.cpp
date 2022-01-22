@@ -9,6 +9,7 @@
 #include "vertexarray.h"
 #include "texture.h"
 #include "input/input.h"
+#include "input/keys.h"
 #include "camera.h"
 #include "timer.h"
 
@@ -33,7 +34,6 @@ int main()
     std::cout << sizeof(size_t) << std::endl;
     std::cout << std::is_signed<size_t>::value << std::endl;
 
-
     Window window = Window{ 800, 600, "Window" };
     Renderer renderer;
     Camera camera;
@@ -57,8 +57,8 @@ int main()
 
     renderer.setClearColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
 
-    auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::FRAGMENT, "../resources/shaders/shader.frag")
-                                                .with(ShaderStage::VERETX, "../resources/shaders/shader.vert")
+    auto shaderProgram = ShaderProgramBuilder{}.with(ShaderStage::Vertex, "../resources/shaders/shader.vert")
+                                                .with(ShaderStage::Fragment, "../resources/shaders/shader.frag")
                                                 .build()
                                                 .value();
 

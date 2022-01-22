@@ -24,6 +24,8 @@ add_executable(${PROJECT_NAME}
     
     source/defines.h
     source/input/input.h
+    source/input/keys.h
+    source/input/keys.cpp
     source/utils.h
     source/timer.h
     
