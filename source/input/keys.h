@@ -1,6 +1,10 @@
 #pragma once
 
+#include <iostream>
+
 #include "../defines.h"
+
+// TODO: Need to add symbol keys and all the other keys that are on my keyboard in the future! :)
 
 typedef enum class Keys : u8
 {
@@ -100,6 +104,11 @@ typedef enum class Keys : u8
 #define KEY_HOME Key::Home
 #define KEY_DELETE Key::Delete
 #define KEY_END Key::End
+
+#define KEY_UP Key::Up
+#define KEY_DOWN Key::Down
+#define KEY_LEFT Key::Left
+#define KEY_RIGHT Key::Right
 
 #define KEY_0 Key::AN0
 #define KEY_1 Key::AN1
