@@ -34,6 +34,8 @@ int main()
     std::cout << sizeof(size_t) << std::endl;
     std::cout << std::is_signed<size_t>::value << std::endl;
 
+    std::cout << KEY_A << std::endl;
+
     Window window = Window{ 800, 600, "Window" };
     Renderer renderer;
     Camera camera;

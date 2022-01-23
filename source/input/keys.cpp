@@ -1,6 +1,6 @@
 #include "keys.h"
 
-std::ostream& operator <<(std::ostream& os, Key key)
+std::ostream& operator<<(std::ostream& os, Key key)
 {
     switch (key)
     {

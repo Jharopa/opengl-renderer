@@ -4,9 +4,10 @@
 
 #include "../defines.h"
 
-// TODO: Need to add symbol keys and all the other keys that are on my keyboard in the future! :)
+// TODO: Need to add symbol keys and all the other keys that are on my keyboard in the future!
+// TODO: Change enum back to enum class and create a helper to do the explicit conversion to under lying type for overloaded << operator
 
-typedef enum class Keys : u8
+typedef enum Keys : u8
 {
     // Uknown key
     Unknown = 0x00,
