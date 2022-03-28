@@ -8,7 +8,7 @@
 #include <functional>
 
 // Renderer includes
-#include "defines.h"
+#include "../defines.h"
 
 // Reference and adapted from 
 // https://github.com/htmlboss/OpenGL-Renderer/blob/master/MP-APS/Input.h

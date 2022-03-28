@@ -3,7 +3,7 @@
 
 // Renderer includes
 #include "defines.h"
-#include "window.h"
+#include "window/window.h"
 #include "renderer.h"
 #include "shaderprogram.h"
 #include "vertexarray.h"
@@ -34,7 +34,10 @@ int main()
     std::cout << sizeof(size_t) << std::endl;
     std::cout << std::is_signed<size_t>::value << std::endl;
 
-    std::cout << KEY_A << std::endl;
+    std::cout << static_cast<u8>(KEY_A) << std::endl;
+
+    std::string macroString = OGR_STRINGIZE(OGR_BIT);
+    std::cout << macroString << std::endl;
 
     Window window = Window{ 800, 600, "Window" };
     Renderer renderer;

@@ -6,8 +6,8 @@
 #include <memory>
 
 // Renderer includes
-#include "defines.h"
-#include "context.h"
+#include "../defines.h"
+#include "../context.h"
 
 class Window
 {    
