@@ -5,6 +5,8 @@ project(opengl-renderer)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${PROJECT_NAME} 
+    ${PROJECT_SOURCE_DIR}/external/stb_image
+
     ${PROJECT_SOURCE_DIR}/source
     ${PROJECT_SOURCE_DIR}/source/utils
     ${PROJECT_SOURCE_DIR}/source/events
@@ -12,15 +14,24 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/platform
     ${PROJECT_SOURCE_DIR}/source/platform/platformwin32
     ${PROJECT_SOURCE_DIR}/source/platform/platformlinux
+    ${PROJECT_SOURCE_DIR}/source/platform/renderer
 )
 
 add_executable(${PROJECT_NAME} 
+    external/stb_image/stb_image.cpp
+    
     source/pch.cpp
     source/main.cpp
     source/application.cpp
     source/window.cpp
     source/input/keys.cpp
     source/platform/platformwin32/windowwin32.cpp
+    source/renderer/camera.cpp
+    source/renderer/context.cpp
+    source/renderer/renderer.cpp
+    source/renderer/shaderprogram.cpp
+    source/renderer/texture.cpp
+    source/renderer/vertexarray.cpp
 )
 
 # PCH

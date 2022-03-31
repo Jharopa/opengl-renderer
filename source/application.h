@@ -6,6 +6,7 @@
 #include "window.h"
 #include "input/input.h"
 #include "events/event.h"
+#include "renderer/renderer.h"
 
 class Application : public Singleton<Application>
 {
