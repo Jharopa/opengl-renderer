@@ -1,12 +1,12 @@
 #pragma once
 
-#include <iostream>
+#include "defines.h"
 
-#include "../defines.h"
+#include <ostream>
 
 // TODO: Need to add symbol keys and all the other keys that are on my keyboard in the future!
 
-enum class Key : u8
+typedef enum class Keys : u8
 {
     // Uknown key
     Unknown = 0x00,
@@ -88,7 +88,7 @@ enum class Key : u8
 
     // Maximum value of keys enum (used for setting array size)
     Max
-};
+} Key;
 
 #define KEY_UNKNOWN Key::Unknown
 
@@ -162,3 +162,5 @@ enum class Key : u8
 #define KEY_F12 Key::F12
 
 #define KEY_MAX Key::Max
+
+std::ostream& operator<<(std::ostream& os, Key key);

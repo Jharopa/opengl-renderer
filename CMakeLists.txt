@@ -4,40 +4,36 @@ project(opengl-renderer)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(${PROJECT_NAME} 
-    source/main.cpp
-    
-    source/window/window.h
-    source/window/window.cpp
-    source/context.h
-    source/context.cpp
-    source/renderer.h
-    source/renderer.cpp
-    source/shaderprogram.h
-    source/shaderprogram.cpp
-    source/vertexarray.h
-    source/vertexarray.cpp
-    source/texture.h
-    source/texture.cpp
-    source/camera.h
-    source/camera.cpp
-    
-    source/defines.h
-    source/input/input.h
-    source/input/keys.h
-    source/input/keys.cpp
-    source/utils.h
-    source/timer.h
-    
-    external/stb_image/stb_image.h
-    external/stb_image/stb_image.cpp
+include_directories(${PROJECT_NAME} 
+    ${PROJECT_SOURCE_DIR}/source
+    ${PROJECT_SOURCE_DIR}/source/utils
+    ${PROJECT_SOURCE_DIR}/source/events
+    ${PROJECT_SOURCE_DIR}/source/input
+    ${PROJECT_SOURCE_DIR}/source/platform
+    ${PROJECT_SOURCE_DIR}/source/platform/platformwin32
+    ${PROJECT_SOURCE_DIR}/source/platform/platformlinux
 )
 
-#GLAD
+add_executable(${PROJECT_NAME} 
+    source/pch.cpp
+    source/main.cpp
+    source/application.cpp
+    source/window.cpp
+    source/input/keys.cpp
+    source/platform/platformwin32/windowwin32.cpp
+)
+
+# PCH
+target_precompile_headers(${PROJECT_NAME} 
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/source/pch.h
+)
+
+# GLAD
 add_subdirectory(external/glad)
 target_link_libraries(${PROJECT_NAME} glad)
 
-#GLFW
+# GLFW
 add_subdirectory(external/glfw)
 
 set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
@@ -48,6 +44,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC external/glfw/include)
 target_link_directories(${PROJECT_NAME} PUBLIC external/glfw/src)
 target_link_libraries(${PROJECT_NAME} glfw)
 
-#GLM
+# GLM
 add_subdirectory(external/glm)
 target_link_libraries(${PROJECT_NAME} glm)

@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include "keys.h"
 
 std::ostream& operator<<(std::ostream& os, Key key)

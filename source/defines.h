@@ -1,6 +1,8 @@
 #pragma once
 
-// Primative typedefs
+#ifdef _WIN32
+    #define PLATFORM_WINDOWS
+#endif
 
 // Unsinged integer types
 typedef unsigned char u8;
@@ -35,3 +37,4 @@ typedef int b32;
 
 // Sets the n-th bit for bit masking
 #define OGR_BIT(n) (1ull << (n))
+
