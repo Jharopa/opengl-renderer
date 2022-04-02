@@ -2,9 +2,6 @@
 
 // Renderer includes
 #include "window.h"
-#include "utils/utils.h"
-#include "input/input.h"
-#include "application.h"
 
 class WindowWin32 : public Window
 {

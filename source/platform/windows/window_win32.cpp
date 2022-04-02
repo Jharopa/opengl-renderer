@@ -1,6 +1,10 @@
 #include "pch.h"
 
-#include "windowwin32.h"
+#include "window_win32.h"
+
+#include "utils/utils.h"
+#include "input/input.h"
+#include "application.h"
 
 // Win32 window event/input procedure callback function
 LRESULT CALLBACK wndPrc(HWND hWND, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -89,6 +93,12 @@ WindowWin32::WindowWin32(const u32& width, const u32& height, const std::string&
 
     ShowWindow(m_hWND, SW_SHOW);
     UpdateWindow(m_hWND);
+
+    HDC hDC = GetDC(static_cast<HWND>(getWindow()));
+
+    HGLRC winRC = wglCreateContext(hDC);
+
+    //if(!wglMakeCurrent(hDC, winRC)) { std::cout << "Failed to create OpenGL context!"; }
 }
 
 WindowWin32::~WindowWin32()

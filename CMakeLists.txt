@@ -12,8 +12,8 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/events
     ${PROJECT_SOURCE_DIR}/source/input
     ${PROJECT_SOURCE_DIR}/source/platform
-    ${PROJECT_SOURCE_DIR}/source/platform/platformwin32
-    ${PROJECT_SOURCE_DIR}/source/platform/platformlinux
+    ${PROJECT_SOURCE_DIR}/source/platform/windows
+    ${PROJECT_SOURCE_DIR}/source/platform/linux
     ${PROJECT_SOURCE_DIR}/source/platform/renderer
 )
 
@@ -25,7 +25,7 @@ add_executable(${PROJECT_NAME}
     source/application.cpp
     source/window.cpp
     source/input/keys.cpp
-    source/platform/platformwin32/windowwin32.cpp
+    source/platform/windows/window_win32.cpp
     source/renderer/camera.cpp
     source/renderer/context.cpp
     source/renderer/renderer.cpp
@@ -42,6 +42,9 @@ target_precompile_headers(${PROJECT_NAME}
 
 # GLAD
 add_subdirectory(external/glad)
+
+set(GLAD_ALL_EXTENSIONS ON CACHE BOOL "" FORCE)
+
 target_link_libraries(${PROJECT_NAME} glad)
 
 # GLFW

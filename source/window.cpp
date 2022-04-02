@@ -2,7 +2,7 @@
 #include "window.h"
 
 #ifdef PLATFORM_WINDOWS
-    #include "platform/platformwin32/windowwin32.h"
+    #include "platform/windows/window_win32.h"
 #endif
 
 std::shared_ptr<Window> Window::init(const u32& width, const u32& height, const std::string& title)
