@@ -8,5 +8,5 @@
 	path = external/stb_image
 	url = https://github.com/Jharopa/stb_image.git
 [submodule "external/glad"]
-	path = glad
-	url = https://github.com/Jharopa/glad
+	path = external/glad
+	url = https://github.com/Jharopa/glad.git
