@@ -27,14 +27,14 @@ typedef int b32;
 // Preprocessor utilites
 
 // Concatenates two tokens/macros
-#define OGR_CONCAT(x, y) OGR_CONCAT_H1(x, y)
-#define OGR_CONCAT_H1(x, y) OGR_CONCAT_H2(x, y)
-#define OGR_CONCAT_H2(x, y) x##y
+#define OGLR_CONCAT(x, y) OGR_CONCAT_H1(x, y)
+#define OGLR_CONCAT_H1(x, y) OGR_CONCAT_H2(x, y)
+#define OGLR_CONCAT_H2(x, y) x##y
 
 // Converts tokens/macros to string
-#define OGR_STRINGIZE(str) OGR_STRINGIZE_H(str)
-#define OGR_STRINGIZE_H(str) #str
+#define OGLR_STRINGIZE(str) OGR_STRINGIZE_H(str)
+#define OGLR_STRINGIZE_H(str) #str
 
 // Sets the n-th bit for bit masking
-#define OGR_BIT(n) (1ull << (n))
+#define OGLR_BIT(n) (1ull << (n))
 
