@@ -39,5 +39,10 @@ class Window
 
         [[nodiscard]] GLFWwindow* getWindow() const noexcept { return m_window; }
 
+        void setWidth(u32 width) { m_width = width; }
+        void setHeight(u32 height) { m_height = height; }
+
+        void closeWindow() { m_shouldClose = true; }
+
         void setEventCallback(const std::function<void(Event&)>& callback) { fn_eventCallback = callback; }
 };

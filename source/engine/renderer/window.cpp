@@ -25,6 +25,25 @@ Window::Window(u32 width, u32 height, const std::string title)
     }
 
     m_context = std::make_shared<Context>(m_window);
+
+    glfwSetWindowUserPointer(m_window, this);
+
+    glfwSetWindowCloseCallback(m_window, [](GLFWwindow* window)
+    {
+        Window& handle = *static_cast<Window*>((glfwGetWindowUserPointer(window)));
+        handle.closeWindow();
+    });
+
+    glfwSetWindowSizeCallback(m_window, [](GLFWwindow* window, i32 width, i32 height)
+    {
+        Window& handle = *static_cast<Window*>((glfwGetWindowUserPointer(window)));
+
+        i32 w, h;
+        glfwGetFramebufferSize(window, &w, &h);
+
+        handle.setWidth((u32)w);
+        handle.setHeight((u32)h);
+    });
 }
 
 Window::~Window()
