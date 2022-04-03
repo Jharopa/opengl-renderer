@@ -3,10 +3,13 @@
 // Renderer includes
 #include "defines.h"
 #include "singleton.h"
-#include "window.h"
 #include "input/input.h"
 #include "events/event.h"
 #include "renderer/renderer.h"
+#include "renderer/window.h"
+
+// GLM includes
+#include <glm/glm.hpp>
 
 class Application : public Singleton<Application>
 {

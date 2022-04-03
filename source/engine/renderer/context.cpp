@@ -1,13 +1,14 @@
 #include "context.h"
 
-#include "pch.h"
+#include <iostream>
 
 Context::Context(GLFWwindow* window) 
     : m_window(window) 
 {
     glfwMakeContextCurrent(m_window);
 
-    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) 
+    {
 		std::cerr << "Failed to start GLAD!";
 		std::abort();
 	}

@@ -7,37 +7,26 @@ set(CMAKE_CXX_STANDARD 17)
 include_directories(${PROJECT_NAME} 
     ${PROJECT_SOURCE_DIR}/external/stb_image
 
-    ${PROJECT_SOURCE_DIR}/source
-    ${PROJECT_SOURCE_DIR}/source/utils
-    ${PROJECT_SOURCE_DIR}/source/events
-    ${PROJECT_SOURCE_DIR}/source/input
-    ${PROJECT_SOURCE_DIR}/source/platform
-    ${PROJECT_SOURCE_DIR}/source/platform/windows
-    ${PROJECT_SOURCE_DIR}/source/platform/linux
-    ${PROJECT_SOURCE_DIR}/source/platform/renderer
+    ${PROJECT_SOURCE_DIR}/source/engine/
+    ${PROJECT_SOURCE_DIR}/source/engine/events
+    ${PROJECT_SOURCE_DIR}/source/engine/input
+    ${PROJECT_SOURCE_DIR}/source/engine/renderer
+    ${PROJECT_SOURCE_DIR}/source/engine/utils
 )
 
 add_executable(${PROJECT_NAME} 
     external/stb_image/stb_image.cpp
     
-    source/pch.cpp
-    source/main.cpp
-    source/application.cpp
-    source/window.cpp
-    source/input/keys.cpp
-    source/platform/windows/window_win32.cpp
-    source/renderer/camera.cpp
-    source/renderer/context.cpp
-    source/renderer/renderer.cpp
-    source/renderer/shaderprogram.cpp
-    source/renderer/texture.cpp
-    source/renderer/vertexarray.cpp
-)
-
-# PCH
-target_precompile_headers(${PROJECT_NAME} 
-    PRIVATE
-        ${PROJECT_SOURCE_DIR}/source/pch.h
+    source/engine/main.cpp
+    source/engine/application.cpp
+    source/engine/input/keys.cpp
+    source/engine/renderer/camera.cpp
+    source/engine/renderer/context.cpp
+    source/engine/renderer/renderer.cpp
+    source/engine/renderer/shaderprogram.cpp
+    source/engine/renderer/texture.cpp
+    source/engine/renderer/vertexarray.cpp
+    source/engine/renderer/window.cpp
 )
 
 # GLAD

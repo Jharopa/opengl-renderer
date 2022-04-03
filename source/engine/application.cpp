@@ -1,10 +1,10 @@
-#include "pch.h"
-
 #include "application.h"
+
+#include <iostream>
 
 void Application::init()
 {
-    m_window = Window::init(800, 600, "Application");
+    m_window = std::make_shared<Window>(800, 600, "Application");
     m_window->setEventCallback(BIND_EVENT_FN(Application::onEvent));
 }
 

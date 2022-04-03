@@ -1,6 +1,6 @@
 #include "texture.h"
 
-#include "pch.h"
+#include <iostream>
 
 Texture::Texture(const std::string& path, const b8 enableMipmaps)
     : m_id(0)

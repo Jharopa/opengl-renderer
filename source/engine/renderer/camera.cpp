@@ -1,7 +1,5 @@
 #include "camera.h"
 
-#include "pch.h"
-
 Camera::Camera()
 {
     updateVectors();

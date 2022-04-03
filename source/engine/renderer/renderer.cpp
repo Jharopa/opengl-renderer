@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-#include "pch.h"
+#include <iostream>
 
 void openGLMessageCallback(GLenum source, GLenum type, u32 id, GLenum severity, i32 length, const GLchar* message, const void* userParam)
 {

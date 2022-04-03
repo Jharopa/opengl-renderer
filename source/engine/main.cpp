@@ -1,5 +1,3 @@
-#include "pch.h"
-
 #include "application.h"
 
 int main()
