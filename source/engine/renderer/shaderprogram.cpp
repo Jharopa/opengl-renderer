@@ -1,6 +1,6 @@
 #include "shaderprogram.h"
 
-#include <iostream>
+#include "log.h"
 
 // SHADER PROGRAM //
 
@@ -91,7 +91,7 @@ ShaderProgramBuilder& ShaderProgramBuilder::with(ShaderStage stage, std::string 
 {
     if(m_shaderStages.find(stage) != m_shaderStages.end())
     {
-        std::cerr << "Shader Program Builder doesn't support duplicate shader stage types!" << std::endl;
+        OGLR_ERROR("Shader Program Builder doesn't support duplicate shader stage types!");
         std::abort();
     }
 
@@ -117,7 +117,7 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
             {
                 glDeleteShader(id);
             }
-
+            
             return std::nullopt;
         }
     }

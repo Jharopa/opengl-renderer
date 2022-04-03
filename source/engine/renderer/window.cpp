@@ -1,13 +1,13 @@
 #include "window.h"
 
-#include <iostream>
+#include "log.h"
 
 Window::Window(u32 width, u32 height, const std::string title) 
     : m_width(width), m_height(height), m_title(title)
 {
     if(!glfwInit())
     {
-        std::cout << "Failed to initialize GLFW!" << std::endl;
+        OGLR_FATAL("Failed to initialize GLFW window!");
         std::abort();
     }
 
@@ -19,7 +19,7 @@ Window::Window(u32 width, u32 height, const std::string title)
 
     if (m_window == NULL)
     {
-        std::cout << "Failed to create GLFW window!" << std::endl;
+        OGLR_FATAL("Failed to create GLFW window!");
         glfwTerminate();
         std::abort();
     }

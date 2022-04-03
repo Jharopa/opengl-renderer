@@ -1,7 +1,5 @@
 #include "application.h"
 
-#include <iostream>
-
 void Application::init()
 {
     m_window = std::make_shared<Window>(800, 600, "Application");

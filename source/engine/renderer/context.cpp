@@ -1,6 +1,6 @@
 #include "context.h"
 
-#include <iostream>
+#include "log.h"
 
 Context::Context(GLFWwindow* window) 
     : m_window(window) 
@@ -9,7 +9,7 @@ Context::Context(GLFWwindow* window)
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) 
     {
-		std::cerr << "Failed to start GLAD!";
+		OGLR_FATAL("Failed to load GLAD!");
 		std::abort();
 	}
 

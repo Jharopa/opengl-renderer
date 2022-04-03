@@ -4,6 +4,7 @@
 
 #include "defines.h"
 #include "singleton.h"
+#include "utils.h"
 
 enum class Level : u8
 {
@@ -17,7 +18,7 @@ enum class Level : u8
 class Logger : public Singleton<Logger>
 {
     public:
-        static void log(Level level, std::string message)
+        void log(Level level, std::string message)
         {
             std::string level_string[5] = {"[DEBUG]: ", "[INFO]: ", "[WARN]: ", "[ERROR]: ", "[FATAL]: "};
 
