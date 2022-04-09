@@ -8,7 +8,7 @@ Window::Window(u32 width, u32 height, const std::string title)
     if(!glfwInit())
     {
         OGLR_FATAL("Failed to initialize GLFW window!");
-        std::abort();
+        std::terminate();
     }
 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -21,7 +21,7 @@ Window::Window(u32 width, u32 height, const std::string title)
     {
         OGLR_FATAL("Failed to create GLFW window!");
         glfwTerminate();
-        std::abort();
+        std::terminate();
     }
 
     m_context = std::make_shared<Context>(m_window);

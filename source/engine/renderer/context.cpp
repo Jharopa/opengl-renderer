@@ -13,7 +13,7 @@ Context::Context(GLFWwindow* window)
 		std::abort();
 	}
 
-    std::cout << "OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+    OGLR_INFO("OpenGL version {}", (const char*)(glGetString(GL_VERSION)));
 }
 
 Context::~Context() {}

@@ -21,19 +21,24 @@ enum class Level : u8
 class Logger : public Singleton<Logger>
 {
     public:
-        void log(Level level, std::string message)
+        template <typename... Args>
+        void log(Level level, std::string message, Args... args)
         {
             std::time_t t = std::time(nullptr);
 
-            std::string level_prefix[enumCast(Level::Max)] = {"[DEBUG] ", "[INFO] ", "[WARN] ", "[ERROR] ", "[FATAL] "};
-            fmt::color level_text_color[enumCast(Level::Max)] = {fmt::color::beige, fmt::color::blue, fmt::color::yellow, fmt::color::orange_red, fmt::color::red}; 
+            std::string finalFormat = m_prefixTimestampFormat + message + "\n";
 
-            fmt::print(fg(level_text_color[enumCast(level)]), "{} {:%Y-%m-%d %H:%M:%S}: {}\n", level_prefix[enumCast(level)], fmt::localtime(t), message);
+            fmt::print(fg(m_levelTextColor[enumCast(level)]), finalFormat, m_levelPrefix[enumCast(level)], fmt::localtime(t), args...);
         }
+
+    private:
+        const std::string m_levelPrefix[enumCast(Level::Max)] = {"[DEBUG] ", "[INFO] ", "[WARN] ", "[ERROR] ", "[FATAL] "};
+        const fmt::color m_levelTextColor[enumCast(Level::Max)] = {fmt::color::beige, fmt::color::blue, fmt::color::yellow, fmt::color::orange, fmt::color::red};
+        const std::string m_prefixTimestampFormat = "{}{:%Y-%m-%d %H:%M:%S}: ";
 };
 
-#define OGLR_DEBUG(msg) Logger::getInstance().log(Level::Debug, msg)
-#define OGLR_INFO(msg) Logger::getInstance().log(Level::Info, msg)
-#define OGLR_WARN(msg) Logger::getInstance().log(Level::Warning, msg)
-#define OGLR_ERROR(msg) Logger::getInstance().log(Level::Error, msg)
-#define OGLR_FATAL(msg) Logger::getInstance().log(Level::Fatal, msg)
+#define OGLR_DEBUG(msg, ...) Logger::getInstance().log(Level::Debug, msg, __VA_ARGS__)
+#define OGLR_INFO(msg, ...) Logger::getInstance().log(Level::Info, msg, __VA_ARGS__)
+#define OGLR_WARN(msg, ...) Logger::getInstance().log(Level::Warning, msg, __VA_ARGS__)
+#define OGLR_ERROR(msg, ...) Logger::getInstance().log(Level::Error, msg, __VA_ARGS__)
+#define OGLR_FATAL(msg, ...) Logger::getInstance().log(Level::Fatal, msg, __VA_ARGS__)
