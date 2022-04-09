@@ -22,18 +22,25 @@ class Logger : public Singleton<Logger>
 {
     public:
         template <typename... Args>
-        void log(Level level, std::string message, Args... args)
+        void log(Level level, const std::string& message, Args... args)
         {
             std::time_t t = std::time(nullptr);
 
             std::string finalFormat = m_prefixTimestampFormat + message + "\n";
 
-            fmt::print(fg(m_levelTextColor[enumCast(level)]), finalFormat, m_levelPrefix[enumCast(level)], fmt::localtime(t), args...);
+            if(level == Level::Fatal)
+            {
+                fmt::print(stderr, fg(m_levelTextColor[enumCast(level)]), finalFormat, m_levelPrefix[enumCast(level)], fmt::localtime(t), args...);
+            }
+            else
+            {
+                fmt::print(fg(m_levelTextColor[enumCast(level)]), finalFormat, m_levelPrefix[enumCast(level)], fmt::localtime(t), args...);
+            }
         }
 
     private:
         const std::string m_levelPrefix[enumCast(Level::Max)] = {"[DEBUG] ", "[INFO] ", "[WARN] ", "[ERROR] ", "[FATAL] "};
-        const fmt::color m_levelTextColor[enumCast(Level::Max)] = {fmt::color::beige, fmt::color::blue, fmt::color::yellow, fmt::color::orange, fmt::color::red};
+        const fmt::color m_levelTextColor[enumCast(Level::Max)] = {fmt::color::beige, fmt::color::dodger_blue, fmt::color::yellow, fmt::color::orange, fmt::color::red};
         const std::string m_prefixTimestampFormat = "{}{:%Y-%m-%d %H:%M:%S}: ";
 };
 

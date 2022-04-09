@@ -1,22 +1,26 @@
 #include "renderer.h"
 
-#include <iostream>
+#include "log.h"
 
 void openGLMessageCallback(GLenum source, GLenum type, u32 id, GLenum severity, i32 length, const GLchar* message, const void* userParam)
 {
 	switch (severity)
 	{
 		case GL_DEBUG_SEVERITY_HIGH:
-            std::cout << "[OPENGL CRITICAL] " << id << " " << message << std::endl; return;
+            OGLR_FATAL("{} {} - {}","[OPENGL FATAL]", id, message);
+            return;
 		case GL_DEBUG_SEVERITY_MEDIUM:
-            std::cout << "[OPENGL ERROR] " << id << " " << message << std::endl; return;
+            OGLR_ERROR("{} {} - {}","[OPENGL ERROR]", id, message);
+            return;
 		case GL_DEBUG_SEVERITY_LOW:
-            std::cout << "[OPENGL WARNING] " << id << " " << message << std::endl; return;
+            OGLR_WARN("{} {} - {}","[OPENGL WARNING]", id, message);
+            return;
 		case GL_DEBUG_SEVERITY_NOTIFICATION:
-            std::cout << "[OPENGL INFO] " << id << " " << message << std::endl; return;
+            OGLR_INFO("{} {} - {}","[OPENGL INFO]", id, message);
+            return;
 	}
 
-    std::cout << "[ERROR] Unrecognized OpenGL message severity level!" << std::endl;
+    OGLR_ERROR("Unrecognized OpenGL message severity level!");
 }
 
 Renderer::Renderer()

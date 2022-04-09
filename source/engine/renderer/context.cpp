@@ -10,10 +10,12 @@ Context::Context(GLFWwindow* window)
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) 
     {
 		OGLR_FATAL("Failed to load GLAD!");
-		std::abort();
+		std::terminate();
 	}
 
-    OGLR_INFO("OpenGL version {}", (const char*)(glGetString(GL_VERSION)));
+    OGLR_INFO("OpenGL version/driver {}", (const char*)(glGetString(GL_VERSION)));
+    OGLR_INFO("OpenGL vendor {}", (const char*)(glGetString(GL_VENDOR)));
+    OGLR_INFO("OpenGL device {}", (const char*)(glGetString(GL_RENDERER)));
 }
 
 Context::~Context() {}
