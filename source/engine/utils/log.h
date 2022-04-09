@@ -1,6 +1,8 @@
 #pragma once
 
-#include <iostream>
+#include <fmt/core.h>
+#include <fmt/color.h>
+#include <fmt/chrono.h>
 
 #include "defines.h"
 #include "singleton.h"
@@ -12,7 +14,8 @@ enum class Level : u8
     Info = 1,
     Warning = 2,
     Error = 3,
-    Fatal = 4
+    Fatal = 4,
+    Max
 };
 
 class Logger : public Singleton<Logger>
@@ -20,9 +23,12 @@ class Logger : public Singleton<Logger>
     public:
         void log(Level level, std::string message)
         {
-            std::string level_string[5] = {"[DEBUG]: ", "[INFO]: ", "[WARN]: ", "[ERROR]: ", "[FATAL]: "};
+            std::time_t t = std::time(nullptr);
 
-            std::cout << level_string[enumCast(level)] << message << std::endl;
+            std::string level_prefix[enumCast(Level::Max)] = {"[DEBUG] ", "[INFO] ", "[WARN] ", "[ERROR] ", "[FATAL] "};
+            fmt::color level_text_color[enumCast(Level::Max)] = {fmt::color::beige, fmt::color::blue, fmt::color::yellow, fmt::color::orange_red, fmt::color::red}; 
+
+            fmt::print(fg(level_text_color[enumCast(level)]), "{} {:%Y-%m-%d %H:%M:%S}: {}\n", level_prefix[enumCast(level)], fmt::localtime(t), message);
         }
 };
 

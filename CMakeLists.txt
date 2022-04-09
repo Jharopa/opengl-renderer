@@ -50,3 +50,7 @@ target_link_libraries(${PROJECT_NAME} glfw)
 # GLM
 add_subdirectory(external/glm)
 target_link_libraries(${PROJECT_NAME} glm)
+
+# FMT
+add_subdirectory(external/fmt)
+target_link_libraries(${PROJECT_NAME} fmt::fmt)
