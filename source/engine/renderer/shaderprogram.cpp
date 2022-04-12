@@ -148,6 +148,8 @@ std::optional<ShaderProgram> ShaderProgramBuilder::build()
         glDeleteShader(shaderID);
     }
 
+    OGLR_INFO("Shader program {} successfully created", programID);
+
     return std::make_optional<ShaderProgram>(programID);
 }
 

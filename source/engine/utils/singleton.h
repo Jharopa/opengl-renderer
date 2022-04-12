@@ -6,7 +6,7 @@ class Singleton
     protected:
         static T* m_instance;
 
-    public:    
+    public:
         static T& getInstance()
         {
             if(!m_instance)

@@ -30,8 +30,6 @@ Renderer::Renderer()
 	glDebugMessageCallback(openGLMessageCallback, nullptr);
 		
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
-
-    glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer(){}
@@ -43,10 +41,15 @@ void Renderer::setClearColor(const glm::vec4& color)
 
 void Renderer::clear()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void Renderer::drawArrays(GLenum mode, i32 first, i32 count)
 {
     glDrawArrays(mode, first, count);
+}
+
+void Renderer::drawIndices(GLenum mode, i32 count)
+{
+    glDrawElements(mode, count, GL_UNSIGNED_INT, 0);
 }

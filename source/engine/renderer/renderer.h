@@ -22,4 +22,5 @@ class Renderer
         void clear();
 
         void drawArrays(GLenum mode, i32 first, i32 count);
+        void drawIndices(GLenum mode, i32 count);
 };

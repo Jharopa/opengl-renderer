@@ -47,6 +47,13 @@ class ShaderProgram
 		    other.m_uniformCache.clear();
 	    }
 
+        ShaderProgram& operator=(ShaderProgram other) {
+		    std::swap(m_uniformCache, other.m_uniformCache);
+		    std::swap(m_id, other.m_id);
+            
+		    return *this;
+	    }
+
         void bind() const;
         void unbind() const;
 
