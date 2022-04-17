@@ -15,75 +15,77 @@
 
 // Renderer includes
 #include "defines.h"
-#include "utils.h"
+#include "utilities/utils.h"
 
 // Referenced and Adapted from:
 // https://github.com/htmlboss/OpenGL-Renderer/tree/master/MP-APS/Graphics
 // https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Platform/OpenGL
-
-enum ShaderStage
+namespace Shader
 {
-    Vertex = GL_VERTEX_SHADER,
-    Fragment = GL_FRAGMENT_SHADER,
-    Geometry = GL_GEOMETRY_SHADER
-};
+    enum ShaderStage
+    {
+        Vertex = GL_VERTEX_SHADER,
+        Fragment = GL_FRAGMENT_SHADER,
+        Geometry = GL_GEOMETRY_SHADER
+    };
 
-class ShaderProgram
-{
-    private:
-        u32 m_id;
-        std::unordered_map<std::string, u32> m_uniformCache;
+    class ShaderProgram
+    {
+        private:
+            u32 m_id;
+            std::unordered_map<std::string, u32> m_uniformCache;
 
-    public:
-        ShaderProgram(const u32 id);
-        ~ShaderProgram();
+        public:
+            ShaderProgram(const u32 id);
+            ~ShaderProgram();
 
-        ShaderProgram(ShaderProgram&& other) 
-        {
-		    m_uniformCache = other.m_uniformCache;
-		    m_id = other.m_id;
+            ShaderProgram(ShaderProgram&& other) 
+            {
+    		    m_uniformCache = other.m_uniformCache;
+    		    m_id = other.m_id;
 
-		    other.m_id = 0;
-		    other.m_uniformCache.clear();
-	    }
+    		    other.m_id = 0;
+    		    other.m_uniformCache.clear();
+    	    }
 
-        ShaderProgram& operator=(ShaderProgram other) {
-		    std::swap(m_uniformCache, other.m_uniformCache);
-		    std::swap(m_id, other.m_id);
-            
-		    return *this;
-	    }
+            ShaderProgram& operator=(ShaderProgram other) {
+    		    std::swap(m_uniformCache, other.m_uniformCache);
+    		    std::swap(m_id, other.m_id);
 
-        void bind() const;
-        void unbind() const;
+    		    return *this;
+    	    }
 
-        void setUniform(const std::string& name, const i32 value);
-        void setUniform(const std::string& name, const f32 value);
-        void setUniform(const std::string& name, const glm::vec2& vector);
-        void setUniform(const std::string& name, const glm::vec3& vector);
-        void setUniform(const std::string& name, const glm::vec4& vector);
-        void setUniform(const std::string& name, const glm::mat4x4& matrix);
+            void bind() const;
+            void unbind() const;
 
-    private:
-        void cacheUniforms();
-        i32 getUniformLocation(const std::string& name);
-};
+            void setUniform(const std::string& name, const i32 value);
+            void setUniform(const std::string& name, const f32 value);
+            void setUniform(const std::string& name, const glm::vec2& vector);
+            void setUniform(const std::string& name, const glm::vec3& vector);
+            void setUniform(const std::string& name, const glm::vec4& vector);
+            void setUniform(const std::string& name, const glm::mat4x4& matrix);
 
-// TODO: Is a builder going to be appropriate down the line when loading from config files?
+        private:
+            void cacheUniforms();
+            i32 getUniformLocation(const std::string& name);
+    };
 
-class ShaderProgramBuilder
-{
-    private:
-        std::unordered_map<ShaderStage, std::string> m_shaderStages;
+    // TODO: Is a builder going to be appropriate down the line when loading from config files?
 
-    public:
-        ShaderProgramBuilder& with(ShaderStage stage, std::string shaderPath);
-        std::optional<ShaderProgram> build();
+    class ShaderProgramBuilder
+    {
+        private:
+            std::unordered_map<ShaderStage, std::string> m_shaderStages;
 
-    private:
-        b8 compileStage(const u32 id, const std::string& shaderCode);
-        void compile(const u32 id, const i8* shaderCode);
+        public:
+            ShaderProgramBuilder& with(ShaderStage stage, std::string shaderPath);
+            std::optional<ShaderProgram> build();
 
-        b8 link(const u32 id);
-        b8 validate(const u32 id);
+        private:
+            b8 compileStage(const u32 id, const std::string& shaderCode);
+            void compile(const u32 id, const i8* shaderCode);
+
+            b8 link(const u32 id);
+            b8 validate(const u32 id);
+    };
 };

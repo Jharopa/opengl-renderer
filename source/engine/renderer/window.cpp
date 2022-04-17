@@ -43,6 +43,13 @@ Window::Window(u32 width, u32 height, const std::string title)
 
         handle.setWidth((u32)w);
         handle.setHeight((u32)h);
+
+        OGLR_DEBUG("Window resize: ({}, {})", w, h);
+    });
+
+    glfwSetFramebufferSizeCallback(m_window, [](GLFWwindow* window, i32 width, i32 height)
+    {
+        glViewport(0, 0, width, height);
     });
 }
 

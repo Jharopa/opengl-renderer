@@ -7,8 +7,8 @@
 // Renderer includes
 #include "defines.h"
 #include "input/keys.h"
-#include "utils/singleton.h"
-#include "utils/utils.h"
+#include "utilities/singleton.h"
+#include "utilities/utils.h"
 
 // Reference and adapted from 
 // https://github.com/htmlboss/OpenGL-Renderer/blob/master/MP-APS/Input.h

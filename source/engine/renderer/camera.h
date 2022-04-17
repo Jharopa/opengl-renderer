@@ -34,11 +34,9 @@ class Camera
         glm::vec3 m_right;
         glm::vec3 m_worldUp {0.0f, 1.0f, 0.0f};
         
-        const f32 m_near = 0.1f, m_far = 1000.0f;
-        const f32 m_FOV = 60.0f;
+        const f32 m_FOV = 60.0f, m_nearPlane = 0.1f, m_farPlane = 1000.0f;
 
-        f32 m_yaw = -90.0f;
-        f32 m_pitch = 0.0f;
+        f32 m_pitch = 0.0f, m_yaw = -90.0f;
 
         f32 m_speed = 2.5f;
 
@@ -51,7 +49,7 @@ class Camera
 
         void update(const f32 deltaTime);
 
-        [[nodiscard]] glm::mat4 getProjMatrix(const f32 width, const f32 height) const { return glm::perspective(glm::radians(m_FOV), width / height, m_near, m_far); }
+        [[nodiscard]] glm::mat4 getProjMatrix(const f32 width, const f32 height) const { return glm::perspective(glm::radians(m_FOV), width / height, m_nearPlane, m_farPlane); }
         [[nodiscard]] glm::mat4 getVeiwMatrix() const { return glm::lookAt(m_position, m_position + m_front, m_up); };
 
     private:

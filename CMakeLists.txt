@@ -11,7 +11,7 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/engine/events
     ${PROJECT_SOURCE_DIR}/source/engine/input
     ${PROJECT_SOURCE_DIR}/source/engine/renderer
-    ${PROJECT_SOURCE_DIR}/source/engine/utils
+    ${PROJECT_SOURCE_DIR}/source/engine/utilities
 )
 
 add_executable(${PROJECT_NAME} 
@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME}
     source/engine/input/keys.cpp
     source/engine/renderer/camera.cpp
     source/engine/renderer/context.cpp
+    source/engine/renderer/mesh.cpp
+    source/engine/renderer/model.cpp
     source/engine/renderer/renderer.cpp
     source/engine/renderer/shaderprogram.cpp
     source/engine/renderer/texture.cpp
@@ -54,3 +56,8 @@ target_link_libraries(${PROJECT_NAME} glm)
 # FMT
 add_subdirectory(external/fmt)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
+
+# ASSIMP
+include_directories(external/assimp)
+add_subdirectory(external/assimp)
+target_link_libraries(${PROJECT_NAME} assimp)
