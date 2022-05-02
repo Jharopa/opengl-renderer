@@ -108,7 +108,7 @@ namespace Shader
 
         for (std::pair<ShaderStage, std::string> shaderStage : m_shaderStages)
         {
-            u32 shaderID = glCreateShader(shaderStage.first);
+            u32 shaderID = glCreateShader(enumCast(shaderStage.first));
             shaderIDs.push_back(shaderID);
 
             std::string source = readFile(shaderStage.second);
@@ -167,7 +167,7 @@ namespace Shader
 
         if (!success)
         {
-            std::cout << infoLog << std::endl;
+            OGLR_ERROR("Shader program compilation failure: {}", infoLog);
         }
 
         return success;
@@ -190,7 +190,7 @@ namespace Shader
 
         if (!success)
         {
-            std::cout << infoLog << std::endl;
+            OGLR_ERROR("Shader program linkage failure: {}", infoLog);
         }
 
         return success;

@@ -26,15 +26,15 @@ typedef int b32;
 
 // Preprocessor utilites
 
-// Concatenates two tokens/macros
-#define OGLR_CONCAT(x, y) OGR_CONCAT_H1(x, y)
-#define OGLR_CONCAT_H1(x, y) OGR_CONCAT_H2(x, y)
-#define OGLR_CONCAT_H2(x, y) x##y
+// Concatenates two tokens
+#define OGLR_CONCAT(x, y) x##y
 
-// Converts tokens/macros to string
-#define OGLR_STRINGIZE(str) OGR_STRINGIZE_H(str)
-#define OGLR_STRINGIZE_H(str) #str
+// Converts token to string
+#define OGLR_STRINGIZE(str) #str
 
 // Sets the n-th bit for bit masking
 #define OGLR_BIT(n) (1ull << (n))
 
+// Marco Switches <-- This is bad >:(
+
+#define ASSERTIONS_ENABLED 1

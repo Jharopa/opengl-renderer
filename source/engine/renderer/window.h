@@ -18,7 +18,7 @@ class Window
         std::string m_title;
         u32 m_width, m_height;
 
-        b8 m_shouldClose = false;
+        b8 m_close = false;
 
         std::function<void(Event&)> fn_eventCallback;
 
@@ -35,14 +35,14 @@ class Window
         [[nodiscard]] u32 getWidth() const noexcept { return m_width; }
         [[nodiscard]] u32 getHeight() const noexcept { return m_height; };
 
-        [[nodiscard]] b8 shouldClose() const noexcept { return m_shouldClose; };
+        [[nodiscard]] b8 shouldWindowClose() const noexcept { return m_close; };
 
         [[nodiscard]] GLFWwindow* getWindow() const noexcept { return m_window; }
 
         void setWidth(u32 width) { m_width = width; }
         void setHeight(u32 height) { m_height = height; }
 
-        void closeWindow() { m_shouldClose = true; }
+        void closeWindow() { m_close = true; }
 
         void setEventCallback(const std::function<void(Event&)>& callback) { fn_eventCallback = callback; }
 };

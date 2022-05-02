@@ -22,7 +22,7 @@
 // https://github.com/TheCherno/Hazel/tree/master/Hazel/src/Platform/OpenGL
 namespace Shader
 {
-    enum ShaderStage
+    enum class ShaderStage
     {
         Vertex = GL_VERTEX_SHADER,
         Fragment = GL_FRAGMENT_SHADER,

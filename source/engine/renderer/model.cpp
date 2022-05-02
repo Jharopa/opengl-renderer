@@ -70,7 +70,7 @@ Mesh Model::processMesh(aiMesh *mesh, const aiScene *scene)
     {
         aiFace face = mesh->mFaces[i];
 
-        for(u32 j = 0; j < (u32)face.mIndices; j++)
+        for(u32 j = 0; j < face.mNumIndices; j++)
         {
             indices.push_back(face.mIndices[j]);
         }

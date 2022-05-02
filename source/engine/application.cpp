@@ -77,7 +77,7 @@ void Application::init()
 
 void Application::run()
 {
-    while (!m_window->shouldClose())
+    while (!m_window->shouldWindowClose())
     {
         m_renderer->setClearColor(glm::vec4(0.2f, 0.3f, 0.3f, 1.0f));
         m_renderer->clear();
