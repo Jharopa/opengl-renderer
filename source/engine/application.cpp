@@ -2,9 +2,9 @@
 
 void Application::init()
 {
-    m_window = std::make_shared<Window>(800, 600, "Window");
+    m_window = std::make_unique<Window>(800, 600, "Window");
 
-    m_renderer = std::make_shared<Renderer>();
+    m_renderer = std::make_unique<Renderer>();
 
     m_shaderProgram = Shader::ShaderProgramBuilder{}.with(Shader::ShaderStage::Fragment, "../resources/shaders/shader.frag")
                                                 .with(Shader::ShaderStage::Vertex, "../resources/shaders/shader.vert")
@@ -55,7 +55,7 @@ void Application::init()
         -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
     };
 
-    m_vertexArray = std::make_shared<VertexArray>();
+    m_vertexArray = std::make_unique<VertexArray>();
 
     m_vertexArray->bind();
 
@@ -66,7 +66,7 @@ void Application::init()
 
     m_vertexArray->unbind();
 
-    m_texture = std::make_shared<Texture>("../resources/textures/container.jpg", true);
+    m_texture = std::make_unique<Texture>("../resources/textures/container.jpg", true);
 
     m_shaderProgram->bind();
 

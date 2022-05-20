@@ -1,0 +1,35 @@
+{
+    "version": 2,
+    "cmakeMinimumRequired": 
+    {
+        "major": 3,
+        "minor": 20,
+        "patch": 0
+    },
+    "configurePresets": 
+    [
+        {
+            "name": "default-nix",
+            "displayName": "Default Config",
+            "description": "Default build using Make and vcpkg",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": 
+            {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
+            }
+        },
+        {
+            "name": "default-msvc",
+            "displayName": "Default MSVC",
+            "description": "Default build using Visual Studio and vcpkg",
+            "generator": "Visual Studio 16 2019",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": 
+            {
+                "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/external/vcpkg/scripts/buildsystems/vcpkg.cmake"
+            }
+        }
+    ]
+  }

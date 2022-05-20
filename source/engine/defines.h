@@ -35,6 +35,5 @@ typedef int b32;
 // Sets the n-th bit for bit masking
 #define OGLR_BIT(n) (1ull << (n))
 
-// Marco Switches <-- This is bad >:(
-
+// Hardcoded marco switches <-- This is bad >:(
 #define ASSERTIONS_ENABLED 1

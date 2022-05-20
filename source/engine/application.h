@@ -17,19 +17,17 @@
 class Application : public Singleton<Application>
 {
     private:
-        std::shared_ptr<Window> m_window;
-        std::shared_ptr<Renderer> m_renderer;
+        std::unique_ptr<Window> m_window;
+        std::unique_ptr<Renderer> m_renderer;
 
         std::optional<Shader::ShaderProgram> m_shaderProgram;
 
-        std::shared_ptr<VertexArray> m_vertexArray;
-        std::shared_ptr<Texture> m_texture;
+        std::unique_ptr<VertexArray> m_vertexArray;
+        std::unique_ptr<Texture> m_texture;
 
     public:
         void init();
         void run();
-
-        std::shared_ptr<Window> getWindow() { return m_window; }
 
     private:
         void onEvent(Event& e);

@@ -23,6 +23,7 @@
         debugBreak();                                                                                                               \
     }                                                                                                                               \
 }
+
 #else
 
 #define OGLR_ASSERT(expression)

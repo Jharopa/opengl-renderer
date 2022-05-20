@@ -1,5 +1,7 @@
 #pragma once
 
+#include <assert.h>
+
 template <class T>
 class Singleton
 {
@@ -13,6 +15,8 @@ class Singleton
             {
                 m_instance = new T();
             }
+            
+            assert(m_instance);
 
             return *m_instance;
         }
