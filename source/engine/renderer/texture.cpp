@@ -1,6 +1,6 @@
 #include "texture.h"
 
-#include "log.h"
+//#include "log.h"
 
 Texture::Texture(const std::string& path, const b8 enableMipmaps)
     : m_id(0)
@@ -27,7 +27,7 @@ Texture::Texture(const std::string& path, const b8 enableMipmaps)
     }
     else
     {
-        OGLR_WARN("Failed to load texture");
+        //OGLR_WARN("Failed to load texture");
     }
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);

@@ -1,3 +1,6 @@
 [submodule "external/vcpkg"]
 	path = external/vcpkg
 	url = https://github.com/microsoft/vcpkg.git
+[submodule "external/stb_image"]
+	path = external/stb_image
+	url = https://github.com/Jharopa/stb_image

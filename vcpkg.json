@@ -6,7 +6,6 @@
         "glfw3",
         "glm",
         "imgui",
-        "stb",
         "fmt"
     ]
 }

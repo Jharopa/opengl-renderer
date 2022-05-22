@@ -8,12 +8,11 @@ find_package(glad CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
 find_package(imgui CONFIG REQUIRED)
-find_path(STB_INCLUDE_DIRS "stb_c_lexer.h")
 find_package(fmt CONFIG REQUIRED)
 
 include_directories(${PROJECT_NAME} 
     ${PROJECT_SOURCE_DIR}/external/stb_image
-
+    
     ${PROJECT_SOURCE_DIR}/source/engine/
     ${PROJECT_SOURCE_DIR}/source/engine/events
     ${PROJECT_SOURCE_DIR}/source/engine/input
@@ -21,7 +20,7 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/engine/utilities
 )
 
-add_executable(${PROJECT_NAME} 
+add_executable(${PROJECT_NAME}  
     external/stb_image/stb_image.cpp
     
     source/engine/main.cpp
@@ -36,11 +35,14 @@ add_executable(${PROJECT_NAME}
     source/engine/renderer/window.cpp
 )
 
+target_include_directories(${PROJECT_NAME} PRIVATE 
+    "${CMAKE_CURRENT_LIST_DIR}/source"
+)
+
 target_link_libraries(${PROJECT_NAME} PRIVATE
     glad::glad
     glfw
     imgui::imgui
     glm::glm
     fmt::fmt
-    ${STB_INCLUDE_DIRS}
 )
