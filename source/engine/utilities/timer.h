@@ -11,9 +11,6 @@
 
 class Timer
 {
-    private:
-        f32 m_start, m_end;
-
     public:
         Timer() : m_start(0.0f), m_end(0.0f) {}
         ~Timer() {}
@@ -23,4 +20,7 @@ class Timer
         
         f32 getDelta() { return (m_end - m_start); }
         f32 getDeltaMillis() { return getDelta() * 1000.0f; }
+        
+    private:
+        f32 m_start, m_end;
 };

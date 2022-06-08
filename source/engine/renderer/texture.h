@@ -17,10 +17,6 @@
 
 class Texture
 {
-    private:
-        u32 m_id;
-        i32 m_width, m_height, m_channels;
-
     public:
         Texture(const std::string& path, const b8 enableMipmaps);
         ~Texture();
@@ -31,4 +27,8 @@ class Texture
         [[nodiscard]] i32 getWidth() const noexcept { return m_width; }
         [[nodiscard]] i32 getHeight() const noexcept { return m_height; }
         [[nodiscard]] i32 getChannels() const noexcept { return m_channels; }
+
+    private:
+        u32 m_id;
+        i32 m_width, m_height, m_channels;
 };

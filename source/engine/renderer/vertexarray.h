@@ -19,9 +19,6 @@ enum DrawMode
 
 class VertexArray
 {
-    private:
-        u32 m_id;
-
     public:
         VertexArray();
         ~VertexArray();
@@ -31,4 +28,7 @@ class VertexArray
 
         void bind() const noexcept;
         void unbind() const noexcept;
+
+    private:
+        u32 m_id;
 };

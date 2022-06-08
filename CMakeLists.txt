@@ -15,6 +15,7 @@ include_directories(${PROJECT_NAME}
     
     ${PROJECT_SOURCE_DIR}/source/engine/
     ${PROJECT_SOURCE_DIR}/source/engine/events
+    ${PROJECT_SOURCE_DIR}/source/engine/memory
     ${PROJECT_SOURCE_DIR}/source/engine/input
     ${PROJECT_SOURCE_DIR}/source/engine/renderer
     ${PROJECT_SOURCE_DIR}/source/engine/utilities
@@ -26,6 +27,7 @@ add_executable(${PROJECT_NAME}
     source/engine/main.cpp
     source/engine/application.cpp
     source/engine/input/keys.cpp
+    source/engine/memory/allocator.cpp
     source/engine/renderer/camera.cpp
     source/engine/renderer/context.cpp
     source/engine/renderer/renderer.cpp

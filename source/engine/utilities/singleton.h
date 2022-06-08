@@ -5,9 +5,6 @@
 template <class T>
 class Singleton
 {
-    protected:
-        static T* m_instance;
-
     public:
         static T& getInstance()
         {
@@ -25,6 +22,9 @@ class Singleton
         // Any derived class can implement thier own ctor/dtor
         Singleton() {}
         ~Singleton() {}
+
+    protected:
+        static T* m_instance;
 
     private:
         // Any derived class can't use copy operations

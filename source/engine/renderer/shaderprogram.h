@@ -31,10 +31,6 @@ namespace Shader
 
     class ShaderProgram
     {
-        private:
-            u32 m_id;
-            std::unordered_map<std::string, u32> m_uniformCache;
-
         public:
             ShaderProgram(const u32 id);
             ~ShaderProgram();
@@ -68,15 +64,16 @@ namespace Shader
         private:
             void cacheUniforms();
             i32 getUniformLocation(const std::string& name);
+
+        private:
+            u32 m_id;
+            std::unordered_map<std::string, u32> m_uniformCache;
     };
 
     // TODO: Is a builder going to be appropriate down the line when loading from config files?
 
     class ShaderProgramBuilder
     {
-        private:
-            std::unordered_map<ShaderStage, std::string> m_shaderStages;
-
         public:
             ShaderProgramBuilder& with(ShaderStage stage, std::string shaderPath);
             std::optional<ShaderProgram> build();
@@ -87,5 +84,8 @@ namespace Shader
 
             b8 link(const u32 id);
             b8 validate(const u32 id);
+
+        private:
+            std::unordered_map<ShaderStage, std::string> m_shaderStages;
     };
 };

@@ -10,12 +10,20 @@
 #include "renderer/vertexarray.h"
 #include "renderer/shaderprogram.h"
 #include "renderer/texture.h"
+#include "utilities/profiler.h"
 
 // GLM includes
 #include <glm/glm.hpp>
 
 class Application : public Singleton<Application>
 {
+    public:
+        void init();
+        void run();
+
+    private:
+        void onEvent(Event& e);
+    
     private:
         std::unique_ptr<Window> m_window;
         std::unique_ptr<Renderer> m_renderer;
@@ -24,11 +32,4 @@ class Application : public Singleton<Application>
 
         std::unique_ptr<VertexArray> m_vertexArray;
         std::unique_ptr<Texture> m_texture;
-
-    public:
-        void init();
-        void run();
-
-    private:
-        void onEvent(Event& e);
 };

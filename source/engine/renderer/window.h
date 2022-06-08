@@ -14,18 +14,6 @@
 
 class Window
 {
-    private:
-        std::string m_title;
-        u32 m_width, m_height;
-
-        b8 m_close = false;
-
-        std::function<void(Event&)> fn_eventCallback;
-
-        GLFWwindow* m_window;
-
-        std::shared_ptr<Context> m_context;
-
     public:
         Window(u32 width, u32 height, const std::string title);
         ~Window();
@@ -45,4 +33,16 @@ class Window
         void closeWindow() { m_close = true; }
 
         void setEventCallback(const std::function<void(Event&)>& callback) { fn_eventCallback = callback; }
+    
+    private:
+        std::string m_title;
+        u32 m_width, m_height;
+
+        b8 m_close = false;
+
+        std::function<void(Event&)> fn_eventCallback;
+
+        GLFWwindow* m_window;
+
+        std::shared_ptr<Context> m_context;
 };

@@ -11,12 +11,12 @@
 
 class Context
 {
-    private:
-        GLFWwindow* m_window;
-
     public:
         Context(GLFWwindow* m_window);
         ~Context();
         
         void swapBuffers() const;
+
+    private:
+        GLFWwindow* m_window;
 };

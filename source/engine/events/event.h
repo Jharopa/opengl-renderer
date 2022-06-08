@@ -34,9 +34,6 @@ class WindowClosedEvent : public Event
 
 class WindowResizedEvent : public Event
 {
-    private:
-        u32 m_width, m_height;
-
     public:
         WindowResizedEvent(u32 width, u32 height) : m_width(width), m_height(height) {}
 
@@ -45,14 +42,13 @@ class WindowResizedEvent : public Event
 
         static EventType getStaticType() { return EventType::WindowResized; }
         virtual EventType getEventType() override { return getStaticType(); }
+    
+    private:
+        u32 m_width, m_height;
 };
 
 class KeyPressedEvent : public Event
 {
-    private:
-        Key m_key;
-        b8 m_repeat;
-
     public:
         KeyPressedEvent(Key key, b8 repeat) : m_key(key), m_repeat(repeat) {}
 
@@ -61,13 +57,14 @@ class KeyPressedEvent : public Event
 
         static EventType getStaticType() { return EventType::KeyPressed; }
         virtual EventType getEventType() override { return getStaticType(); }
+    
+    private:
+        Key m_key;
+        b8 m_repeat;
 };
 
 class KeyReleasedEvent : public Event
 {
-    private:
-        Key m_key;
-
     public:
         KeyReleasedEvent(Key key) : m_key(key) {}
 
@@ -75,14 +72,13 @@ class KeyReleasedEvent : public Event
         
         static EventType getStaticType() { return EventType::KeyReleased; }
         virtual EventType getEventType() override { return getStaticType(); }
+    
+    private:
+        Key m_key;
 };
 
 class MousePressedEvent : public Event
 {
-    private:
-        MouseButton m_button;
-        b8 m_repeat;
-
     public:
         MousePressedEvent(MouseButton button, b8 repeat) : m_button(button), m_repeat(repeat) {}
 
@@ -91,13 +87,14 @@ class MousePressedEvent : public Event
         
         static EventType getStaticType() { return EventType::MousePressed; }
         virtual EventType getEventType() override { return getStaticType(); }
+
+    private:
+        MouseButton m_button;
+        b8 m_repeat;
 };
 
 class MouseReleasedEvent : public Event
 {
-    private:
-        MouseButton m_button;
-
     public:
         MouseReleasedEvent(MouseButton button) : m_button(button) {}
 
@@ -105,13 +102,13 @@ class MouseReleasedEvent : public Event
 
         static EventType getStaticType() { return EventType::MouseReleased; }
         virtual EventType getEventType() override { return getStaticType(); }
+    
+    private:
+        MouseButton m_button;
 };
 
 class MouseMovedEvent : public Event
 {
-    private:
-        f32 m_x, m_y;
-
     public:
         MouseMovedEvent(f32 x, f32 y) : m_x(x), m_y(y) {}
 
@@ -120,4 +117,7 @@ class MouseMovedEvent : public Event
 
         static EventType getStaticType() { return EventType::MouseMoved; }
         virtual EventType getEventType() override { return getStaticType(); }
+
+    private:
+        f32 m_x, m_y;
 };

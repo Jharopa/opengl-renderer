@@ -27,7 +27,8 @@ typedef int b32;
 // Preprocessor utilites
 
 // Concatenates two tokens
-#define OGLR_CONCAT(x, y) x##y
+#define OGLR_CONCAT(x, y) OGLR_CONCAT_INNER(x, y)
+#define OGLR_CONCAT_INNER(x, y) x##y
 
 // Converts token to string
 #define OGLR_STRINGIZE(str) #str
@@ -37,3 +38,4 @@ typedef int b32;
 
 // Hardcoded marco switches <-- This is bad >:(
 #define ASSERTIONS_ENABLED 1
+#define PROFILER_ENABLED 1

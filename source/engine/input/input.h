@@ -15,13 +15,6 @@
 
 class Input : public Singleton<Input>
 {
-    private:
-        std::array<b8, enumCast(KEY_MAX)> m_currKeys{ false };
-        std::array<b8, enumCast(KEY_MAX)> m_prevKeys{ false };
-
-        f32 m_xMousePos, m_yMousePos;
-        b8 m_mouseMoved = false;
-
     public:
         void update() 
         {
@@ -42,4 +35,11 @@ class Input : public Singleton<Input>
                 m_currKeys[enumCast(key)] = pressed; 
             }
         }
+
+    private:
+        std::array<b8, enumCast(KEY_MAX)> m_currKeys{ false };
+        std::array<b8, enumCast(KEY_MAX)> m_prevKeys{ false };
+
+        f32 m_xMousePos, m_yMousePos;
+        b8 m_mouseMoved = false;
 };

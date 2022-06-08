@@ -2,6 +2,8 @@
 
 void Application::init()
 {
+    PROFILE_FUNCTION();
+
     m_window = std::make_unique<Window>(800, 600, "Window");
 
     m_renderer = std::make_unique<Renderer>();
