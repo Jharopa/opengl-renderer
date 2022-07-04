@@ -1,7 +1,18 @@
 #pragma once
 
-#ifdef _WIN32
+#if defined(WIN32) || defined(_WIN32) || defined(__WIN32__)
     #define PLATFORM_WINDOWS
+    #ifndef _WIN64
+        #error "32-bit Windows is an unsupported platform!"
+    #endif
+#elif
+    #error "Unsupported platform!"
+#endif
+
+#ifdef _MSC_VER
+    #define STATIC_ASSERT static_assert
+#else
+    #error "Unsupported compiler!"
 #endif
 
 // Unsinged integer types
@@ -23,6 +34,23 @@ typedef double f64;
 // Boolean types
 typedef bool b8;
 typedef int b32;
+
+// Ensure typedefed aliases are of the right size.
+STATIC_ASSERT(sizeof(u8) == 1, "Type u8 was not expected size of 1 byte.");
+STATIC_ASSERT(sizeof(u16) == 2, "Type u8 was not expected size of 2 bytes.");
+STATIC_ASSERT(sizeof(u32) == 4, "Type u8 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(u64) == 8, "Type u8 was not expected size of 8 bytes.");
+
+STATIC_ASSERT(sizeof(i8) == 1, "Type u8 was not expected size of 1 byte.");
+STATIC_ASSERT(sizeof(i16) == 2, "Type u8 was not expected size of 2 bytes.");
+STATIC_ASSERT(sizeof(i32) == 4, "Type u8 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(i64) == 8, "Type u8 was not expected size of 8 bytes.");
+
+STATIC_ASSERT(sizeof(f32) == 4, "Type u8 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(f64) == 8, "Type u8 was not expected size of 8 bytes.");
+
+STATIC_ASSERT(sizeof(b8) == 1, "Type u8 was not expected size of 1 byte.");
+STATIC_ASSERT(sizeof(b32) == 4, "Type u8 was not expected size of 4 bytes.");
 
 // Preprocessor utilites
 

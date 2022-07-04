@@ -16,6 +16,7 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/engine/
     ${PROJECT_SOURCE_DIR}/source/engine/events
     ${PROJECT_SOURCE_DIR}/source/engine/memory
+    ${PROJECT_SOURCE_DIR}/source/engine/math
     ${PROJECT_SOURCE_DIR}/source/engine/input
     ${PROJECT_SOURCE_DIR}/source/engine/renderer
     ${PROJECT_SOURCE_DIR}/source/engine/utilities
