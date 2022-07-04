@@ -37,20 +37,20 @@ typedef int b32;
 
 // Ensure typedefed aliases are of the right size.
 STATIC_ASSERT(sizeof(u8) == 1, "Type u8 was not expected size of 1 byte.");
-STATIC_ASSERT(sizeof(u16) == 2, "Type u8 was not expected size of 2 bytes.");
-STATIC_ASSERT(sizeof(u32) == 4, "Type u8 was not expected size of 4 bytes.");
-STATIC_ASSERT(sizeof(u64) == 8, "Type u8 was not expected size of 8 bytes.");
+STATIC_ASSERT(sizeof(u16) == 2, "Type u16 was not expected size of 2 bytes.");
+STATIC_ASSERT(sizeof(u32) == 4, "Type u32 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(u64) == 8, "Type u64 was not expected size of 8 bytes.");
 
-STATIC_ASSERT(sizeof(i8) == 1, "Type u8 was not expected size of 1 byte.");
-STATIC_ASSERT(sizeof(i16) == 2, "Type u8 was not expected size of 2 bytes.");
-STATIC_ASSERT(sizeof(i32) == 4, "Type u8 was not expected size of 4 bytes.");
-STATIC_ASSERT(sizeof(i64) == 8, "Type u8 was not expected size of 8 bytes.");
+STATIC_ASSERT(sizeof(i8) == 1, "Type i8 was not expected size of 1 byte.");
+STATIC_ASSERT(sizeof(i16) == 2, "Type i16 was not expected size of 2 bytes.");
+STATIC_ASSERT(sizeof(i32) == 4, "Type i32 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(i64) == 8, "Type i64 was not expected size of 8 bytes.");
 
-STATIC_ASSERT(sizeof(f32) == 4, "Type u8 was not expected size of 4 bytes.");
-STATIC_ASSERT(sizeof(f64) == 8, "Type u8 was not expected size of 8 bytes.");
+STATIC_ASSERT(sizeof(f32) == 4, "Type f32 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(f64) == 8, "Type f64 was not expected size of 8 bytes.");
 
-STATIC_ASSERT(sizeof(b8) == 1, "Type u8 was not expected size of 1 byte.");
-STATIC_ASSERT(sizeof(b32) == 4, "Type u8 was not expected size of 4 bytes.");
+STATIC_ASSERT(sizeof(b8) == 1, "Type b8 was not expected size of 1 byte.");
+STATIC_ASSERT(sizeof(b32) == 4, "Type b32 was not expected size of 4 bytes.");
 
 // Preprocessor utilites
 
