@@ -7,6 +7,9 @@ int main()
 {
     math::vec3 v1 = math::vec3(2, 3, 4);
     math::vec3 v2 = math::vec3(5, 6, 7);
+    math::vec3 av = v2 + 3.0f ;
+
+    std::cout << "(" << av.x << ", " << av.y << ", " << av.z << ")" << std::endl;
 
     f32 d = math::dot(v1, v2);
     math::vec3 cv = math::cross(v1, v2);

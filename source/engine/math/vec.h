@@ -5,22 +5,21 @@
 
 namespace math 
 {
-    template<typename T>
-    struct tvec2
+    struct vec2
     {
-        tvec2() = default;
+        vec2() = default;
 
-        inline tvec2(T v) noexcept : x(v), y(v) {}
+        inline vec2(f32 v) noexcept : x(v), y(v) {}
 
-        inline tvec2(T _x, T _y) noexcept : x(_x), y(_y) {}
+        inline vec2(f32 _x, f32 _y) noexcept : x(_x), y(_y) {}
 
-        inline T& operator[](i32 i)
+        inline f32& operator[](i32 i)
     	{
             OGLR_ASSERT_MSG(i >= 0 && i < 2, "Index out of range");
     		return ((&x)[i]);
     	}
 
-        inline const T& operator[](i32 i) const 
+        inline const f32& operator[](i32 i) const 
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 2, "Index out of range");
             return ((&x)[i]);
@@ -28,31 +27,30 @@ namespace math
 
         union
         {
-            struct{ T x, y; };
-    		struct{ T r, g; };
-    		struct{ T s, t; };
-            struct{ T u, v; };
-            T data[2];
+            struct{ f32 x, y; };
+    		struct{ f32 r, g; };
+    		struct{ f32 s, t; };
+            struct{ f32 u, v; };
+            f32 data[2];
         };
 
     };
 
-    template<typename T>
-    struct tvec3
+    struct vec3
     {
-        tvec3() = default;
+        vec3() = default;
 
-        inline tvec3(T v) noexcept : x(v), y(v), z(v) {}
+        inline vec3(f32 v) noexcept : x(v), y(v), z(v) {}
 
-        inline tvec3(T _x, T _y, T _z) noexcept : x(_x), y(_y), z(_z) {}
+        inline vec3(f32 _x, f32 _y, f32 _z) noexcept : x(_x), y(_y), z(_z) {}
 
-        inline T& operator[](i32 i)
+        inline f32& operator[](i32 i)
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 3, "Index out of range");
             return ((&x)[i]);
         }
 
-        inline const T& operator[](i32 i) const
+        inline const f32& operator[](i32 i) const
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 3, "Index out of range");
             return ((&x)[i]);
@@ -60,30 +58,29 @@ namespace math
 
         union
         {
-            struct{ T x, y, z; };
-            struct{ T r, g, b; };
-            struct{ T s, t, p; };
-            struct{ T u, v, w; };
-            T data[3];
+            struct{ f32 x, y, z; };
+            struct{ f32 r, g, b; };
+            struct{ f32 s, t, p; };
+            struct{ f32 u, v, w; };
+            f32 data[3];
         };
     };
 
-    template<typename T>
-    struct tvec4
+    struct vec4
     {
-        tvec4() = default;
+        vec4() = default;
 
-        inline tvec4(T v) noexcept : x(v), y(v), z(v), w(v) {}
+        inline vec4(f32 v) noexcept : x(v), y(v), z(v), w(v) {}
 
-        inline tvec4(T _x, T _y, T _z, T _w) noexcept : x(_x), y(_y), z(_z), w(_w) {}
+        inline vec4(f32 _x, f32 _y, f32 _z, f32 _w) noexcept : x(_x), y(_y), z(_z), w(_w) {}
 
-        inline T& operator[](i32 i)
+        inline f32& operator[](i32 i)
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
             return ((&x)[i]);
         }
 
-        inline const T& operator[](i32 i) const
+        inline const f32& operator[](i32 i) const
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
             return ((&x)[i]);
@@ -91,28 +88,56 @@ namespace math
 
         union
         {
-            struct{ T x, y, z, w; };
-            struct{ T r, g, b, a; };
-            struct{ T s, t, p, q; };
-            T data[4];
+            struct{ f32 x, y, z, w; };
+            struct{ f32 r, g, b, a; };
+            struct{ f32 s, t, p, q; };
+            f32 data[4];
         };
     };
 
-    using vec2 = tvec2<f32>;
-    using vec3 = tvec3<f32>;
-    using vec4 = tvec4<f32>;
+    // vector-vector, vector-scalar, scalar-vector addition operator
+    inline vec2 operator+(const vec2& a, vec3& b) { return vec2(a.x + b.x, a.y + b.y); }
+    inline vec3 operator+(const vec3& a, vec3& b) { return vec3(a.x + b.x, a.y + b.y, a.z + b.z); }
+    inline vec4 operator+(const vec4& a, vec3& b) { return vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w); }
+    inline vec2 operator+(const vec2& a, f32 b) { return vec2(a.x + b, a.y + b); }
+    inline vec3 operator+(const vec3& a, f32 b) { return vec3(a.x + b, a.y + b, a.z + b); }
+    inline vec4 operator+(const vec4& a, f32 b) { return vec4(a.x + b, a.y + b, a.z + b, a.w + b); }
+    inline vec2 operator+(const f32 a, vec2& b) { return vec2(a + b.x, a + b.y); }
+    inline vec3 operator+(const f32 a, vec3& b) { return vec3(a + b.x, a + b.y, a + b.z); }
+    inline vec4 operator+(const f32 a, vec4& b) { return vec4(a + b.x, a + b.y, a + b.z, a + b.w); }
 
-    using dvec2 = tvec2<f64>;
-    using dvec3 = tvec3<f64>;
-    using dvec4 = tvec4<f64>;
+    // vector-vector, vector-scalar, scalar-vector subtraction operator
+    inline vec2 operator-(const vec2& a, vec3& b) { return vec2(a.x - b.x, a.y - b.y); }
+    inline vec3 operator-(const vec3& a, vec3& b) { return vec3(a.x - b.x, a.y - b.y, a.z - b.z); }
+    inline vec4 operator-(const vec4& a, vec3& b) { return vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w); }
+    inline vec2 operator-(const vec2& a, f32 b) { return vec2(a.x - b, a.y - b); }
+    inline vec3 operator-(const vec3& a, f32 b) { return vec3(a.x - b, a.y - b, a.z - b); }
+    inline vec4 operator-(const vec4& a, f32 b) { return vec4(a.x - b, a.y - b, a.z - b, a.w - b); }
+    inline vec2 operator-(const f32 a, vec2& b) { return vec2(a - b.x, a - b.y); }
+    inline vec3 operator-(const f32 a, vec3& b) { return vec3(a - b.x, a - b.y, a - b.z); }
+    inline vec4 operator-(const f32 a, vec4& b) { return vec4(a - b.x, a - b.y, a - b.z, a - b.w); }
 
-    using uvec2 = tvec2<u32>;
-    using uvec3 = tvec3<u32>;
-    using uvec4 = tvec4<u32>;
+    // vector-vector, vector-scalar, scalar-vector multiplication operator
+    inline vec2 operator*(const vec2& a, vec3& b) { return vec2(a.x * b.x, a.y * b.y); }
+    inline vec3 operator*(const vec3& a, vec3& b) { return vec3(a.x * b.x, a.y * b.y, a.z * b.z); }
+    inline vec4 operator*(const vec4& a, vec3& b) { return vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w); }
+    inline vec2 operator*(const vec2& a, f32 b) { return vec2(a.x * b, a.y * b); }
+    inline vec3 operator*(const vec3& a, f32 b) { return vec3(a.x * b, a.y * b, a.z * b); }
+    inline vec4 operator*(const vec4& a, f32 b) { return vec4(a.x * b, a.y * b, a.z * b, a.w * b); }
+    inline vec2 operator*(const f32 a, vec2& b) { return vec2(a * b.x, a * b.y); }
+    inline vec3 operator*(const f32 a, vec3& b) { return vec3(a * b.x, a * b.y, a * b.z); }
+    inline vec4 operator*(const f32 a, vec4& b) { return vec4(a * b.x, a * b.y, a * b.z, a * b.w); }
 
-    using ivec2 = tvec2<i32>;
-    using ivec3 = tvec3<i32>;
-    using ivec4 = tvec4<i32>;
+    // vector-vector, vector-scalar, scalar-vector division operator
+    inline vec2 operator/(const vec2& a, vec3& b) { return vec2(a.x / b.x, a.y / b.y); }
+    inline vec3 operator/(const vec3& a, vec3& b) { return vec3(a.x / b.x, a.y / b.y, a.z / b.z); }
+    inline vec4 operator/(const vec4& a, vec3& b) { return vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w); }
+    inline vec2 operator/(const vec2& a, f32 b) { return vec2(a.x / b, a.y / b); }
+    inline vec3 operator/(const vec3& a, f32 b) { return vec3(a.x / b, a.y / b, a.z / b); }
+    inline vec4 operator/(const vec4& a, f32 b) { return vec4(a.x / b, a.y / b, a.z / b, a.w / b); }
+    inline vec2 operator/(const f32 a, vec2& b) { return vec2(a / b.x, a / b.y); }
+    inline vec3 operator/(const f32 a, vec3& b) { return vec3(a / b.x, a / b.y, a / b.z); }
+    inline vec4 operator/(const f32 a, vec4& b) { return vec4(a / b.x, a / b.y, a / b.z, a / b.w); }
 
     // Dot product of n-dimensional f32 vectors
     inline f32 dot(const vec2& a, const vec2& b) { return a.x * b.x + a.y * b.y; }
@@ -128,7 +153,7 @@ namespace math
     inline f32 magnitude(const vec4& v) { return sqrt(dot(v, v)); }
 
     // Normalization of n-dimensional vectors
-    inline vec2 normalize(const vec2& v) { f32 mag = magnitude(v); return vec2((v.x / mag), (v.y / mag)); }
-    inline vec3 normalize(const vec3& v) { f32 mag = magnitude(v); return vec3((v.x / mag), (v.y / mag), (v.z / mag)); }
-    inline vec4 normalize(const vec4& v) { f32 mag = magnitude(v); return vec4((v.x / mag), (v.y / mag), (v.z / mag), (v.w / mag)); }
+    inline vec2 normalize(const vec2& v) { return v / magnitude(v); }
+    inline vec3 normalize(const vec3& v) { return v / magnitude(v); }
+    inline vec4 normalize(const vec4& v) { return v / magnitude(v); }
 }
