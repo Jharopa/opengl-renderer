@@ -7,8 +7,8 @@
 #include "events/event.h"
 #include "renderer/renderer.h"
 #include "renderer/window.h"
-#include "renderer/vertexarray.h"
-#include "renderer/shaderprogram.h"
+#include "renderer/vertex_array.h"
+#include "renderer/shader_program.h"
 #include "renderer/texture.h"
 #include "utilities/profiler.h"
 

@@ -1,5 +1,6 @@
 #include "application.h"
-#include "vec.h"
+
+#include "oglr_math.h"
 #include <type_traits>
 
 int main()
@@ -15,6 +16,13 @@ int main()
 
     std::cout << std::is_trivial<math::vec2>() << std::endl;
     std::cout << std::is_standard_layout<math::vec2>() << std::endl;
+
+    std::cout << OGLR_PI << std::endl; 
+
+    std::cout << math::magnitude(v1) << std::endl;
+
+    math::vec3 nv = math::normalize(v1);
+    std::cout << "(" << nv.x << ", " << nv.y << ", " << nv.z << ")" << std::endl;
 
     Application::getInstance().init();
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "asserts.h"
+#include "oglr_math_helper.h"
 
 namespace math 
 {
@@ -30,6 +31,7 @@ namespace math
             struct{ T x, y; };
     		struct{ T r, g; };
     		struct{ T s, t; };
+            struct{ T u, v; };
             T data[2];
         };
 
@@ -61,6 +63,7 @@ namespace math
             struct{ T x, y, z; };
             struct{ T r, g, b; };
             struct{ T s, t, p; };
+            struct{ T u, v, w; };
             T data[3];
         };
     };
@@ -111,9 +114,21 @@ namespace math
     using ivec3 = tvec3<i32>;
     using ivec4 = tvec4<i32>;
 
+    // Dot product of n-dimensional f32 vectors
     inline f32 dot(const vec2& a, const vec2& b) { return a.x * b.x + a.y * b.y; }
     inline f32 dot(const vec3& a, const vec3& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
     inline f32 dot(const vec4& a, const vec4& b) { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
 
+    // Cross product of 3-dimensional f32 vector
     inline vec3 cross(const vec3& a, vec3& b) { return vec3((a.y * b.z - a.z * b.y), (a.z * b.x - a.x * b.z), (a.x * b.y - a.y * b.x)); }
+
+    // Magnitude of n-dimensional vectors
+    inline f32 magnitude(const vec2& v) { return sqrt(dot(v, v)); }
+    inline f32 magnitude(const vec3& v) { return sqrt(dot(v, v)); }
+    inline f32 magnitude(const vec4& v) { return sqrt(dot(v, v)); }
+
+    // Normalization of n-dimensional vectors
+    inline vec2 normalize(const vec2& v) { f32 mag = magnitude(v); return vec2((v.x / mag), (v.y / mag)); }
+    inline vec3 normalize(const vec3& v) { f32 mag = magnitude(v); return vec3((v.x / mag), (v.y / mag), (v.z / mag)); }
+    inline vec4 normalize(const vec4& v) { f32 mag = magnitude(v); return vec4((v.x / mag), (v.y / mag), (v.z / mag), (v.w / mag)); }
 }

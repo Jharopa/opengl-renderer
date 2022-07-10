@@ -32,9 +32,9 @@ add_executable(${PROJECT_NAME}
     source/engine/renderer/camera.cpp
     source/engine/renderer/context.cpp
     source/engine/renderer/renderer.cpp
-    source/engine/renderer/shaderprogram.cpp
+    source/engine/renderer/shader_program.cpp
     source/engine/renderer/texture.cpp
-    source/engine/renderer/vertexarray.cpp
+    source/engine/renderer/vertex_array.cpp
     source/engine/renderer/window.cpp
 )
 
