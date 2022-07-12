@@ -1,31 +1,57 @@
 #include "application.h"
 
 #include "oglr_math.h"
-#include <type_traits>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 int main()
 {
-    math::vec3 v1 = math::vec3(2, 3, 4);
-    math::vec3 v2 = math::vec3(5, 6, 7);
-    math::vec3 av = v2 + 3.0f ;
+    //math::mat4 m = math::identity();
 
-    std::cout << "(" << av.x << ", " << av.y << ", " << av.z << ")" << std::endl;
+    //std::cout << "(" << m[0].x << ", " << m[0].y << ", " << m[0].z << ", " << m[0].w << ")\n";
+    //std::cout << "(" << m[1].x << ", " << m[1].y << ", " << m[1].z << ", " << m[1].w << ")\n";
+    //std::cout << "(" << m[2].x << ", " << m[2].y << ", " << m[2].z << ", " << m[2].w << ")\n";
+    //std::cout << "(" << m[3].x << ", " << m[3].y << ", " << m[3].z << ", " << m[3].w << ")\n";
 
-    f32 d = math::dot(v1, v2);
-    math::vec3 cv = math::cross(v1, v2);
+    //std::cout << "\n";
 
-    std::cout << d << std::endl;
-    std::cout << "(" << cv.x << ", " << cv.y << ", " << cv.z << ")" << std::endl;
+    math::mat4 mm = math::mat4(math::vec4(1, 2, 3, 4), math::vec4(4, 3, 2, 1), math::vec4(5, 6, 7, 8), math::vec4(8, 7, 6, 5));
+    std::cout << "(" << mm[0].x << ", " << mm[0].y << ", " << mm[0].z << ", " << mm[0].w << ")\n";
+    std::cout << "(" << mm[1].x << ", " << mm[1].y << ", " << mm[1].z << ", " << mm[1].w << ")\n";
+    std::cout << "(" << mm[2].x << ", " << mm[2].y << ", " << mm[2].z << ", " << mm[2].w << ")\n";
+    std::cout << "(" << mm[3].x << ", " << mm[3].y << ", " << mm[3].z << ", " << mm[3].w << ")\n";
 
-    std::cout << std::is_trivial<math::vec2>() << std::endl;
-    std::cout << std::is_standard_layout<math::vec2>() << std::endl;
+    std::cout << "\n";
 
-    std::cout << OGLR_PI << std::endl; 
+    math::vec4 mv = math::vec4(4, 6, 9, 2);
 
-    std::cout << math::magnitude(v1) << std::endl;
+    std::cout << "(" << mv.x << ", " << mv.y << ", " << mv.z << ", " << mv.w << ")\n";
 
-    math::vec3 nv = math::normalize(v1);
-    std::cout << "(" << nv.x << ", " << nv.y << ", " << nv.z << ")" << std::endl;
+    std::cout << "\n";
+
+    math::vec4 rv = mm * mv;
+
+    std::cout << "(" << rv.x << ", " << rv.y << ", " << rv.z << ", " << rv.w << ")\n";
+
+    std::cout << "\n";
+
+    math::mat4 mmm = mm * mm;
+
+    std::cout << "(" << mmm[0].x << ", " << mmm[0].y << ", " << mmm[0].z << ", " << mmm[0].w << ")\n";
+    std::cout << "(" << mmm[1].x << ", " << mmm[1].y << ", " << mmm[1].z << ", " << mmm[1].w << ")\n";
+    std::cout << "(" << mmm[2].x << ", " << mmm[2].y << ", " << mmm[2].z << ", " << mmm[2].w << ")\n";
+    std::cout << "(" << mmm[3].x << ", " << mmm[3].y << ", " << mmm[3].z << ", " << mmm[3].w << ")\n";
+
+    math::mat4 pm = math::perspective(math::radians(70.0f), 16.0f / 9.0f, 0.1f, 1000.0f);
+    glm::mat4 gm = glm::perspective(glm::radians(70.0f), 16.0f / 9.0f, 0.1f, 1000.0f);
+    std::cout << glm::to_string(gm) << "\n";
+
+    std::cout << "(" << pm[0].x << ", " << pm[0].y << ", " << pm[0].z << ", " << pm[0].w << ")\n";
+    std::cout << "(" << pm[1].x << ", " << pm[1].y << ", " << pm[1].z << ", " << pm[1].w << ")\n";
+    std::cout << "(" << pm[2].x << ", " << pm[2].y << ", " << pm[2].z << ", " << pm[2].w << ")\n";
+    std::cout << "(" << pm[3].x << ", " << pm[3].y << ", " << pm[3].z << ", " << pm[3].w << ")\n";
 
     Application::getInstance().init();
 

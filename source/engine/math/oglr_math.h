@@ -1,4 +1,6 @@
 #pragma once
 
-#include "oglr_math_helper.h"
+#include "math_constants.h"
+#include "math_functions.h"
 #include "vec.h"
+#include "mat.h"
