@@ -3,14 +3,11 @@
 // GLFW includes
 #include <glfw/glfw3.h>
 
-// GLM includes
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 // STD library includes
 #include <algorithm>
 
 // Renderer includes
+#include "math/oglr_math.h"
 #include "input/input.h"
 
 // Referenced and adapted from
@@ -32,8 +29,8 @@ class Camera
 
         void update(const f32 deltaTime);
 
-        [[nodiscard]] glm::mat4 getProjMatrix(const f32 width, const f32 height) const { return glm::perspective(glm::radians(m_FOV), width / height, m_nearPlane, m_farPlane); }
-        [[nodiscard]] glm::mat4 getVeiwMatrix() const { return glm::lookAt(m_position, m_position + m_front, m_up); };
+        [[nodiscard]] math::mat4 getProjMatrix(const f32 width, const f32 height) const { return math::perspective(math::radians(m_FOV), width / height, m_nearPlane, m_farPlane); }
+        [[nodiscard]] math::mat4 getVeiwMatrix() const { return math::look_at(m_position, m_position + m_front, m_up); };
 
     private:
         void processKeyboard(MovementDirection direction, f32 deltaTime);
@@ -42,11 +39,11 @@ class Camera
         void updateVectors();
     
     private:
-        glm::vec3 m_position {0.0f, 0.0f, 3.0f};
-        glm::vec3 m_front {0.0f, 0.0f, -1.0f};
-        glm::vec3 m_up {0.0f, 1.0f, 0.0f};
-        glm::vec3 m_right;
-        glm::vec3 m_worldUp {0.0f, 1.0f, 0.0f};
+        math::vec3 m_position {0.0f, 0.0f, 3.0f};
+        math::vec3 m_front {0.0f, 0.0f, -1.0f};
+        math::vec3 m_up {0.0f, 1.0f, 0.0f};
+        math::vec3 m_right;
+        math::vec3 m_worldUp {0.0f, 1.0f, 0.0f};
         
         const f32 m_FOV = 60.0f, m_nearPlane = 0.1f, m_farPlane = 1000.0f;
 

@@ -3,14 +3,12 @@
 // GLAD includes
 #include <glad/glad.h>
 
-// GLM includes
-#include <glm/glm.hpp>
-
 // STD library includes
 #include <iostream>
 
 // Renderer includes
 #include "defines.h"
+#include "math/oglr_math.h"
 
 class Renderer
 {
@@ -18,7 +16,7 @@ class Renderer
         Renderer();
         ~Renderer();
 
-        void setClearColor(const glm::vec4& color);
+        void setClearColor(const math::vec4& color);
         void clear();
 
         void drawArrays(GLenum mode, i32 first, i32 count);

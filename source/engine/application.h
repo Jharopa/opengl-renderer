@@ -12,9 +12,6 @@
 #include "renderer/texture.h"
 #include "utilities/profiler.h"
 
-// GLM includes
-#include <glm/glm.hpp>
-
 class Application : public Singleton<Application>
 {
     public:

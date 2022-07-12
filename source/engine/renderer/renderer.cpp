@@ -34,7 +34,7 @@ Renderer::Renderer()
 
 Renderer::~Renderer(){}
 
-void Renderer::setClearColor(const glm::vec4& color)
+void Renderer::setClearColor(const math::vec4& color)
 {
     glClearColor(color.r, color.g, color.b, color.a);
 }

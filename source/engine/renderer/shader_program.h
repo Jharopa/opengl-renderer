@@ -3,10 +3,6 @@
 // GLAD includes
 #include <glad/glad.h>
 
-// GLM includes
-#include <glm/glm.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
 // STD library includes
 #include <iostream>
 #include <string>
@@ -14,8 +10,8 @@
 #include <unordered_map>
 
 // Renderer includes
-#include "defines.h"
 #include "utilities/utils.h"
+#include "math/oglr_math.h"
 
 // Referenced and Adapted from:
 // https://github.com/htmlboss/OpenGL-Renderer/tree/master/MP-APS/Graphics
@@ -56,10 +52,10 @@ namespace Shader
 
             void setUniform(const std::string& name, const i32 value);
             void setUniform(const std::string& name, const f32 value);
-            void setUniform(const std::string& name, const glm::vec2& vector);
-            void setUniform(const std::string& name, const glm::vec3& vector);
-            void setUniform(const std::string& name, const glm::vec4& vector);
-            void setUniform(const std::string& name, const glm::mat4x4& matrix);
+            void setUniform(const std::string& name, const math::vec2& vector);
+            void setUniform(const std::string& name, const math::vec3& vector);
+            void setUniform(const std::string& name, const math::vec4& vector);
+            void setUniform(const std::string& name, const math::mat4& matrix);
 
         private:
             void cacheUniforms();

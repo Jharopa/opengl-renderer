@@ -19,13 +19,13 @@ void Camera::processKeyboard(MovementDirection direction, f32 deltaTime)
 {
     float velocity = m_speed * deltaTime;
     if (direction == MovementDirection::Forward)
-        m_position += m_front * velocity;
+        m_position = m_position + m_front * velocity;
     if (direction == MovementDirection::Backward)
-        m_position -= m_front * velocity;
+        m_position = m_position - m_front * velocity;
     if (direction == MovementDirection::Left)
-        m_position -= m_right * velocity;
+        m_position = m_position - m_right * velocity;
     if (direction == MovementDirection::Right)
-        m_position += m_right * velocity;
+        m_position = m_position + m_right * velocity;
 }
 
 void Camera::updateMouse()
@@ -59,14 +59,13 @@ void Camera::updateMouse()
 
 void Camera::updateVectors()
 {
-    glm::vec3 front
-    {
-        cos(glm::radians(m_yaw) * cos(glm::radians(m_pitch))),
-        sin(glm::radians(m_pitch)),
-        sin(glm::radians(m_yaw))  * cos(glm::radians(m_pitch))
-    };
+    math::vec3 front(
+        cos(math::radians(m_yaw) * cos(math::radians(m_pitch))),
+        sin(math::radians(m_pitch)),
+        sin(math::radians(m_yaw))  * cos(math::radians(m_pitch))
+    );
 
-    m_front = glm::normalize(front);
-    m_right = glm::normalize(glm::cross(m_front, m_worldUp));
-    m_up = glm::normalize(glm::cross(m_right, m_front));
+    m_front = math::normalize(front);
+    m_right = math::normalize(math::cross(m_front, m_worldUp));
+    m_up = math::normalize(math::cross(m_right, m_front));
 }

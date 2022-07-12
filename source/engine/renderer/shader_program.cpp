@@ -38,28 +38,28 @@ namespace Shader
         glUniform1f(location, value);
     }
 
-    void ShaderProgram::setUniform(const std::string& name, const glm::vec2& vector)
+    void ShaderProgram::setUniform(const std::string& name, const math::vec2& vector)
     {
         u32 location = getUniformLocation(name);
         glUniform2f(location, vector.x, vector.y);
     }
 
-    void ShaderProgram::setUniform(const std::string& name, const glm::vec3& vector)
+    void ShaderProgram::setUniform(const std::string& name, const math::vec3& vector)
     {
         u32 location = getUniformLocation(name);
         glUniform3f(location, vector.x, vector.y, vector.z);
     }
 
-    void ShaderProgram::setUniform(const std::string& name, const glm::vec4& vector)
+    void ShaderProgram::setUniform(const std::string& name, const math::vec4& vector)
     {
         u32 location = getUniformLocation(name);
         glUniform4f(location, vector.x, vector.y, vector.z, vector.w);
     }
 
-    void ShaderProgram::setUniform(const std::string& name, const glm::mat4x4& matrix)
+    void ShaderProgram::setUniform(const std::string& name, const math::mat4& matrix)
     {
         u32 location = getUniformLocation(name);
-        glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+        glUniformMatrix4fv(location, 1, GL_FALSE, matrix.elements);
     }
 
     void ShaderProgram::cacheUniforms()
