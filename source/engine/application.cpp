@@ -75,6 +75,8 @@ void Application::init()
     m_shaderProgram->setUniform("containerTexture", 0);
 
     m_shaderProgram->unbind();
+
+    m_camera = std::make_unique<Camera>();
 }
 
 void Application::run()
@@ -88,6 +90,14 @@ void Application::run()
         m_texture->activateTextureUnit(GL_TEXTURE0);
 
         m_shaderProgram->bind();
+
+        math::mat4 model = math::translate(math::vec3(0.0f, -1.0f, -3.5f));
+
+        m_shaderProgram->setUniform("model", model);
+
+        m_shaderProgram->setUniform("view", m_camera->getVeiwMatrix());
+
+        m_shaderProgram->setUniform("projection", m_camera->getProjMatrix(800.0f, 600.0f));
 
         m_vertexArray->bind();
 

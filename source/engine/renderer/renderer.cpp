@@ -30,6 +30,8 @@ Renderer::Renderer()
 	glDebugMessageCallback(openGLMessageCallback, nullptr);
 		
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DEBUG_SEVERITY_NOTIFICATION, 0, NULL, GL_FALSE);
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 Renderer::~Renderer(){}

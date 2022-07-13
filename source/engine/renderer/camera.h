@@ -40,10 +40,10 @@ class Camera
     
     private:
         math::vec3 m_position {0.0f, 0.0f, 3.0f};
-        math::vec3 m_front {0.0f, 0.0f, -1.0f};
-        math::vec3 m_up {0.0f, 1.0f, 0.0f};
+        math::vec3 m_front = math::froward();
+        math::vec3 m_up = math::up();
         math::vec3 m_right;
-        math::vec3 m_worldUp {0.0f, 1.0f, 0.0f};
+        math::vec3 m_worldUp = math::up();
         
         const f32 m_FOV = 60.0f, m_nearPlane = 0.1f, m_farPlane = 1000.0f;
 

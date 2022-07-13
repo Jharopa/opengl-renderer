@@ -10,6 +10,7 @@
 #include "renderer/vertex_array.h"
 #include "renderer/shader_program.h"
 #include "renderer/texture.h"
+#include "renderer/camera.h"
 #include "utilities/profiler.h"
 
 class Application : public Singleton<Application>
@@ -29,4 +30,6 @@ class Application : public Singleton<Application>
 
         std::unique_ptr<VertexArray> m_vertexArray;
         std::unique_ptr<Texture> m_texture;
+
+        std::unique_ptr<Camera> m_camera;
 };

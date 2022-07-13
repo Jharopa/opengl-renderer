@@ -1,6 +1,7 @@
 #include "window.h"
 
 #include "log.h"
+#include "input/input.h"
 
 Window::Window(u32 width, u32 height, const std::string title) 
     : m_width(width), m_height(height), m_title(title)

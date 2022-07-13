@@ -163,45 +163,45 @@ namespace math
     inline vec2 operator+(const vec2& a, const vec2& b) { return vec2(a.x + b.x, a.y + b.y); }
     inline vec3 operator+(const vec3& a, const vec3& b) { return vec3(a.x + b.x, a.y + b.y, a.z + b.z); }
     inline vec4 operator+(const vec4& a, const vec4& b) { return vec4(a.x + b.x, a.y + b.y, a.z + b.z, a.w + b.w); }
-    inline vec2 operator+(const vec2& a, f32 b) { return vec2(a.x + b, a.y + b); }
-    inline vec3 operator+(const vec3& a, f32 b) { return vec3(a.x + b, a.y + b, a.z + b); }
-    inline vec4 operator+(const vec4& a, f32 b) { return vec4(a.x + b, a.y + b, a.z + b, a.w + b); }
-    inline vec2 operator+(f32 a, const vec2& b) { return vec2(a + b.x, a + b.y); }
-    inline vec3 operator+(f32 a, const vec3& b) { return vec3(a + b.x, a + b.y, a + b.z); }
-    inline vec4 operator+(f32 a, const vec4& b) { return vec4(a + b.x, a + b.y, a + b.z, a + b.w); }
+    inline vec2 operator+(const vec2& a, const f32& b) { return vec2(a.x + b, a.y + b); }
+    inline vec3 operator+(const vec3& a, const f32& b) { return vec3(a.x + b, a.y + b, a.z + b); }
+    inline vec4 operator+(const vec4& a, const f32& b) { return vec4(a.x + b, a.y + b, a.z + b, a.w + b); }
+    inline vec2 operator+(const f32& a, const vec2& b) { return vec2(a + b.x, a + b.y); }
+    inline vec3 operator+(const f32& a, const vec3& b) { return vec3(a + b.x, a + b.y, a + b.z); }
+    inline vec4 operator+(const f32& a, const vec4& b) { return vec4(a + b.x, a + b.y, a + b.z, a + b.w); }
 
     // vector-vector, vector-scalar, scalar-vector subtraction operator
     inline vec2 operator-(const vec2& a, const vec2& b) { return vec2(a.x - b.x, a.y - b.y); }
     inline vec3 operator-(const vec3& a, const vec3& b) { return vec3(a.x - b.x, a.y - b.y, a.z - b.z); }
     inline vec4 operator-(const vec4& a, const vec4& b) { return vec4(a.x - b.x, a.y - b.y, a.z - b.z, a.w - b.w); }
-    inline vec2 operator-(const vec2& a, f32 b) { return vec2(a.x - b, a.y - b); }
-    inline vec3 operator-(const vec3& a, f32 b) { return vec3(a.x - b, a.y - b, a.z - b); }
-    inline vec4 operator-(const vec4& a, f32 b) { return vec4(a.x - b, a.y - b, a.z - b, a.w - b); }
-    inline vec2 operator-(const f32 a, const vec2& b) { return vec2(a - b.x, a - b.y); }
-    inline vec3 operator-(const f32 a, const vec3& b) { return vec3(a - b.x, a - b.y, a - b.z); }
-    inline vec4 operator-(const f32 a, const vec4& b) { return vec4(a - b.x, a - b.y, a - b.z, a - b.w); }
+    inline vec2 operator-(const vec2& a, const f32& b) { return vec2(a.x - b, a.y - b); }
+    inline vec3 operator-(const vec3& a, const f32& b) { return vec3(a.x - b, a.y - b, a.z - b); }
+    inline vec4 operator-(const vec4& a, const f32& b) { return vec4(a.x - b, a.y - b, a.z - b, a.w - b); }
+    inline vec2 operator-(const f32& a, const vec2& b) { return vec2(a - b.x, a - b.y); }
+    inline vec3 operator-(const f32& a, const vec3& b) { return vec3(a - b.x, a - b.y, a - b.z); }
+    inline vec4 operator-(const f32& a, const vec4& b) { return vec4(a - b.x, a - b.y, a - b.z, a - b.w); }
 
     // vector-vector, vector-scalar, scalar-vector multiplication operator
     inline vec2 operator*(const vec2& a, const vec2& b) { return vec2(a.x * b.x, a.y * b.y); }
     inline vec3 operator*(const vec3& a, const vec3& b) { return vec3(a.x * b.x, a.y * b.y, a.z * b.z); }
     inline vec4 operator*(const vec4& a, const vec4& b) { return vec4(a.x * b.x, a.y * b.y, a.z * b.z, a.w * b.w); }
-    inline vec2 operator*(const vec2& a, f32 b) { return vec2(a.x * b, a.y * b); }
-    inline vec3 operator*(const vec3& a, f32 b) { return vec3(a.x * b, a.y * b, a.z * b); }
-    inline vec4 operator*(const vec4& a, f32 b) { return vec4(a.x * b, a.y * b, a.z * b, a.w * b); }
-    inline vec2 operator*(f32 a, const vec2& b) { return vec2(a * b.x, a * b.y); }
-    inline vec3 operator*(f32 a, const vec3& b) { return vec3(a * b.x, a * b.y, a * b.z); }
-    inline vec4 operator*(f32 a, const vec4& b) { return vec4(a * b.x, a * b.y, a * b.z, a * b.w); }
+    inline vec2 operator*(const vec2& a, const f32& b) { return vec2(a.x * b, a.y * b); }
+    inline vec3 operator*(const vec3& a, const f32& b) { return vec3(a.x * b, a.y * b, a.z * b); }
+    inline vec4 operator*(const vec4& a, const f32& b) { return vec4(a.x * b, a.y * b, a.z * b, a.w * b); }
+    inline vec2 operator*(const f32& a, const vec2& b) { return vec2(a * b.x, a * b.y); }
+    inline vec3 operator*(const f32& a, const vec3& b) { return vec3(a * b.x, a * b.y, a * b.z); }
+    inline vec4 operator*(const f32& a, const vec4& b) { return vec4(a * b.x, a * b.y, a * b.z, a * b.w); }
 
     // vector-vector, vector-scalar, scalar-vector division operator
     inline vec2 operator/(const vec2& a, const vec2& b) { return vec2(a.x / b.x, a.y / b.y); }
     inline vec3 operator/(const vec3& a, const vec3& b) { return vec3(a.x / b.x, a.y / b.y, a.z / b.z); }
     inline vec4 operator/(const vec4& a, const vec4& b) { return vec4(a.x / b.x, a.y / b.y, a.z / b.z, a.w / b.w); }
-    inline vec2 operator/(const vec2& a, f32 b) { return vec2(a.x / b, a.y / b); }
-    inline vec3 operator/(const vec3& a, f32 b) { return vec3(a.x / b, a.y / b, a.z / b); }
-    inline vec4 operator/(const vec4& a, f32 b) { return vec4(a.x / b, a.y / b, a.z / b, a.w / b); }
-    inline vec2 operator/(f32 a, const vec2& b) { return vec2(a / b.x, a / b.y); }
-    inline vec3 operator/(f32 a, const vec3& b) { return vec3(a / b.x, a / b.y, a / b.z); }
-    inline vec4 operator/(f32 a, const vec4& b) { return vec4(a / b.x, a / b.y, a / b.z, a / b.w); }
+    inline vec2 operator/(const vec2& a, const f32& b) { return vec2(a.x / b, a.y / b); }
+    inline vec3 operator/(const vec3& a, const f32& b) { return vec3(a.x / b, a.y / b, a.z / b); }
+    inline vec4 operator/(const vec4& a, const f32& b) { return vec4(a.x / b, a.y / b, a.z / b, a.w / b); }
+    inline vec2 operator/(const f32& a, const vec2& b) { return vec2(a / b.x, a / b.y); }
+    inline vec3 operator/(const f32& a, const vec3& b) { return vec3(a / b.x, a / b.y, a / b.z); }
+    inline vec4 operator/(const f32& a, const vec4& b) { return vec4(a / b.x, a / b.y, a / b.z, a / b.w); }
 
     // Dot product of 2D, 3D, and 4D vectors
     inline f32 dot(const vec2& a, const vec2& b) { return a.x * b.x + a.y * b.y; }
@@ -209,7 +209,7 @@ namespace math
     inline f32 dot(const vec4& a, const vec4& b) { return a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w; }
 
     // Cross product of 3D vector
-    inline vec3 cross(const vec3& a, vec3& b) { return vec3((a.y * b.z - a.z * b.y), (a.z * b.x - a.x * b.z), (a.x * b.y - a.y * b.x)); }
+    inline vec3 cross(const vec3& a, const vec3& b) { return vec3((a.y * b.z - a.z * b.y), (a.z * b.x - a.x * b.z), (a.x * b.y - a.y * b.x)); }
 
     // Magnitude of 2D, 3D, and 4D vectors
     inline f32 magnitude(const vec2& v) { return sqrt(dot(v, v)); }
@@ -274,6 +274,16 @@ namespace math
 
     inline mat4 identity(){ return mat4(1.0f); }
 
+    inline mat4 translate(const vec3& v)
+    {
+        return mat4(
+            vec4(1.0f, 0.0f, 0.0f, 0.0f),
+            vec4(0.0f, 1.0f, 0.0f, 0.0f),
+            vec4(0.0f, 0.0f, 1.0f, 0.0f),
+            vec4(v.x, v.y, v.z, 1.0f)
+        );
+    }
+
     inline mat4 perspective(f32 fov_y, f32 aspect_ratio, f32 z_near, f32 z_far)
     {
         f32 half_tan_fov_y = half_tan(fov_y);
@@ -290,23 +300,23 @@ namespace math
 
     inline mat4 look_at(const vec3& from, const vec3& to, const vec3& up)
     {
-        mat4 m(0.0f);
+        mat4 m(1.0f);
         vec3 z_axis = normalize(to - from);
-        vec3 x_axis = cross(normalize(up), z_axis);
-        vec3 y_axis = cross(z_axis, x_axis);
+        vec3 x_axis = normalize(cross(z_axis, up));
+        vec3 y_axis = cross(x_axis, z_axis);
 
         m.elements[0] = x_axis.x;
-        m.elements[1] = x_axis.y;
-        m.elements[2] = x_axis.z;
-        m.elements[4] = y_axis.x;
+        m.elements[1] = y_axis.x;
+        m.elements[2] = -z_axis.x;
+        m.elements[4] = x_axis.y;
         m.elements[5] = y_axis.y;
-        m.elements[6] = y_axis.z;
-        m.elements[8] = z_axis.x;
-        m.elements[9] = z_axis.y;
-        m.elements[10] = z_axis.z;
-        m.elements[12] = from.x;
-        m.elements[13] = from.y; 
-        m.elements[14] = from.z; 
+        m.elements[6] = -z_axis.y;
+        m.elements[8] = x_axis.z;
+        m.elements[9] = y_axis.z;
+        m.elements[10] = -z_axis.z;
+        m.elements[12] = -dot(x_axis ,from);
+        m.elements[13] = -dot(y_axis ,from); 
+        m.elements[14] = dot(z_axis ,from); 
 
         return m;
     }
