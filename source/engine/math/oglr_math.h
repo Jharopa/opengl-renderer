@@ -116,35 +116,35 @@ namespace math
 
         inline mat4(f32 v) noexcept
         {
-            rows[0] = vec4(v, 0.0f, 0.0f, 0.0f);
-            rows[1] = vec4(0.0f, v, 0.0f, 0.0f);
-            rows[2] = vec4(0.0f, 0.0f, v, 0.0f);
-            rows[3] = vec4(0.0f, 0.0f, 0.0f, v);
+            vec[0] = vec4(v, 0.0f, 0.0f, 0.0f);
+            vec[1] = vec4(0.0f, v, 0.0f, 0.0f);
+            vec[2] = vec4(0.0f, 0.0f, v, 0.0f);
+            vec[3] = vec4(0.0f, 0.0f, 0.0f, v);
         }
 
         inline mat4(const vec4& a, const vec4& b, const vec4& c, const vec4& d) noexcept
         {
-            rows[0] = a;
-            rows[1] = b;
-            rows[2] = c;
-            rows[3] = d;
+            vec[0] = a;
+            vec[1] = b;
+            vec[2] = c;
+            vec[3] = d;
         }
 
         inline vec4& operator[](i32 i)
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return rows[i];
+            return vec[i];
         }
 
         inline const vec4& operator[](i32 i) const
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return rows[i];
+            return vec[i];
         }
         
         union
         {
-            vec4 rows[4];
+            vec4 vec[4];
             f32 elements[16];
         };
     };
@@ -154,6 +154,7 @@ namespace math
     inline f32 tan(f32 v) { return std::tan(v); }
     inline f32 sqrt(f32 v) { return std::sqrt(v); }
     inline f32 abs(f32 v) { return std::abs(v); }
+    inline f32 inv(f32 v) { return 1.0f / v; }
 
     inline f32 radians(f32 d) { return d * OGLR_DEG2RAD_MULTI; }
     inline f32 degrees(f32 r) { return r * OGLR_RAD2DEG_MULTI; }
@@ -217,9 +218,9 @@ namespace math
     inline f32 magnitude(const vec4& v) { return sqrt(dot(v, v)); }
 
     // Normalization of 2D, 3D, and 4D vectors
-    inline vec2 normalize(const vec2& v) { return v / magnitude(v); }
-    inline vec3 normalize(const vec3& v) { return v / magnitude(v); }
-    inline vec4 normalize(const vec4& v) { return v / magnitude(v); }
+    inline vec2 normalize(const vec2& v) { return v * inv(magnitude(v)); }
+    inline vec3 normalize(const vec3& v) { return v * inv(magnitude(v)); }
+    inline vec4 normalize(const vec4& v) { return v * inv(magnitude(v)); }
 
     // 3D vectors up, down, left, right, forward, and backward
     inline vec3 up() { return vec3(0.0f, 1.0f, 0.0f); }
@@ -229,47 +230,32 @@ namespace math
     inline vec3 froward() { return vec3(0.0f, 0.0f, -1.0f); }
     inline vec3 backward() { return vec3(0.0f, 0.0f, 1.0f); }
 
-    inline vec4 operator*(const mat4& m, const vec4& v)
+    inline vec4 operator*(const vec4& v, const mat4& m)
     {
         return vec4(
-            m[0].x * v.x + m[0].y * v.y + m[0].z * v.z + m[0].w * v.w,
-            m[1].x * v.x + m[1].y * v.y + m[1].z * v.z + m[1].w * v.w,
-            m[2].x * v.x + m[2].y * v.y + m[2].z * v.z + m[2].w * v.w,
-            m[3].x * v.x + m[3].y * v.y + m[3].z * v.z + m[3].w * v.w
+            v.x * m[0][0] + v.y * m[1][0] + v.z * m[2][0] + v.w * m[3][0],
+            v.x * m[0][1] + v.y * m[1][1] + v.z * m[2][1] + v.w * m[3][1],
+            v.x * m[0][2] + v.y * m[1][2] + v.z * m[2][2] + v.w * m[3][2],
+            v.x * m[0][3] + v.y * m[1][3] + v.z * m[2][3] + v.w * m[3][3]
         );
     }
 
     inline mat4 operator*(const mat4& a, const mat4& b)
     {
-        vec4 v_a(
-            a[0].x * b[0].x + a[0].y * b[1].x + a[0].z * b[2].x + a[0].w * b[3].x,
-            a[0].x * b[0].y + a[0].y * b[1].y + a[0].z * b[2].y + a[0].w * b[3].y,
-            a[0].x * b[0].z + a[0].y * b[1].z + a[0].z * b[2].z + a[0].w * b[3].z,
-            a[0].x * b[0].w + a[0].y * b[1].w + a[0].z * b[2].w + a[0].w * b[3].w
-        );
+        mat4 m;
 
-        vec4 v_b(
-            a[1].x * b[0].x + a[1].y * b[1].x + a[1].z * b[2].x + a[1].w * b[3].x,
-            a[1].x * b[0].y + a[1].y * b[1].y + a[1].z * b[2].y + a[1].w * b[3].y,
-            a[1].x * b[0].z + a[1].y * b[1].z + a[1].z * b[2].z + a[1].w * b[3].z,
-            a[1].x * b[0].w + a[1].y * b[1].w + a[1].z * b[2].w + a[1].w * b[3].w
-        );
+        for (u8 i = 0; i < 4; i++)
+        {
+            for (u8 j = 0; j < 4; j++)
+            {
+                m[i][j] = a[i][0] * b[0][j] +
+                          a[i][1] * b[1][j] +
+                          a[i][2] * b[2][j] +
+                          a[i][3] * b[3][j];
+            }
+        }
 
-        vec4 v_c(
-            a[2].x * b[0].x + a[2].y * b[1].x + a[2].z * b[2].x + a[2].w * b[3].x,
-            a[2].x * b[0].y + a[2].y * b[1].y + a[2].z * b[2].y + a[2].w * b[3].y,
-            a[2].x * b[0].z + a[2].y * b[1].z + a[2].z * b[2].z + a[2].w * b[3].z,
-            a[2].x * b[0].w + a[2].y * b[1].w + a[2].z * b[2].w + a[2].w * b[3].w
-        );
-
-        vec4 v_d(
-            a[3].x * b[0].x + a[3].y * b[1].x + a[3].z * b[2].x + a[3].w * b[3].x,
-            a[3].x * b[0].y + a[3].y * b[1].y + a[3].z * b[2].y + a[3].w * b[3].y,
-            a[3].x * b[0].z + a[3].y * b[1].z + a[3].z * b[2].z + a[3].w * b[3].z,
-            a[3].x * b[0].w + a[3].y * b[1].w + a[3].z * b[2].w + a[3].w * b[3].w
-        );
-
-        return mat4(v_a, v_b, v_c, v_d);
+        return m;
     }
 
     inline mat4 identity(){ return mat4(1.0f); }
@@ -284,13 +270,24 @@ namespace math
         );
     }
 
+    inline mat4 scale(const vec3& v)
+    {
+        mat4 m = identity();
+
+        m.elements[0] = v.x;
+        m.elements[5] = v.y;
+        m.elements[10] = v.z;
+
+        return m;
+    }
+
     inline mat4 perspective(f32 fov_y, f32 aspect_ratio, f32 z_near, f32 z_far)
     {
         f32 half_tan_fov_y = half_tan(fov_y);
         mat4 m = mat4(0.0f);
 
-        m.elements[0] = 1.0f / (aspect_ratio * half_tan_fov_y);
-        m.elements[5] = 1.0f / half_tan_fov_y;
+        m.elements[0] = inv(aspect_ratio * half_tan_fov_y);
+        m.elements[5] = inv(half_tan_fov_y);
         m.elements[10] = -((z_far + z_near) / (z_far - z_near));
         m.elements[11] = -1.0f;
         m.elements[14] = -((2.0f * z_far * z_near) / (z_far - z_near));
