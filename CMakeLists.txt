@@ -19,7 +19,7 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/engine/math
     ${PROJECT_SOURCE_DIR}/source/engine/input
     ${PROJECT_SOURCE_DIR}/source/engine/renderer
-    ${PROJECT_SOURCE_DIR}/source/engine/utilities
+    ${PROJECT_SOURCE_DIR}/source/engine/core
 )
 
 add_executable(${PROJECT_NAME}  

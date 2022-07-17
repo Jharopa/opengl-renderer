@@ -10,7 +10,7 @@
 #include <unordered_map>
 
 // Renderer includes
-#include "utilities/utils.h"
+#include "core/utils.h"
 #include "math/oglr_math.h"
 
 // Referenced and Adapted from:

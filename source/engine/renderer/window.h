@@ -31,16 +31,12 @@ class Window
         void setHeight(u32 height) { m_height = height; }
 
         void closeWindow() { m_close = true; }
-
-        void setEventCallback(const std::function<void(Event&)>& callback) { fn_eventCallback = callback; }
     
     private:
         std::string m_title;
         u32 m_width, m_height;
 
         b8 m_close = false;
-
-        std::function<void(Event&)> fn_eventCallback;
 
         GLFWwindow* m_window;
 

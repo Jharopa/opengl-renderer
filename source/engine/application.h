@@ -2,7 +2,7 @@
 
 // Renderer includes
 #include "defines.h"
-#include "utilities/singleton.h"
+#include "core/singleton.h"
 #include "input/input.h"
 #include "events/event.h"
 #include "renderer/renderer.h"
@@ -11,16 +11,13 @@
 #include "renderer/shader_program.h"
 #include "renderer/texture.h"
 #include "renderer/camera.h"
-#include "utilities/profiler.h"
+#include "core/profiler.h"
 
 class Application : public Singleton<Application>
 {
     public:
         void init();
         void run();
-
-    private:
-        void onEvent(Event& e);
     
     private:
         std::unique_ptr<Window> m_window;
