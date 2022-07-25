@@ -1,6 +1,25 @@
+/**
+ * @file oglr_math.h
+ * @author Alexander Burns (jharopa@gmail.com)
+ * @brief Mathematics library for graphics applications
+ * including data strutures and functions for column ordered vectors and matricies,
+ * along with other relevant/useful constants and funtions.
+ * Based upon the math library GLM: 
+ * https://github.com/g-truc/glm
+ * as well as the math library mu_glm in the rendering engine Granite by Themaister: 
+ * https://github.com/Themaister/Granite/tree/master/math/muglm 
+ * 
+ * @version 0.1
+ * @date 2022-07-25
+ * 
+ * @copyright Copyright (c) 2022
+ * 
+ */
+
 #pragma once
 
 #include <cmath>
+#include <ostream>
 
 #include "defines.h"
 #include "asserts.h"
@@ -23,7 +42,7 @@ namespace math
     struct vec2
     {
         vec2() = default;
-
+        
         inline vec2(f32 v) noexcept : x(v), y(v) {}
 
         inline vec2(f32 _x, f32 _y) noexcept : x(_x), y(_y) {}
@@ -116,35 +135,35 @@ namespace math
 
         inline mat4(f32 v) noexcept
         {
-            vec[0] = vec4(v, 0.0f, 0.0f, 0.0f);
-            vec[1] = vec4(0.0f, v, 0.0f, 0.0f);
-            vec[2] = vec4(0.0f, 0.0f, v, 0.0f);
-            vec[3] = vec4(0.0f, 0.0f, 0.0f, v);
+            col[0] = vec4(v, 0.0f, 0.0f, 0.0f);
+            col[1] = vec4(0.0f, v, 0.0f, 0.0f);
+            col[2] = vec4(0.0f, 0.0f, v, 0.0f);
+            col[3] = vec4(0.0f, 0.0f, 0.0f, v);
         }
 
         inline mat4(const vec4& a, const vec4& b, const vec4& c, const vec4& d) noexcept
         {
-            vec[0] = a;
-            vec[1] = b;
-            vec[2] = c;
-            vec[3] = d;
+            col[0] = a;
+            col[1] = b;
+            col[2] = c;
+            col[3] = d;
         }
 
         inline vec4& operator[](i32 i)
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return vec[i];
+            return col[i];
         }
 
         inline const vec4& operator[](i32 i) const
         {
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return vec[i];
+            return col[i];
         }
         
         union
         {
-            vec4 vec[4];
+            vec4 col[4];
             f32 elements[16];
         };
     };
@@ -204,6 +223,40 @@ namespace math
     inline vec3 operator/(const f32& a, const vec3& b) { return vec3(a / b.x, a / b.y, a / b.z); }
     inline vec4 operator/(const f32& a, const vec4& b) { return vec4(a / b.x, a / b.y, a / b.z, a / b.w); }
 
+    inline std::ostream& operator<<(std::ostream& os, const vec2 v)
+    {
+        os << "(" << v.x << ", " << v.y << ")";
+        return os;
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const vec3 v)
+    {
+        os << "(" << v.x << ", " << v.y << ", " << v.z << ")";
+        return os;
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const vec4 v)
+    {
+        os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
+        return os;
+    }
+
+    inline vec4 operator*(const mat4& m, const vec4& v)
+    {
+        return m[0] * v.x + m[1] * v.y + m[2] * v.z + m[3] * v.w;
+    }
+
+    inline mat4 operator*(const mat4& a, const mat4& b)
+    {
+        return mat4(a * b[0], a * b[1], a * b[2], a * b[3]);
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const mat4 m)
+    {
+        os << "(" << m[0] << ", " << m[1] << ", " << m[2] << ", " << m[3] << ")";
+        return os;
+    }
+
     // Dot product of 2D, 3D, and 4D vectors
     inline f32 dot(const vec2& a, const vec2& b) { return a.x * b.x + a.y * b.y; }
     inline f32 dot(const vec3& a, const vec3& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
@@ -230,35 +283,17 @@ namespace math
     inline vec3 froward() { return vec3(0.0f, 0.0f, -1.0f); }
     inline vec3 backward() { return vec3(0.0f, 0.0f, 1.0f); }
 
-    inline vec4 operator*(const vec4& v, const mat4& m)
+    inline mat4 identity(){ return mat4(1.0f); }
+
+    inline mat4 transpose(const mat4& m)
     {
-        return vec4(
-            v.x * m[0][0] + v.y * m[1][0] + v.z * m[2][0] + v.w * m[3][0],
-            v.x * m[0][1] + v.y * m[1][1] + v.z * m[2][1] + v.w * m[3][1],
-            v.x * m[0][2] + v.y * m[1][2] + v.z * m[2][2] + v.w * m[3][2],
-            v.x * m[0][3] + v.y * m[1][3] + v.z * m[2][3] + v.w * m[3][3]
+        return mat4(
+            vec4(m[0].x, m[1].x, m[2].x, m[3].x),
+            vec4(m[0].y, m[1].y, m[2].y, m[3].y),
+            vec4(m[0].z, m[1].z, m[2].z, m[3].z),
+            vec4(m[0].w, m[1].w, m[2].w, m[3].w)
         );
     }
-
-    inline mat4 operator*(const mat4& a, const mat4& b)
-    {
-        mat4 m;
-
-        for (u8 i = 0; i < 4; i++)
-        {
-            for (u8 j = 0; j < 4; j++)
-            {
-                m[i][j] = a[i][0] * b[0][j] +
-                          a[i][1] * b[1][j] +
-                          a[i][2] * b[2][j] +
-                          a[i][3] * b[3][j];
-            }
-        }
-
-        return m;
-    }
-
-    inline mat4 identity(){ return mat4(1.0f); }
 
     inline mat4 translate(const vec3& v)
     {
@@ -272,13 +307,12 @@ namespace math
 
     inline mat4 scale(const vec3& v)
     {
-        mat4 m = identity();
-
-        m.elements[0] = v.x;
-        m.elements[5] = v.y;
-        m.elements[10] = v.z;
-
-        return m;
+        return mat4(
+            vec4(v.x, 0.0f, 0.0f, 0.0f),
+            vec4(0.0f, v.y, 0.0f, 0.0f),
+            vec4(0.0f, 0.0f, v.z, 0.0f),
+            vec4(0.0f, 0.0f, 0.0f, 1.0f)
+        );
     }
 
     inline mat4 perspective(f32 fov_y, f32 aspect_ratio, f32 z_near, f32 z_far)
@@ -317,4 +351,4 @@ namespace math
 
         return m;
     }
-}
+} // namespace math

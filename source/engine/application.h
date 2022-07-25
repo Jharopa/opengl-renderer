@@ -4,7 +4,6 @@
 #include "defines.h"
 #include "core/singleton.h"
 #include "input/input.h"
-#include "events/event.h"
 #include "renderer/renderer.h"
 #include "renderer/window.h"
 #include "renderer/vertex_array.h"

@@ -6,7 +6,6 @@
 
 // Renderer includes
 #include "defines.h"
-#include "event.h"
 #include "renderer/context.h"
 
 // GLFW includes
