@@ -19,7 +19,8 @@
 #pragma once
 
 #include <cmath>
-#include <ostream>
+#include <iostream>
+#include <iomanip>
 
 #include "defines.h"
 #include "asserts.h"
@@ -161,11 +162,8 @@ namespace math
             return col[i];
         }
         
-        union
-        {
+        private:
             vec4 col[4];
-            f32 elements[16];
-        };
     };
 
     inline f32 sin(f32 v) { return std::sin(v); }
@@ -295,6 +293,43 @@ namespace math
         );
     }
 
+    inline mat4 inverse(const mat4& m)
+    {
+        vec3 a = vec3(m[0].x, m[1].x, m[2].x);
+        vec3 b = vec3(m[0].y, m[1].y, m[2].y);
+        vec3 c = vec3(m[0].z, m[1].z, m[2].z);
+        vec3 d = vec3(m[0].w, m[1].w, m[2].w);
+
+        f32 x = m[3].x;
+        f32 y = m[3].y;
+        f32 z = m[3].z;
+        f32 w = m[3].w;
+
+        vec3 s = cross(a, b);
+        vec3 t = cross(c, d);
+        vec3 u = a * y - b * x;
+        vec3 v = c * w - d * z;
+
+        f32 inverse_determinant = inv((dot(s, v) + dot(t, u)));
+
+        s = s * inverse_determinant;
+        t = t * inverse_determinant;
+        u = u * inverse_determinant;
+        v = v * inverse_determinant;
+
+        vec3 r0 = cross(b, v) + t * y;
+        vec3 r1 = cross(v, a) - t * x;
+        vec3 r2 = cross(d, u) + s * w;
+        vec3 r3 = cross(u, c) - s * z;
+
+        return mat4(
+            vec4(r0.x, r0.y, r0.z, -dot(b, t)),
+            vec4(r1.x, r1.y, r1.z, dot(a, t)),
+            vec4(r2.x, r2.y, r2.z, -dot(d, s)),
+            vec4(r3.x, r3.y, r3.z,  dot(c, s))
+        );
+    }
+
     inline mat4 translate(const vec3& v)
     {
         return mat4(
@@ -320,11 +355,11 @@ namespace math
         f32 half_tan_fov_y = half_tan(fov_y);
         mat4 m = mat4(0.0f);
 
-        m.elements[0] = inv(aspect_ratio * half_tan_fov_y);
-        m.elements[5] = inv(half_tan_fov_y);
-        m.elements[10] = -((z_far + z_near) / (z_far - z_near));
-        m.elements[11] = -1.0f;
-        m.elements[14] = -((2.0f * z_far * z_near) / (z_far - z_near));
+        m[0][0] = inv(aspect_ratio * half_tan_fov_y);
+        m[1][1] = inv(half_tan_fov_y);
+        m[2][2] = -((z_far + z_near) / (z_far - z_near));
+        m[2][3] = -1.0f;
+        m[3][2] = -((2.0f * z_far * z_near) / (z_far - z_near));
 
         return m;
     }
@@ -336,18 +371,18 @@ namespace math
         vec3 x_axis = normalize(cross(z_axis, up));
         vec3 y_axis = cross(x_axis, z_axis);
 
-        m.elements[0] = x_axis.x;
-        m.elements[1] = y_axis.x;
-        m.elements[2] = -z_axis.x;
-        m.elements[4] = x_axis.y;
-        m.elements[5] = y_axis.y;
-        m.elements[6] = -z_axis.y;
-        m.elements[8] = x_axis.z;
-        m.elements[9] = y_axis.z;
-        m.elements[10] = -z_axis.z;
-        m.elements[12] = -dot(x_axis ,from);
-        m.elements[13] = -dot(y_axis ,from); 
-        m.elements[14] = dot(z_axis ,from); 
+        m[0][0] = x_axis.x;
+        m[0][1] = y_axis.x;
+        m[0][2] = -z_axis.x;
+        m[1][0] = x_axis.y;
+        m[1][1] = y_axis.y;
+        m[1][2] = -z_axis.y;
+        m[2][0] = x_axis.z;
+        m[2][1] = y_axis.z;
+        m[2][2] = -z_axis.z;
+        m[3][0] = -dot(x_axis ,from);
+        m[3][1] = -dot(y_axis ,from); 
+        m[3][2] = dot(z_axis ,from); 
 
         return m;
     }
