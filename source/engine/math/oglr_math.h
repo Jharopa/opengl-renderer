@@ -40,6 +40,17 @@
 
 namespace math
 {   
+    inline f32 sin(f32 v) { return std::sin(v); }
+    inline f32 cos(f32 v) { return std::cos(v); }
+    inline f32 tan(f32 v) { return std::tan(v); }
+    inline f32 sqrt(f32 v) { return std::sqrt(v); }
+    inline f32 abs(f32 v) { return std::abs(v); }
+    
+    inline f32 inv(f32 v) { return 1.0f / v; }
+    inline f32 radians(f32 d) { return d * OGLR_DEG2RAD_MULTI; }
+    inline f32 degrees(f32 r) { return r * OGLR_RAD2DEG_MULTI; }
+    inline f32 half_tan(f32 v) { return tan(v * 0.5f); }
+
     struct vec2
     {
         vec2() = default;
@@ -63,8 +74,8 @@ namespace math
         union
         {
             struct{ f32 x, y; };
-    		struct{ f32 r, g; };
-    		struct{ f32 s, t; };
+            struct{ f32 r, g; };
+            struct{ f32 s, t; };
             struct{ f32 u, v; };
             f32 elements[2];
         };
@@ -130,53 +141,6 @@ namespace math
         };
     };
 
-    struct mat4
-    {
-        mat4() = default;
-
-        inline mat4(f32 v) noexcept
-        {
-            col[0] = vec4(v, 0.0f, 0.0f, 0.0f);
-            col[1] = vec4(0.0f, v, 0.0f, 0.0f);
-            col[2] = vec4(0.0f, 0.0f, v, 0.0f);
-            col[3] = vec4(0.0f, 0.0f, 0.0f, v);
-        }
-
-        inline mat4(const vec4& a, const vec4& b, const vec4& c, const vec4& d) noexcept
-        {
-            col[0] = a;
-            col[1] = b;
-            col[2] = c;
-            col[3] = d;
-        }
-
-        inline vec4& operator[](i32 i)
-        {
-            OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return col[i];
-        }
-
-        inline const vec4& operator[](i32 i) const
-        {
-            OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
-            return col[i];
-        }
-        
-        private:
-            vec4 col[4];
-    };
-
-    inline f32 sin(f32 v) { return std::sin(v); }
-    inline f32 cos(f32 v) { return std::cos(v); }
-    inline f32 tan(f32 v) { return std::tan(v); }
-    inline f32 sqrt(f32 v) { return std::sqrt(v); }
-    inline f32 abs(f32 v) { return std::abs(v); }
-    inline f32 inv(f32 v) { return 1.0f / v; }
-
-    inline f32 radians(f32 d) { return d * OGLR_DEG2RAD_MULTI; }
-    inline f32 degrees(f32 r) { return r * OGLR_RAD2DEG_MULTI; }
-    inline f32 half_tan(f32 v) { return tan(v * 0.5f); }
-
     // vector-vector, vector-scalar, scalar-vector addition operator
     inline vec2 operator+(const vec2& a, const vec2& b) { return vec2(a.x + b.x, a.y + b.y); }
     inline vec3 operator+(const vec3& a, const vec3& b) { return vec3(a.x + b.x, a.y + b.y, a.z + b.z); }
@@ -239,22 +203,6 @@ namespace math
         return os;
     }
 
-    inline vec4 operator*(const mat4& m, const vec4& v)
-    {
-        return m[0] * v.x + m[1] * v.y + m[2] * v.z + m[3] * v.w;
-    }
-
-    inline mat4 operator*(const mat4& a, const mat4& b)
-    {
-        return mat4(a * b[0], a * b[1], a * b[2], a * b[3]);
-    }
-
-    inline std::ostream& operator<<(std::ostream& os, const mat4 m)
-    {
-        os << "(" << m[0] << ", " << m[1] << ", " << m[2] << ", " << m[3] << ")";
-        return os;
-    }
-
     // Dot product of 2D, 3D, and 4D vectors
     inline f32 dot(const vec2& a, const vec2& b) { return a.x * b.x + a.y * b.y; }
     inline f32 dot(const vec3& a, const vec3& b) { return a.x * b.x + a.y * b.y + a.z * b.z; }
@@ -280,6 +228,76 @@ namespace math
     inline vec3 right() { return vec3(1.0f, 0.0f, 0.0f); }
     inline vec3 froward() { return vec3(0.0f, 0.0f, -1.0f); }
     inline vec3 backward() { return vec3(0.0f, 0.0f, 1.0f); }
+
+    struct mat4
+    {
+        mat4() = default;
+
+        inline mat4(f32 v) noexcept
+        {
+            col[0] = vec4(v, 0.0f, 0.0f, 0.0f);
+            col[1] = vec4(0.0f, v, 0.0f, 0.0f);
+            col[2] = vec4(0.0f, 0.0f, v, 0.0f);
+            col[3] = vec4(0.0f, 0.0f, 0.0f, v);
+        }
+
+        inline mat4(const vec4& a, const vec4& b, const vec4& c, const vec4& d) noexcept
+        {
+            col[0] = a;
+            col[1] = b;
+            col[2] = c;
+            col[3] = d;
+        }
+
+        inline vec4& operator[](i32 i)
+        {
+            OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
+            return col[i];
+        }
+
+        inline const vec4& operator[](i32 i) const
+        {
+            OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
+            return col[i];
+        }
+        
+        private:
+            vec4 col[4];
+    };
+
+    inline mat4 operator+(const mat4& a, const mat4& b) {
+        return mat4(
+            a[0] + b[0],
+            a[1] + b[1],
+            a[2] + b[2],
+            a[3] + b[3]
+        );
+    }
+
+    inline mat4 operator-(const mat4& a, const mat4& b) {
+        return mat4(
+            a[0] - b[0],
+            a[1] - b[1],
+            a[2] - b[2],
+            a[3] - b[3]
+        );
+    }
+
+    inline vec4 operator*(const mat4& m, const vec4& v)
+    {
+        return m[0] * v.x + m[1] * v.y + m[2] * v.z + m[3] * v.w;
+    }
+
+    inline mat4 operator*(const mat4& a, const mat4& b)
+    {
+        return mat4(a * b[0], a * b[1], a * b[2], a * b[3]);
+    }
+
+    inline std::ostream& operator<<(std::ostream& os, const mat4 m)
+    {
+        os << "(" << m[0] << ", " << m[1] << ", " << m[2] << ", " << m[3] << ")";
+        return os;
+    }
 
     inline mat4 identity(){ return mat4(1.0f); }
 
