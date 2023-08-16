@@ -36,6 +36,29 @@ class Input : public Singleton<Input>
             }
         }
 
+        std::function<void(int32_t, int32_t, int32_t, int32_t)> keyPressed = [&](int32_t key, int32_t scanCode, int32_t action, int32_t mode)
+        {
+            if (key > 0)
+            {
+                switch (action) 
+                {
+				    case 0:
+				    	this->m_currKeys[key] = false;
+				    	break;
+				    case 1:
+				    	this->m_currKeys[key] = true;
+				    	break;
+			    }
+            }
+        };
+
+        std::function<void(double_t, double_t)> mouseMoved = [&](double_t xPos, double_t yPos) 
+        {
+		    this->m_mouseMoved = true;
+		    this->m_xMousePos = (float_t)xPos;
+		    this->m_yMousePos = (float_t)yPos;
+	    };
+
     private:
         std::array<b8, enumCast(KEY_MAX)> m_currKeys{ false };
         std::array<b8, enumCast(KEY_MAX)> m_prevKeys{ false };

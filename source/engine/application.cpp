@@ -77,12 +77,18 @@ void Application::init()
     m_shaderProgram->unbind();
 
     m_camera = std::make_unique<Camera>();
+
+    m_timer = std::make_unique<Timer>();
 }
 
 void Application::run()
 {
     while (!m_window->shouldWindowClose())
     {
+        f32 deltaTime = m_timer->getDelta();
+
+        m_timer->start();
+
         m_renderer->setClearColor(math::vec4(0.2f, 0.3f, 0.3f, 1.0f));
         m_renderer->clear();
 
@@ -107,6 +113,10 @@ void Application::run()
 
         m_shaderProgram->unbind();
 
+        Input::getInstance().update();
         m_window->update();
+        m_camera->update(deltaTime);
+
+        m_timer->stop();
     }
 }

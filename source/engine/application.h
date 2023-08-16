@@ -11,6 +11,7 @@
 #include "renderer/texture.h"
 #include "renderer/camera.h"
 #include "core/profiler.h"
+#include "core/timer.h"
 
 class Application : public Singleton<Application>
 {
@@ -28,4 +29,5 @@ class Application : public Singleton<Application>
         std::unique_ptr<Texture> m_texture;
 
         std::unique_ptr<Camera> m_camera;
+        std::unique_ptr<Timer> m_timer;
 };

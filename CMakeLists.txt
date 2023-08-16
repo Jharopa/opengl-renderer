@@ -22,24 +22,15 @@ include_directories(${PROJECT_NAME}
     ${PROJECT_SOURCE_DIR}/source/engine/core
 )
 
+file(GLOB_RECURSE PROJECT_SOURCE CONFIGURE_DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
+
 add_executable(${PROJECT_NAME}  
     external/stb_image/stb_image.cpp
-    
-    source/engine/main.cpp
-    source/engine/application.cpp
-    source/engine/input/keys.cpp
-    source/engine/memory/allocator.cpp
-    source/engine/renderer/camera.cpp
-    source/engine/renderer/context.cpp
-    source/engine/renderer/renderer.cpp
-    source/engine/renderer/shader_program.cpp
-    source/engine/renderer/texture.cpp
-    source/engine/renderer/vertex_array.cpp
-    source/engine/renderer/window.cpp
+    ${PROJECT_SOURCE}
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE 
-    "${CMAKE_CURRENT_LIST_DIR}/source"
+    ${CMAKE_CURRENT_LIST_DIR}/source
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE

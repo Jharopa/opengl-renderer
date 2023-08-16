@@ -52,6 +52,18 @@ Window::Window(u32 width, u32 height, const std::string title)
     {
         glViewport(0, 0, width, height);
     });
+
+    glfwSetKeyCallback(m_window, [](GLFWwindow* window, auto key, auto scancode, auto action, auto mode)
+    {
+        Input::getInstance().keyPressed(key, scancode, action, mode);
+    });
+
+    glfwSetCursorPosCallback(m_window, [](GLFWwindow* window, auto xPos, auto yPos)
+    {
+        Input::getInstance().mouseMoved(xPos, yPos);
+    });
+
+    glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 Window::~Window()

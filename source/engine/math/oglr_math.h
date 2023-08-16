@@ -260,9 +260,12 @@ namespace math
             OGLR_ASSERT_MSG(i >= 0 && i < 4, "Index out of range");
             return col[i];
         }
-        
-        private:
+
+        union 
+        {
+            f32 elements[16];
             vec4 col[4];
+        };
     };
 
     inline mat4 operator+(const mat4& a, const mat4& b) {

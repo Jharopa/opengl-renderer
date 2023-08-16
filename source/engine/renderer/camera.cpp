@@ -17,7 +17,7 @@ void Camera::update(const f32 deltaTime)
 
 void Camera::processKeyboard(MovementDirection direction, f32 deltaTime)
 {
-    float velocity = m_speed * deltaTime;
+    f32 velocity = m_speed * deltaTime;
     if (direction == MovementDirection::Forward)
         m_position = m_position + m_front * velocity;
     if (direction == MovementDirection::Backward)
